@@ -1,0 +1,30 @@
+.ps_jackpot {
+
+	.ps_jackpot-carousel {
+		height: 100%;
+		
+		.ps_jackpot-carousel_item {
+			padding: $ps_main-standard-space*2 0px 
+		}
+
+		.ps_jackpot-prize {
+			color         : $ps_color-paccentlight;
+     		text-shadow   : 0 0 15px $ps_color-paccentlight;
+			position      : relative;
+			text-align    : center;
+			font-family   : 'digital'; 
+			font-size     : ($ps_main-font-size * 3) + 6px;
+			line-height   : ($ps_main-font-size * 3) + 6px;
+		}
+		
+		.ps_jackpot-product {
+			@include ps_color-pdark(.2);
+			opacity       : .5;
+			margin-top    : $ps_main-standard-space; 
+			position      : relative;
+			text-align    : center;
+			padding       : $ps_main-standard-space/2;
+			text-transform: uppercase;
+		}
+	}
+}

@@ -1,0 +1,364 @@
+$ps_chatbox-height         : 350px;
+$ps_chatbox-width          : 290px;
+$ps_chatbox-head_height    : 35px;
+$ps_chatbox-foot_height    : 40px;
+$ps_chatbox-arrow_size     : 10px;
+$ps_chatbox-notification   : 50px;
+$ps_chatbox-status         : 10px;
+$ps_chatbox-agent-icon-size: 30px;
+$ps_chatbox-messages_loader: 20px;
+
+.ps_chatbox {
+	@include ps_color-o-p;
+    box-shadow : 0px -2px 2px rgba($ps_color-pdark, 0.3);
+	line-height: $ps_main-font-size + 4px;
+	position   : fixed;
+	z-index    : 4; 
+	height     : $ps_chatbox-height;
+	width      : $ps_chatbox-width;
+	max-width  : 100%;
+	max-height : 100%;
+	bottom     : 0px;
+	right      : $ps_main-standard-space;
+    transform  : translate3d(0, 100%, 0) translate3d(0, -$ps_chatbox-head_height, 0);
+	transition : $ps_main-transition;
+	padding-top: $ps_chatbox-head_height;
+	
+	&.ps_chatbox-active {
+		transform : translate3d(0, 0%, 0) translate3d(0, 0%, 0);
+	}
+	
+	&.ps_chatbox-hide {
+		display : none;
+	}
+
+	.ps_chatbox-agent_photo {
+		float       : left;
+		display     : inline-block;
+		height      : $ps_chatbox-agent-icon-size;
+		width       : $ps_chatbox-agent-icon-size;
+		margin-right: $ps_main-standard-space;
+
+		.ps_image-img  {
+			height: 100%;
+		}
+	}
+
+	.ps_chatbox-header {
+		@include ps_helper-clearfix;
+		background   : lighten($ps_color-secondary, 10%); 
+		color        : $ps_color-stext; 
+		z-index      : 3; 
+		position     : absolute;
+		width        : 100%;
+		height       : $ps_chatbox-head_height;
+		line-height  : $ps_chatbox-head_height;
+		padding      : 0 $ps_main-standard-space; 
+		font-weight  : bold; 
+		cursor       : pointer;
+		top          : 0px;
+		
+		.ps_components-badge, .ps_components-chatbox_close_icon {
+			@include ps_helper-v-center(absolute);
+			right: $ps_main-standard-space;
+		}
+
+		.ps_components-chatbox_close_icon {
+			font-size: $ps_main-font-size + 6px;
+		}
+
+		.ps_chatbox-username {
+			float        : left;
+			margin-right : $ps_main-standard-space/4;
+			font-weight  : normal;
+			font-size    : $ps_main-font-size - 2px; 
+		}
+	}
+
+	.ps_chatbox-content_wrap {
+		position: relative;
+		height  : 100%;
+	}
+
+	.ps_chatbox-body {
+		position      : relative;
+		height        : 100%;
+		padding-bottom: $ps_chatbox-foot_height;
+
+		.ps_chatbox-notification {
+			@include ps_color-o-plight;
+     		box-shadow : 0px 1px 3px rgba($ps_color-pdark, 0.1);
+			display    : none;
+			position   : relative;
+			margin-top : -$ps_chatbox-notification;
+			height     : $ps_chatbox-notification;
+			line-height: $ps_chatbox-notification;
+			text-align : center; 
+
+			.ps_chatbox-notification_text {
+				line-height   : $ps_main-font-size + 4px;
+				display       : inline-block;
+    			vertical-align: middle;
+    			width         : 100%;
+			}
+
+			.ps_chatbox-with_photo_notification {
+				padding   : $ps_main-standard-space;
+				height    : 100%;
+				width     : 100%;
+				text-align: left;
+				display   : block;
+				position  : relative;
+			}
+
+			.ps_chatbox-agent_photo {
+				@include ps_helper-v-center;
+			}
+		}
+
+		&.ps_chatbox-has_notification {
+			padding-top: $ps_chatbox-notification;
+
+			.ps_chatbox-notification {
+				font-size  : $ps_main-font-size - 2px;
+				display    : block;
+			}
+		}
+
+		.ps_chatbox-messages {
+			position  :relative;
+			max-height: 100%;
+			overflow  : auto;
+			
+			.ps_chatbox-lazy_loader {
+				position: relative;
+				height  : $ps_chatbox-messages_loader + $ps_main-standard-space;
+
+				.ps_components-loader {
+					height : $ps_chatbox-messages_loader;
+					width  : $ps_chatbox-messages_loader;
+					padding: $ps_main-standard-space / 2;
+				}
+			}
+		}
+
+		.ps_chatbox-message_row {
+			@include ps_helper-clearfix;
+			position    : relative;
+			display     : block;
+			padding     : ($ps_main-standard-space/2) $ps_main-standard-space;
+			padding-left: ($ps_main-standard-space * 2) + $ps_chatbox-agent-icon-size;
+
+
+			.ps_chatbox-agent_photo {
+				position: absolute;
+				left    : $ps_main-standard-space;
+				top     : ($ps_main-standard-space/2);
+			}
+
+			&.ps_chatbox-date {
+    			opacity     : .5;
+				padding-left: $ps_main-standard-space;
+				color       : rgba($ps_color-o-ptext, 0.6);
+			    text-align  : center;
+				font-size   : $ps_main-font-size - 2px;
+
+			    .ps_chatbox-date_display {
+					@include ps_color-o-p;
+    				position  : relative;
+    				padding   : 0px $ps_main-standard-space;
+			    }
+
+			    hr {
+			    	@include ps_helper-v-center(absolute);
+    				box-sizing: border-box;
+			    	left      : 0;
+			    	width     : 100%;
+    				margin    : 0px;
+			    }
+			}
+
+			&.ps_chatbox-is_you {
+				padding-left: $ps_main-standard-space;
+
+				.ps_chatbox-message_bubble {
+					background   : $ps_color-pblue;
+					color        : $ps_color-ptext;
+					float        : right;
+					margin-left  : auto;
+					margin-right : ($ps_chatbox-arrow_size/2);
+
+					.ps_chatbox-message_arrow {
+						border-right-color : rgba($ps_color-o-pdark, 0.1);
+						border-bottom-color: transparent;
+						left : auto;
+						right: - ($ps_chatbox-arrow_size/2);
+					}
+
+					&.ps_chatbox-sending,&.ps_chatbox-blocked {
+						background: lighten($ps_color-pblue, 20%);
+						color     : rgba($ps_color-ptext, .8);
+					}
+				}
+			}
+
+			.ps_chatbox-message_bubble {
+				@include ps_color-o-plight;
+     			box-shadow  : 0px 1px 3px rgba($ps_color-pdark, 0.1);
+				position    : relative;
+				display     : inline-block;
+				padding     : $ps_main-standard-space;
+				margin-left : ($ps_chatbox-arrow_size/2);
+			    max-width   : 100%;
+			    word-break  : break-word;
+
+				.ps_chatbox-message_arrow {
+					background   	   : inherit;
+					position     	   : absolute;
+					width        	   : $ps_chatbox-arrow_size;
+					height       	   : $ps_chatbox-arrow_size;
+					transform    	   : rotate(45deg); 
+					// 2px is adjustment for rotating the div
+					top          	   : $ps_main-standard-space + (($ps_main-font-size/2) - 3px);
+					left               : - ($ps_chatbox-arrow_size/2);
+					border       	   : 1px solid transparent; 
+					border-bottom-color: rgba($ps_color-o-pdark, 0.1);
+				}
+
+				.ps_chatbox-message_retry {
+					cursor: pointer;
+					color : $ps_color-error;
+				}
+			}
+		}
+	}
+
+	.ps_chatbox-footer {
+		@include ps-helper-clearfix;
+		position     : absolute;
+		width        : 100%;
+		bottom       : 0px;
+		max-height   : 100%;
+		height     : $ps_chatbox-foot_height;
+		min-height : $ps_chatbox-foot_height;
+		
+		form {
+			line-height: 0px;
+			display    : inline;
+		}
+
+		.ps_chatbox-composed {
+			@include ps_color-o-plight;
+			height      : $ps_chatbox-foot_height;
+			min-height  : $ps_chatbox-foot_height;
+			width       : 100%;
+			border      : 0px;
+			float       : left;
+			max-height  : 100%;
+			border-top  : 1px solid $ps_color-o-primary;
+			border-right: 1px solid $ps_color-o-primary;
+			line-height : $ps_main-font-size + 4px;
+			font-size   : $ps_main-font-size - 2px;  
+			transition  : $ps_main-transition; 
+
+			&:focus {
+				font-size: $ps_main-font-size;  
+			}
+
+			&:disabled, &[disabled] {
+				@include ps_color-o-pdark;
+			}
+		}
+
+		.ps_chatbox-send {
+			@include ps_color-o-p;
+			position   : absolute;
+			right      : 0px;
+			bottom     : 0px;
+			height     : $ps_chatbox-foot_height;
+			line-height: $ps_chatbox-foot_height;
+			width      : $ps_chatbox-foot_height;
+			text-align : center; 
+			padding    : 0px;
+		    border     : 0;
+			border-top : 1px solid $ps_color-o-primary;
+		}
+
+		.ps_chatbox-block_timer {
+			background : $ps_color-o-pdark;
+			position   : absolute;
+			height     : $ps_chatbox-foot_height;
+			line-height: $ps_chatbox-foot_height;
+			width      : 100%;
+			padding    : 0px $ps_main-standard-space;
+			display    : none;
+			color      : $ps_color-error;
+
+			.ps_chatbox-actual_block_time {
+				font-weight: bold;
+			}
+
+			&.ps_chatbox-block_timer_start {
+				display: block;
+			}
+		}
+	}
+}
+
+	
+.ps_chatbox-status {
+	position      : relative; 
+	display       : inline-block;
+	vertical-align: middle;
+	height        : $ps_chatbox-status;
+	width         : $ps_chatbox-status;
+	background    : $ps_color-o-pdark;
+	margin-right  : $ps_main-standard-space;
+	border-radius : 50%;
+	margin-top    : -1px; 
+	
+	&.ps_chatbox-online {
+		background: $ps_color-success;
+	}
+} 
+
+#livechat-compact-container, #livechat-eye-catcher {
+	z-index: 5 !important;
+
+	.ps_js-is_mobile & {
+		display: none !important;
+	}
+}
+
+
+$ps_chatbox-mobile_size_multiplier:2;
+.ps_chatbox-livechatinc_opener {
+	box-shadow   : 0px -2px 2px rgba($ps_color-pdark, 0.3);
+	background   : lighten($ps_color-secondary, 10%); 
+	color        : $ps_color-stext; 
+	position     : fixed;
+	height       : $ps_chatbox-head_height * $ps_chatbox-mobile_size_multiplier;
+	line-height  : $ps_chatbox-head_height * $ps_chatbox-mobile_size_multiplier;
+	text-align   : center;
+    bottom       : 0px;
+	right      	 : $ps_main-standard-space;
+	border-radius: (($ps_main-radius*2)*$ps_chatbox-mobile_size_multiplier) (($ps_main-radius*2)*$ps_chatbox-mobile_size_multiplier) 0px 0px;
+	font-size    : ($ps_main-font-size + 6px) * $ps_chatbox-mobile_size_multiplier; 
+	padding      : 0px ($ps_main-standard-space*3);
+	padding-left : ($ps_chatbox-status*$ps_chatbox-mobile_size_multiplier) + ($ps_main-standard-space * $ps_chatbox-mobile_size_multiplier);
+	z-index      : 4; 
+
+	.ps_chatbox-status {
+		@include ps_helper-v-center(absolute);
+		left  : ($ps_main-standard-space * $ps_chatbox-mobile_size_multiplier)/2;
+		height: $ps_chatbox-status * $ps_chatbox-mobile_size_multiplier;
+		width : $ps_chatbox-status * $ps_chatbox-mobile_size_multiplier;
+		margin: 0px;
+	}
+
+	.ps_components-badge {
+		position: absolute;
+		top     : -8px;
+		right   : -4px;
+	}
+}

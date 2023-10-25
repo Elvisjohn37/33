@@ -1,0 +1,19 @@
+<div 
+	class            = 'ps_js-tangkas ps_tangkas' 
+	data-custom-tags = 'indicator,games_template'
+>
+	<div 
+		class        = 'ps-container ps_tangkas-lobby ps_games_template-lobby' 
+		v-bind:style = "{ height: page_info.lobby_height }"
+	>
+		<ps-indicator-loader v-if='page_info.is_loading'></ps-indicator-loader>
+		<iframe v-else-if='page_info.is_success' class='ps_tangkas-iframe' v-bind:src='page_info.src'></iframe>
+		<ps-games-template-error v-else v-bind:code='page_info.err_code'>
+			<div class='ps_tangkas-error_button' v-if="page_info.dcode == 'DNR'">
+				<ps-form-button class='ps_js-set_display_name'>
+					<i class='ps_icon md-create'></i> {{ shared.lang.language.set_display_name }}
+				</ps-form-button>
+			</div>
+		</ps-games-template-error>
+	</div>
+</div>

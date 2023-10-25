@@ -1,0 +1,113 @@
+//** This will import all scss use for our main display
+//** Avoid using 'unset' in attributes, not good in IE
+
+/* Libraries *//* Libraries */
+@import 'libraries/bootstrap_v3/bootstrap-filtered';
+
+/* Helpers */  
+@import 'ps_helpers'; 
+@import 'ps_reset'; 
+@import 'ps_color';
+@import 'ps_icons';
+@import 'ps_keyframes';
+ 
+/* Fonts */
+@import 'ps_fonts';
+ 
+/* Main */
+@import 'ps_main'; 
+ 
+/* Modules */
+@import 'ps_components'; 
+@import 'ps_error_page'; 
+
+// Global rules
+html , body {
+    height    : 100%;
+    width     : 100%;
+    min-width : fit-content;
+    background: $ps_color-void;
+}
+
+body {
+    overflow  : auto;
+    font-size : $ps_main-font-size;
+}
+
+// Global rules  
+a { 
+    @include  ps_main-link_style;
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.ps-row {
+    width: 100%;
+}
+
+.ps-ul_horizontal {
+    @include ps_helper-clearfix;
+    list-style: none;
+    padding   : 0;
+    margin    : 0;
+
+    li {
+        float:left;
+    }
+
+}
+
+.ps-ul_vertical {
+    list-style: none;
+    padding   : 0;
+    margin    : 0;
+
+    li {
+        position: relative;
+        display : block;
+    }
+
+}
+
+textarea {
+    padding: $ps_main-standard-space;
+}
+
+.ps-hidden {
+    display: none !important;
+}
+
+.ps-invisible {
+    visibility: hidden !important;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+    margin: ($ps_main-standard-space*2) 0px;
+}
+
+.ps-enable_bootstrap {
+    @import "libraries/bootstrap_v3/bootstrap";
+}
+
+iframe {
+    border: 0px;
+}
+
+header {
+    position: absolute;
+    top     : 0px;
+    width   : 100%;
+}
+
+/**
+ * ---------------------------------------------------------------------------------------------------------------------
+ * CUSTOM CSS FOR ERROR PAGE ONLY
+ * ---------------------------------------------------------------------------------------------------------------------
+ */
+.ps_navigation-page_container, .ps_navigation-page {
+    position: relative;
+    height  : 100%;
+    width   : 100%;
+}

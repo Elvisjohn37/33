@@ -1,0 +1,134 @@
+$ps_news-footer_height   : 36px;
+$ps_news-indicator_height: 20px + $ps_main-standard-space + ($ps_main-standard-space/2);
+
+.ps_news {
+
+	.ps_news-carousel {
+		height: 100%; 
+		
+		.item {
+			padding-bottom: $ps_news-indicator_height;
+			display: none;
+
+			&.active {
+				display: block;
+
+				& > span {
+					display: inline;
+				}
+			}
+		}
+
+		.ps_news-item {
+			background     : transparent;
+			position       : relative;
+			display        : block;
+			height         : (100%/2);
+			border-bottom  : 1px solid rgba($ps_color-plight, .5);
+			padding-bottom : $ps_news-footer_height;
+			transition     : all $ps_main-transition;
+			cursor         : pointer; 
+			font-size      : $ps_main-font-size - 2px;
+
+			&:hover {
+				@include ps_color-plight;
+     			box-shadow: 0 14px 28px rgba($ps_color-pdark,.25), 0 10px 10px rgba($ps_color-pdark,.22);
+
+				.ps_news-body {
+					
+					&::before {
+						opacity: 0;
+						z-index: 3;
+					}
+
+					&::after {
+						opacity: 1;
+						z-index: 2;
+					}
+				}
+
+				.ps_news-date {
+					opacity: .8;
+				}
+			}
+
+			.ps_news-part {
+				padding: ($ps_main-standard-space*2) $ps_main-standard-space;
+			}
+
+			.ps_news-date {
+				float       : right;
+    			opacity     : .5;
+    			padding-left: $ps_main-standard-space/2; 
+				transition  : all $ps_main-transition;
+			}
+
+			.ps_news-body {
+				position   : relative;
+				line-height: normal;
+				height     : 100%;
+				overflow   : hidden;
+				transition : all $ps_main-transition;
+
+				.ps_news-title {
+					text-transform: uppercase;
+				}
+
+				.ps_news-preview {
+					color: $ps_color-ptextsecondary;
+				}
+
+				&::before, &::after {
+					position  : absolute;
+					content   : '';
+					height    : 100%;
+					top       : 0px;
+					left      : 0px;
+					width     : 100%;
+					transition: all $ps_main-transition;
+				}
+
+				&::after {
+					@include ps_color-plight-fade-bottom;
+					opacity: 0;
+					z-index: 3;
+				}
+
+
+				&::before {
+					@include ps_color-plightcard-fade-bottom;
+					opacity: 1;
+					z-index: 2;
+				}
+			}
+				
+			.ps_news-footer {
+				padding-top: $ps_main-standard-space/2;
+				position   : absolute;
+				bottom     : 0px;
+				width      : 100%;
+				height     : $ps_news-footer_height;
+			}
+		}
+	
+		.carousel-indicators {
+			transform  : none;
+			left       : 0px;
+			bottom     : 0px;
+			width      : 100%;
+			height     : $ps_news-indicator_height;
+			line-height: $ps_news-indicator_height;
+
+			.ps_js-carousel_nav {
+				float:none;
+			}
+		}
+	}
+}
+
+.ps_js-news {
+
+	.modal-content  .modal-body {
+		height: 100%;
+	}
+}

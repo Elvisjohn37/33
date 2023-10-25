@@ -1,0 +1,354 @@
+/** 
+ |----------------------------------------------------------------------------------------------------------------------
+ | Bootstrap
+ |----------------------------------------------------------------------------------------------------------------------
+ |
+ */
+@mixin ps_carousel-slide_multi($count: 5, $direction:h) {
+	&[data-transition = 'slide'] {
+		// normal queue
+		.item {
+			$ps_carousel-adjacent_max_percent: (100% * $count);
+
+			@if $direction == v {
+				transform: translate3d(0%, $ps_carousel-adjacent_max_percent, 0);
+				height: (100% / $count);
+			} @else {
+				transform: translate3d($ps_carousel-adjacent_max_percent, 0%, 0);
+				width : (100% / $count);
+			}
+
+			&.active {
+				$ps_carousel-adjacent_selector: '';
+				transform: translate3d(0%, 0%, 0) !important;
+				
+				@for $ctr from 1 through $count {
+					$ps_carousel-adjacent_selector: $ps_carousel-adjacent_selector + ' + .item';
+					$ps_carousel-adjacent_percent : (100% * $ctr);
+					#{$ps_carousel-adjacent_selector} {
+
+						> * {
+							display: block;
+						}
+
+						@if $direction == v {
+							transform: translate3d(0%, $ps_carousel-adjacent_percent, 0);
+						} @else {
+							transform: translate3d($ps_carousel-adjacent_percent, 0%, 0);
+						}
+					}
+				}
+			}
+		}
+
+		// need attribute data-index-class = 'reverse'
+		$ps_carousel-from_last: $count - 1;
+		@for $ctr from 1 through $ps_carousel-from_last {
+			&.ps_js-carousel_index_#{$ctr - 1}) {
+
+				// percentage that already been occupied
+				$ps_carousel-prev_percent: (100 * $ctr) - 100;
+				
+				// calculate remaining items needed
+				$ps_carousel-slots : $count - $ctr;
+				@for $child from 1 through  $ps_carousel-slots {
+					
+					> * {
+						display: block;
+					}
+
+					.item:nth-child(#{$child}) {
+						$ps_carousel-nth_percent: ($ps_carousel-prev_percent + (100% * $child));
+						@if $direction == v {
+							transform: translate3d(0%, $ps_carousel-nth_percent, 0);
+						} @else {
+							transform: translate3d($ps_carousel-nth_percent, 0%, 0);
+						}
+					}
+				}
+			}
+		}
+	}
+}
+
+
+.carousel {
+
+	&[data-prevent-tabshow] {
+		// do not ever change the overflow property of this element
+		// we always set this to scrollLeft:0 in JS when inactive item was tabbed, 
+		// this is to prevent that inactive element to be scroll to view by the browser when user use tab key
+		.ps_js-carousel_root, &.ps_js-carousel_root {
+			overflow: hidden;
+		}
+
+		.carousel-inner {
+			overflow: visible !important;
+		}
+	}
+
+	// prevent tab focus on inactive carousels by display none
+	// the display: none applied to children only so it will not affect the animation
+	.item {
+		display: block;
+
+		> * {
+			display: none;
+		}
+
+		&.active {
+
+			> * {
+				display: block;
+			}
+		}
+	}
+
+	&.ps_js-animating {
+
+		.item {
+			> * {
+				display: block;
+			}
+		}
+	}
+	
+	.carousel-inner, .item {
+		height: 100%;
+	}
+
+	&.ps_carousel-less {
+		.carousel-control, .carousel-indicators {
+			display: none;
+		}
+	}
+	
+	&[data-transition = 'slide'] {
+		.item {
+			position  : absolute;
+			width     : 100%;
+			top       : 0;
+			opacity   : 0;
+			transition: transform $ps_main-transition;
+
+			&.active {
+			 	transform: translate3d(0%, 0, 0);
+			 	opacity : 1;
+			 	z-index : 1;
+			 	position: relative;
+			}
+		}
+		
+		&.ps_js-carousel_left {
+			.item {
+				&.ps_js-carousel_previous {
+					@include ps_keyframes-slide-box-out($ps_main-transition 1);
+				}
+
+				&.active { 
+					@include ps_keyframes-slide-box-in($ps_main-transition 1);
+					position: relative;
+				}
+			}
+		}
+		
+		&.ps_js-carousel_right {
+			.item {
+				&.ps_js-carousel_previous { 
+					@include ps_keyframes-slide-box-out-right($ps_main-transition 1);
+				}
+
+				&.active {
+					@include ps_keyframes-slide-box-in-right($ps_main-transition 1);
+					position: relative;
+				}
+			}
+		}
+		
+		// vertical slide
+		&.ps_carousel-v_slide {
+			.item {
+				transform : translate3d(0%, 100%, 0);
+
+				&.active {
+				 	transform: translate3d(0%, 0%, 0);
+				}
+			}
+
+			&.ps_js-carousel_left {
+				.item {
+					&.ps_js-carousel_previous {
+						@include ps_keyframes-slide-box-h-out($ps_main-transition 1);
+					}
+
+					&.active { 
+						@include ps_keyframes-slide-box-h-in($ps_main-transition 1);
+						position: relative;
+					}
+				}
+			}
+			
+			&.ps_js-carousel_right {
+				.item {
+					&.ps_js-carousel_previous { 
+						@include ps_keyframes-slide-box-out-up($ps_main-transition 1);
+					}
+
+					&.active {
+						@include ps_keyframes-slide-box-in-down($ps_main-transition 1);
+						position: relative;
+					}
+				}
+			}
+
+			.carousel-control {
+				@include ps_helper-h-center(absolute);
+
+				&.ps_carousel-prev {
+					top : $ps_main-standard-space;
+
+		    		.md-chevron_left {
+		    			@include ps_icon-keyboard_arrow_up;
+		    		}
+	    		}
+
+				&.ps_carousel-next {
+					top   : auto;
+					bottom: $ps_main-standard-space;
+
+		    		.md-chevron_right {
+		    			@include ps_icon-keyboard_arrow_down;
+		    		}
+				}
+	    	}
+		}
+	}
+
+	&[data-transition = 'fade'] {
+		.item {
+			position  : absolute;
+			width     : 100%;
+			top       : 0;
+			opacity   : 0;
+			transition: opacity $ps_main-transition;
+
+			&.active {
+				opacity : 1;
+			 	position: relative;
+			}
+		}
+	}
+
+	.carousel-control {
+		@include ps_helper-v-center(absolute);
+		height     : auto;
+		width      : auto;
+	    left       : inherit;
+	    bottom     : inherit;
+    	text-shadow: none;
+    	opacity    : auto;
+    	color      : $ps_color-ptext;
+    	text-shadow: 0px 0px 1px $ps_color-pdark;
+    	font-size  : 60px;
+    	z-index    : 1;
+    	cursor     : pointer;
+
+		&.ps_carousel-prev {
+			left: $ps_main-standard-space;
+		}
+
+		&.ps_carousel-next {
+			right: $ps_main-standard-space;
+		}
+	}
+}
+
+.carousel-indicators, .ps_carousel-indicators {
+	width  : auto;
+	margin : 0px;
+	z-index: 3;
+	@include ps_helper-h-center(absolute);
+
+	.ps_js-carousel_nav {
+		@include ps_color-pdark;
+		border       : 1px solid $ps_color-plight;
+		height       : 7px;
+    	width        : 25px;
+        margin       : 0px $ps_main-standard-space/4;
+		border-radius: $ps_main-radius;
+		transition   : all $ps_main-transition;
+
+		&.ps_carousel-active, &.active {
+			@include ps_color-paccent;
+			border: 1px solid rgba($ps_color-paccentlight,.5);
+		}
+	}
+}
+
+/** 
+ |----------------------------------------------------------------------------------------------------------------------
+ | PS own
+ |----------------------------------------------------------------------------------------------------------------------
+ |
+ */
+$ps_carousel-queue_padding : 20px;
+$ps_carousel-queue_arrow   : 16px;
+.ps_carousel-hqueue {
+	position  : relative;
+
+	.ps_carousel-hqueue_inner {
+		position  : relative;
+		overflow  : hidden;
+		height    : 100%;
+	}
+
+	.ps_carousel-hqueue_scroller {
+		width         : 100%;
+		height        : 100%;
+		overflow-x    : auto;
+		overflow-y    : hidden;
+		padding-bottom: $ps_carousel-queue_padding;
+		margin-bottom : -$ps_carousel-queue_padding;
+    	position      : relative;
+
+    	.ps_carousel-hqueue_content {
+    		width   : auto;
+    		position: relative;
+    	}
+	}
+	
+	// rule: if you need to put fading animation to arrow, make sure its not more than 1 sec
+	.ps_carousel-hqueue_arrow {
+		@include ps_color-s(.5);
+		position  : absolute;
+		height    : 100%;
+		top       : 0px;
+		text-align: center;
+		display   : none;
+		width     : $ps_carousel-queue_arrow;
+
+		.ps_icon {
+			@include ps_helper-v-center('relative');
+		}
+
+		&.ps_carousel-left  {
+			left: 0px;
+		}
+
+		&.ps_carousel-right  {
+			right: 0px;
+		}
+	}
+
+	&.ps_carousel-hqueue_overflow.ps_carousel-hqueue_has_arrows.ps_carousel-rolled.ps_carousel-overflow_calculated {
+		padding: 0px $ps_carousel-queue_arrow;
+
+		.ps_carousel-hqueue_arrow  {
+			display: block;
+		}
+
+		&.ps_carousel-resize_adjusting .ps_carousel-hqueue_arrow {
+			display: none;
+		}
+	}
+}

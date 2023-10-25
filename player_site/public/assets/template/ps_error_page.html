@@ -1,0 +1,18 @@
+<div class='ps_js-error_page_view ps_error_page' data-custom-tags='error_page'>
+    <ps-error-page-full v-bind:code='err_code'></ps-error-page-full>
+</div>
+
+
+<!--
+| Error custom tags
+-->
+<div class='ps_js-error_page' data-custom-tags='indicator,form'>
+    <div data-tag='full' class='ps_error_page-full'>
+        <div class='ps_error_page-full_content'>
+            <ps-indicator-onpage-error v-bind:code='code'>
+                <i class='ps_icon md-error_outline' slot='icon'></i>
+                <ps-form-close-goto></ps-form-close-goto>
+            </ps-indicator-onpage-error>
+        </div>
+    </div>
+</div>

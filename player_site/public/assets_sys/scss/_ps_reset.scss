@@ -1,0 +1,48 @@
+//** This will handle our element reset
+
+@import 'libraries/normalize';
+
+/** 
+ |----------------------------------------------------------------------------------
+ | From boostrap reboot
+ |----------------------------------------------------------------------------------
+ |
+ */
+html {
+  box-sizing: border-box;
+}
+
+*,
+*::before,
+*::after {
+    box-sizing: border-box; // 1
+}
+
+body {
+  -ms-overflow-style: scrollbar;
+}
+
+/* IE10+ doesn't honor `<meta name="viewport">` in some cases. */
+@at-root {
+    @-ms-viewport {
+        width: device-width;
+    }
+}
+
+a,
+area,
+button,
+[role="button"],
+input,
+label,
+select,
+summary,
+textarea {
+  touch-action: manipulation;
+}
+
+fieldset {
+    /* Chrome and Firefox setting here
+      min-width: min-content */
+    min-width: 0;
+}

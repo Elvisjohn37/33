@@ -1,0 +1,22 @@
+.ps_announcement {
+
+	.ps_announcement-content {
+        min-height: $ps_navigation-page-min-height;
+	}
+
+	.ps_navigation-route_item  {
+		color: $ps_color-ptextsecondary;
+	}
+
+	.ps_announcement-table {
+
+		thead th {
+			&:nth-child(1) {
+				@include ps_components-td-width(32px);
+			}
+			&:nth-child(2) {
+				@include ps_components-td-width(170px);
+			}
+		}
+	}
+}

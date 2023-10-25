@@ -1,0 +1,861 @@
+//** This contains all animation keyframes mixins
+//## Usage @include ps_keyframes-<keyframe name>(animation_details)
+ 
+$ps_keyframes-loaded: ();
+
+// ---------------------------------------------------------------------------------------------------------------------
+//   From https://daneden.github.io/animate.css/
+// ---------------------------------------------------------------------------------------------------------------------
+@mixin ps_keyframes-fadein-down($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadein-down) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadein-down) !global;
+
+		@at-root (without: all) {
+			@keyframes fadein-down {
+
+				from {
+
+				    opacity: 0;
+				    transform: translate3d(0, -50%, 0);
+
+				}
+
+				to {
+
+				    opacity: 1;
+				    transform: none;
+
+				}
+			}
+		}
+	}
+
+	animation: fadein-down $animation_details;
+}
+
+@mixin ps_keyframes-fadein($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadein) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadein) !global;
+		
+		@at-root (without: all) {
+			@keyframes fadein {
+
+				from {
+
+				    opacity: 0;
+
+				}
+
+				to {
+
+				    opacity: 1;
+
+				}
+			}
+		}
+	}
+
+	animation: fadein $animation_details;
+}
+
+@mixin ps_keyframes-fadein-up($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadein-up) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadein-up) !global;
+		
+		@at-root (without: all) {
+			@keyframes fadein-up {
+
+				from {
+				    opacity: 0;
+				    transform: translate3d(0, 50%, 0);
+				}
+
+				to {
+				    opacity: 1;
+				    transform: none;
+				}
+			}
+		}
+	}
+
+	animation: fadein-up $animation_details;
+}
+
+@mixin ps_keyframes-fadeout-up($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadeout-up) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadeout-up) !global;
+
+		@at-root (without: all) {
+			@keyframes fadeout-up {
+
+			  	0% {
+			    	opacity: 1;
+				    transform: none;
+			  	}
+
+			  	99.9% {
+			    	opacity   : 0;
+			    	transform : translate3d(0, -50%, 0);
+			 	}
+
+				// by adding translateY, element should be out of window bounds
+			  	100% {
+			    	opacity   : 0;
+			    	transform : translate3d(0, -2000%, 0);
+			 	}
+			}
+		}
+	}
+
+	animation: fadeout-up $animation_details;
+}
+
+@mixin ps_keyframes-fadein-left($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadein-left) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadein-left) !global;
+
+		@at-root (without: all) {
+			@keyframes fadein-left {
+
+				from {
+				    opacity: 0;
+				    transform: translate3d(50%, 0, 0);
+				}
+
+				to {
+				    opacity: 1;
+				    transform: none;
+				}
+			}
+		}
+	}
+
+	animation: fadein-left $animation_details;
+}
+
+@mixin ps_keyframes-fadeout-right($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadeout-right) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadeout-right) !global;
+		
+		@at-root (without: all) {
+			@keyframes fadeout-right {
+				0% {
+			    	opacity: 1;
+				    transform: none;
+			  	}
+
+			  	99.9% {
+			    	opacity   : 0;
+			    	transform : translate3d(50%, 0,  0);
+			 	}
+
+				// by adding translateY, element should be out of window bounds
+			  	100% {
+			    	opacity   : 0;
+			    	transform : translate3d(2000%, 0, 0);
+			 	}
+			}
+		}
+	}
+
+	animation: fadeout-right $animation_details;
+}
+
+@mixin ps_keyframes-swing($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, swing) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, swing) !global;
+		
+
+		@at-root (without: all) {
+			@keyframes swing {
+				0% {
+					
+					opacity:1;
+
+				}
+				20% {
+				    transform: rotate3d(0, 0, 1, 15deg);
+				}
+
+				40% {
+				    transform: rotate3d(0, 0, 1, -10deg);
+				}
+
+				60% {
+				    transform: rotate3d(0, 0, 1, 5deg);
+				}
+
+				80% {
+				    transform: rotate3d(0, 0, 1, -5deg);
+				}
+
+				to {
+					
+					opacity:1;
+				    transform: rotate3d(0, 0, 1, 0deg);
+				}
+			}
+		}
+	}
+
+	animation: swing $animation_details;
+}
+
+@mixin ps_keyframes-rubberBand($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, rubberBand) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, rubberBand) !global;
+		
+		@at-root (without: all) {
+			@keyframes rubberBand {
+				from {
+
+	        		opacity: 1;
+				    transform: scale3d(1, 1, 1);
+				}
+
+				30% {
+				    transform: scale3d(1.25, 0.75, 1);
+				}
+
+				40% {
+				    transform: scale3d(0.75, 1.25, 1);
+				}
+
+				50% {
+				    transform: scale3d(1.15, 0.85, 1);
+				}
+
+				65% {
+				    transform: scale3d(.95, 1.05, 1);
+				}
+
+				75% {
+				    transform: scale3d(1.05, .95, 1);
+				}
+
+				to {
+
+	        		opacity: 1;
+				    transform: scale3d(1, 1, 1);
+				}
+			}
+		}
+	}
+
+	animation: rubberBand $animation_details;
+}
+
+@mixin ps_keyframes-wobble($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, wobble) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, wobble) !global;
+		
+		@at-root (without: all) {
+			@keyframes wobble {
+				from {
+	        		opacity: 1;
+					transform: none;
+				}
+
+				15% {
+					transform: translate3d(-25%, 0, 0) rotate3d(0, 0, 1, -5deg);
+				}
+
+				30% {
+					transform: translate3d(20%, 0, 0) rotate3d(0, 0, 1, 3deg);
+				}
+
+				45% {
+					transform: translate3d(-15%, 0, 0) rotate3d(0, 0, 1, -3deg);
+				}
+
+				60% {
+					transform: translate3d(10%, 0, 0) rotate3d(0, 0, 1, 2deg);
+				}
+
+				75% {
+					transform: translate3d(-5%, 0, 0) rotate3d(0, 0, 1, -1deg);
+				}
+
+				to {
+	        		opacity: 1;
+					transform: none;
+				}
+			}
+		}
+	}
+
+	animation: wobble $animation_details;
+}
+
+@mixin ps_keyframes-updown($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, updown) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, updown) !global;
+		
+		@at-root (without: all) {
+			@keyframes updown {
+				from {
+					opacity  : .7;
+					transform: translateY(0%);
+				}
+
+				to {
+					opacity  : 1;
+					transform: translateY(-20%);
+				}
+			}
+		}
+	}
+
+	animation: updown $animation_details;
+}
+
+
+@mixin ps_keyframes-smallfade($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, smallfade) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, smallfade) !global;
+		
+		@at-root (without: all) {
+			@keyframes smallfade {
+				from {
+					opacity  : .7;
+				}
+
+				to {
+					opacity  : 1;
+				}
+			}
+		}
+	}
+
+	animation: smallfade $animation_details;
+}
+
+@mixin ps_keyframes-slide-box-in($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, slide-box-in) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,slide-box-in) !global;
+		
+		@at-root (without: all) {
+			@keyframes slide-box-in {
+				from {
+					transform: translate3d(100%,0,0);
+				}
+
+				to {
+					transform: translate3d(0%,0,0);
+				}
+			}
+		}
+	}
+
+	animation: slide-box-in $animation_details;
+}
+
+@mixin ps_keyframes-slide-box-out($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, slide-box-out) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,slide-box-out) !global;
+		
+		@at-root (without: all) {
+			@keyframes slide-box-out {
+				from {
+					transform: translate3d(0%,0,0);
+					opacity: 1;
+				}
+
+				to {
+					transform: translate3d(-100%,0,0);
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	animation: slide-box-out $animation_details;
+}
+
+@mixin ps_keyframes-slide-box-in-right($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, slide-box-in-right) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,slide-box-in-right) !global;
+
+		@at-root (without: all) {
+			@keyframes slide-box-in-right {
+				from {
+					transform: translate3d(-100%,0,0);
+				}
+
+				to {
+					transform: translate3d(0%,0,0);
+				}
+			}
+		}
+	}
+
+	animation: slide-box-in-right $animation_details;
+}
+
+@mixin ps_keyframes-slide-box-out-right($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, slide-box-out-right) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,slide-box-out-right) !global;
+		
+		@at-root (without: all) {
+			@keyframes slide-box-out-right {
+				from {
+					transform: translate3d(0%,0,0);
+					opacity: 1;
+				}
+
+				to {
+					transform: translate3d(100%,0,0);
+					opacity: 1;
+				}
+			}
+		}
+	}
+
+	animation: slide-box-out-right $animation_details;
+}
+
+@mixin ps_keyframes-slide-box-h-in($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, slide-box-h-in) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,slide-box-h-in) !global;
+
+		@at-root (without: all) {
+			@keyframes slide-box-h-in {
+				from {
+					transform: translate3d(0%,100%,0);
+				}
+
+				to {
+					transform: translate3d(0,0%,0);
+				}
+			}
+		}
+	}
+
+	animation: slide-box-h-in $animation_details;
+}
+
+@mixin ps_keyframes-slide-box-h-out($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, slide-box-h-out) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,slide-box-h-out) !global;
+
+		@at-root (without: all) {
+			@keyframes slide-box-h-out {
+				from {
+					transform: translate3d(0,0%,0);
+				}
+
+				to {
+					transform: translate3d(0,-100%,0);
+				}
+			}
+		}
+	}
+
+	animation: slide-box-h-out $animation_details;
+}
+
+@mixin ps_keyframes-slide-box-in-down($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, slide-box-in-down) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, slide-box-in-down) !global;
+
+		@at-root (without: all) {
+			@keyframes slide-box-in-down {
+				from {
+					transform: translate3d(0,-100%,0);
+				}
+
+				to {
+					transform: translate3d(0,0%,0);
+				}
+			}
+		}
+	}
+
+	animation: slide-box-in-down $animation_details;
+}
+
+@mixin ps_keyframes-slide-box-out-up($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, slide-box-out-up) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,slide-box-out-up) !global;
+
+		@at-root (without: all) {
+			@keyframes slide-box-out-up {
+				from {
+					transform: translate3d(0,0%,0);
+				}
+
+				to {
+					transform: translate3d(0,100%,0);
+				}
+			}
+		}
+	}
+
+	animation: slide-box-out-up $animation_details;
+}
+
+@mixin ps_keyframes-password-stripe-move($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, password-stripe-move) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,password-stripe-move) !global;
+
+		@at-root (without: all) {
+			@keyframes password-stripe-move {
+				from {
+	    			background-position: 40px 0px;
+				}
+
+				to {
+					background-position: 0px 0px;
+				}
+			}
+		}
+	}
+
+	animation: password-stripe-move $animation_details;
+}
+
+@mixin ps_keyframes-sprite-animation($steps, $animation_details...) {
+	
+	$ps_keyframes-name: sprite-animation+$steps;
+	@if (index($ps_keyframes-loaded, $ps_keyframes-name) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, $ps_keyframes-name) !global;
+
+		@at-root (without: all) {
+			@keyframes #{$ps_keyframes-name} {
+			  	0%  { 
+			  			opacity: 0; 
+			  			background-position: 0%;           
+			  	}
+		        5%  { opacity: 1; }
+		        95% { opacity: 1; }
+			  	100%{ 
+			  		opacity: 0; 
+			  		background-position: -100%*$steps; 
+			  	}
+			}
+		}
+	}
+
+	animation: $ps_keyframes-name steps($steps) $animation_details;
+}
+
+
+@mixin ps_keyframes-levitate($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, levitate) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded,levitate) !global;
+
+		@at-root (without: all) {
+			@keyframes levitate {
+				0% {
+				    transform: translateY(0%);
+				}
+				
+				50% {
+				    transform: translateY(-20%);
+				}
+
+				100% {
+				    transform: translateY(0%);
+				}
+			}
+		}
+	}
+
+	animation: levitate $animation_details;
+}
+
+
+@mixin ps_keyframes-fadein-scaledown($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadein-scaledown) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadein-scaledown) !global;
+		
+		@at-root (without: all) {
+			@keyframes fadein-scaledown {
+
+				from {
+
+				    opacity: 0;
+				    transform: scale(1.2);
+
+				}
+
+				to {
+
+				    opacity: 1;
+				    transform: scale(1);
+
+				}
+			}
+		}
+	}
+
+	animation: fadein-scaledown $animation_details;
+}
+
+@mixin ps_keyframes-fadeout-scaleup($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadeout-scaleup) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadeout-scaleup) !global;
+
+		@at-root (without: all) {
+			@keyframes fadeout-scaleup {
+
+				0% {
+
+				    opacity  : 1;
+				    transform: scale(1);
+				    z-index  : 100;
+				}
+
+				99.9% {
+
+				    opacity  : 0;
+				    transform: scale(1.2);
+				    z-index  : 100;
+
+				}
+
+				100% {
+				    opacity: 0;
+					z-index: -1;
+				}
+			}
+		}
+	}
+
+	animation: fadeout-scaleup $animation_details;
+}
+
+@mixin ps_keyframes-fadein($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadein) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadein) !global;
+
+		@at-root (without: all) {
+			@keyframes fadein {
+
+				from {
+
+				    opacity: 0;
+
+				}
+
+				to {
+
+				    opacity: 1;
+
+				}
+			}
+		}
+	}
+
+	animation: fadein $animation_details;
+}
+
+@mixin ps_keyframes-fadeout($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fadeout) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fadeout) !global;
+
+		@at-root (without: all) {
+			@keyframes fadeout {
+
+				0% {
+
+				    opacity  : 1;
+				    z-index  : 100;
+				}
+
+				99.9% {
+
+				    opacity  : 0;
+				    z-index  : 100;
+
+				}
+
+				100% {
+				    opacity: 0;
+					z-index: -1;
+				}
+			}
+		}
+	}
+
+	animation: fadeout $animation_details;
+}
+
+@mixin ps_keyframes-rotate($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, rotate) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, rotate) !global;
+
+		@at-root (without: all) {
+			@keyframes rotate {
+				0% {
+				    transform: rotate(0);
+				}
+
+				100% {
+				    transform: rotate(270deg);
+				}
+			}
+		}
+	}
+
+	animation: rotate $animation_details;
+}
+
+@mixin ps_keyframes-dash($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, dash) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, dash) !global;
+
+		@at-root (without: all) {
+			@keyframes dash {
+				0% {
+				    stroke-dashoffset: 187;
+				}
+
+				50% {
+				    stroke-dashoffset: 46.75;
+				    transform        : rotate(135deg);
+				}
+				100% {
+				    stroke-dashoffset: 187;
+				    transform        : rotate(450deg);
+				}
+			}
+		}
+	}
+
+	animation: dash $animation_details;
+}
+
+
+@mixin ps_keyframes-owl-eye($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, owl-eye) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, owl-eye) !global;
+
+		@at-root (without: all) {
+			@keyframes owl-eye {
+				0% {
+			    	-webkit-transform: scale(1,1);
+				    transform: scale(1,1);
+				}
+
+				50% {
+				    -webkit-transform: scale(1.1,1.1);
+				    transform: scale(1.1,1.1);
+				}
+				100% {
+				    -webkit-transform: scale(1,1);
+				    transform: scale(1,1);
+				}
+			}
+		}
+	}
+
+	animation: owl-eye $animation_details;
+}
+
+@mixin ps_keyframes-fade-in-out($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, fade-in-out) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, fade-in-out) !global;
+
+		@at-root (without: all) {
+			@keyframes fade-in-out {
+				0% {
+					opacity: 0;
+				}
+
+				50% {
+					opacity: 1;
+				}
+				100% {
+					opacity: 0;
+				}
+			}
+		}
+	}
+
+	animation: fade-in-out $animation_details;
+}
+
+@mixin ps_keyframes-glowing-stext($animation_details...) {
+
+	@if (index($ps_keyframes-loaded, glowing-stext) == null) {
+
+		$ps_keyframes-loaded: append($ps_keyframes-loaded, glowing-stext) !global;
+
+		@at-root (without: all) {
+			@keyframes glowing-stext {
+				0% {
+	     			text-shadow: 0px 0px 10px rgba($ps_color-stext, .5);
+				}
+
+				50% {
+	     			text-shadow: 0px 0px 10px rgba($ps_color-stext, .6), 0px 0px 20px rgba($ps_color-stext, 1);
+				}
+				100% {
+	     			text-shadow: 0px 0px 10px rgba($ps_color-stext, .5);
+				}
+			}
+		}
+	}
+
+	animation: glowing-stext $animation_details;
+}

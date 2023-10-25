@@ -1,0 +1,93 @@
+<!--
+| login form custom tag
+-->
+<div class='ps_js-login' data-custom-tags='form,navigation,language'>
+	<div data-tag='main' class='ps_login_form'>
+		<template v-if='shared.site.mode.app_mode'>
+			<ps-navigation-info>
+				<template scope='navigation'>
+					<div v-bind:class="[{ 'ps_login_form-has_registration': navigation.root.hashes['#register'] }, 'ps_login_form-wrap']">
+						<div class='ps_login_form-main'>
+							<ps-form-root 
+								data-focus-error= 'false'
+								v-bind:class    = "[{ 'ps_login_form-loading': info.loading },'ps_js-login_form']"
+							>
+								<ps-form-input 
+									name               = 'username'
+									class              = 'ps_js-username'
+									type               = 'textbox'  
+									v-bind:placeholder = 'shared.lang.language.username'
+									v-bind:readonly    = 'info.loading ? true : false'
+								>
+								</ps-form-input>
+								<ps-form-input 
+									name              = 'password' 
+									class             = 'ps_js-password'
+									type              = 'password' 
+									v-bind:placeholder= 'shared.lang.language.password'
+									v-bind:readonly   = 'info.loading ? true : false'
+								>
+								</ps-form-input>
+								<ps-form-button type='submit' v-bind:disabled='info.loading ? true : false'>
+									{{ shared.lang.language.login }}
+								</ps-form-button>
+							</ps-form-root>
+						</div>
+						<div class='ps_login_form-other_options'>
+							<ps-navigation-menu item='login_form'></ps-navigation-menu>
+                        	<ps-language-selector></ps-language-selector> 
+						</div>
+						<a
+						 	v-if  = "navigation.root.hashes['#register']" 
+						 	class = 'ps_login_form-register'
+						 	href  = '#register'
+						>
+	                        <ps-image-lazy 
+	                            class      = 'ps_login_form-register_button'
+	                            background = 'true'
+	                            v-bind:src = "shared.rso.assets+'images/ps_login_form/sign_up_'+shared.lang_config.active+'.png'"
+	                        ></ps-image-lazy>
+						</a>
+					</div>
+				</template>
+			</ps-navigation-info>
+		</template>
+		<div v-else class='ps_login_form-um'>
+			<div class='ps_login_form-um_wrap'>
+				<div class='ps_login_form-um_icon'>
+					<ps-image-lazy
+						background = 'true'
+						v-bind:src = "shared.rso.assets+'images/ps_login_form/um_icon.png'"
+					></ps-image-lazy>
+				</div>
+				<div class='ps_login_form-um_items'>
+					<div class='ps-row ps_login_form-um_title'>{{ shared.lang.error.ERR_00063[0] }}</div>
+					<div class='ps-row ps_login_form-um_content'>{{ shared.lang.error.ERR_00063[1] }}</div>
+				</div>
+			</div>
+			<ps-language-selector></ps-language-selector> 
+		</div>
+	</div>
+</div>
+
+<!--
+| login captcha
+-->
+<div class='ps_js-login_captcha ps_login_form-captcha' data-custom-tags='form'>
+	<div class='ps_login_form-captcha_subtitle ps_popup-modal_subtitle'>
+		{{ shared.lang.messages.login_captcha_subtitle }}
+	</div>
+	<ps-form-root v-bind:class="[{ 'ps_components-form_loading': info.loading },'ps_js-login_captcha_form']">
+		<ps-form-captcha name='login_captchainput' class='ps_js-captcha'></ps-form-captcha>
+	</ps-form-root>
+</div>
+<div class='ps_js-login_captcha_footer' data-custom-tags='form'>
+	<ps-form-button name='ps_js-login_captcha_submit' v-bind:disabled='info.loading ? true : false'>
+		{{ shared.lang.language.submit }}
+	</ps-form-button>
+</div>
+<div class='ps_js-resend_email_footer' data-custom-tags='form'>
+	<ps-form-button name='ps_js-resend_email'>
+		<i class='ps_icon md-mail'></i>  {{ shared.lang.messages.resend_email }}
+	</ps-form-button>
+</div>

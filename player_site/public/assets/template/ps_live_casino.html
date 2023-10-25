@@ -1,0 +1,57 @@
+<!-- 
+	Live Casino page
+ -->
+
+<div class="ps_js-live_casino" data-custom-tags='indicator,image'>
+
+	<div class="ps_live_casino-thumbnail_container">
+		<ps-indicator-loader v-if='page_info.is_loading'></ps-indicator-loader>
+		<div
+			v-else
+			class = 'ps-container ps_live_casino-thumbnail'
+		>
+			<div class="ps_live_casino-body">
+				<div class="ps_live_casino-list">
+					<div
+						class = 'ps_live_casino-item'
+						v-for = '(casino, index_out) in live_casinos'
+					>
+						<div 
+							class = 'ps_live_casino-version'
+							v-for = '(engine, index_in) in casino.engines'
+						>
+							<div class="ps_live_casino-content">
+								<div class="ps_live_casino-casino_name">
+									{{ casino.description + " (" + engine.version + ") " }}
+								</div>
+								<div class="ps_live_casino-casino_image">
+									<!-- placeholder -->
+									<ps-image-lazy 
+										class     = 'ps_live_casino-thumbnail_placeholder'
+										v-bind:src= "shared.rso.assets + 'images/common/ps_live_casino/thumbnail_placeholder.jpg'"
+									></ps-image-lazy>
+
+									<div class='ps_live_casino-casino_real_images'>
+										<ps-image-lazy 
+											class      = 'ps_live_casino-static_image'
+											v-bind:src = "shared.rso.assets + 'images/common/ps_live_casino/static_thumbnail/'+engine.version+'.jpg'"
+										></ps-image-lazy>
+									</div>
+								</div>
+								<div class="ps_live_casino-play_button">
+									<ps-form-button 
+										class                = 'ps_js-play_button ps_live_casino-play_button'
+										v-bind:index-item    = 'index_out'
+										v-bind:index-version = 'index_in'
+									>
+										<div class='ps_live_casino-play_icon'><i class='ps_icon md-launch'></i></div> {{ shared.lang.messages.play_now }}
+									</ps-form-button>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>

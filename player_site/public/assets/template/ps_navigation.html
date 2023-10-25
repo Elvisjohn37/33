@@ -1,0 +1,203 @@
+<!--
+| Pages
+-->
+<div class='ps_js-page ps_navigation-page_container'  data-custom-tags='indicator'>
+    <div 
+        v-for       ='(page, index) in page_list' 
+        v-bind:class="['ps_navigation-page_' + index + ' ps_js-page_' + index,{'ps_navigation-active':is_active[index]},'ps_navigation-page']"
+    >
+        <ps-indicator-loader v-if='page.is_rendering'></ps-indicator-loader>
+    </div>
+</div>
+
+<!--
+| Navigation custom tags
+-->
+<div class='ps_js-navigation'  data-custom-tags='carousel,indicator,list,media'>
+    <!--
+    | Default page layout
+    -->
+    <div data-tag='page' class='ps_navigation-page_layout ps-container'>
+        <div 
+            v-if             = 'is_loaded'
+            v-for            = 'menu_hash in page_data.menu_hashes'
+            v-bind:class     = "[{'ps-hidden':menu_hash!=navigation.actives.menu},{'ps_navigation-hash_has_sidebars':hash_has_sidebar[menu_hash]},'ps_navigation-page_hash']"
+            v-bind:data-for  = 'menu_hash'
+        >
+            <div class='ps_navigation-page_wrapper'>
+
+                <!-- sidebars  -->
+                <ps-navigation-sidebar
+                    v-if         = 'hash_has_sidebar[menu_hash]' 
+                    class        = 'ps_navigation-hash_sidebars'
+                    v-bind:hash  = 'menu_hash'
+                ></ps-navigation-sidebar>
+                
+                <div class='ps_navigation-page_body'>
+                    <!-- Route  -->
+                    <div class='ps_navigation-route'>
+                        <div class='ps_navigation-route_item' v-for='(route, index) in routes'>
+                            <span v-if='index > 0' class='ps_navigation-route_separator ps_navigation-route_item'>
+                                <i class='ps_icon md-chevron_right'></i>
+                            </span>
+                            <a v-bind:href='route.hash'>
+                                <ps-navigation-sidebar-text v-bind:sidebar='route'></ps-navigation-sidebar-text>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- with sidebar only  -->
+                    <template v-if='hash_has_sidebar[menu_hash]'>
+
+                        <!-- pages carousel  -->
+                        <ps-carousel-bootstrap 
+                            v-bind:items  = 'navigation.hashes[menu_hash].sidebars'
+                            data-interval = 'false'
+                            class         = 'ps_navigation-hash_carousel'
+                            v-bind:active = 'sidebar_indexes[menu_hash][navigation.actives.sidebar]'
+                            data-keyboard = 'false'
+                            data-prevent-tabshow
+                        >
+                            <!-- hash items based on sidebar  -->
+                            <ps-carousel-bootstrap-item
+                                v-for           = 'sidebar in navigation.hashes[menu_hash].sidebars'
+                                class           = 'ps_navigation-page_item'
+                                v-bind:data-for = 'sidebar'
+                                v-bind:key      = 'sidebar'
+                            >
+                                <slot v-bind:name='sidebar'>
+                                    <ps-indicator-loader></ps-indicator-loader>
+                                </slot>
+                            </ps-carousel-bootstrap-item>
+                        </ps-carousel-bootstrap>
+                    </template>
+
+                    <!-- Extra slot, all non slotted items will go here  -->
+                    <slot></slot>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--
+    | Sidebar
+    -->
+    <div data-tag='sidebar' class='ps_navigation-sidebars'>
+        <ps-navigation-sidebar-tree 
+            v-if               = '!is_loading' 
+            v-bind:sidebars    = 'sidebars'
+            v-bind:collapsible = 'collapsible'
+            v-bind:actives     = 'view_data.navigation.actives'
+        ></ps-navigation-sidebar-tree>
+    </div>
+    
+    <!--
+    | Sub compnents for sidebar, used to build sidebar component
+    -->
+    <ul data-tag='sidebar-tree' class='ps_navigation-sidebar_tree ps-ul_vertical ps_js-components_sidebar_tree'>
+        <li 
+            v-for        = '(sidebar, index) in sidebars' 
+            v-bind:class = "[{'ps_navigation-active': index == active_index},'ps_navigation-sidebar_li']"
+        >
+            <!-- collapsibles -->
+            <ps-list-collapsible v-if='sidebar.children && collapsible'>
+                <div class='ps_navigation-sidebar_dropdown_icon'>
+                    <i class="ps_icon md-expand_more"></i>
+                </div>
+                <template v-if='sidebar.active'>
+                    <a 
+                        v-if        = 'sidebar.external' 
+                        v-bind:href = 'sidebar.href'
+                        target      = '_blank'
+                        class       = 'ps_navigation-sidebar_item'
+                    ><ps-navigation-sidebar-text v-bind:sidebar='sidebar'></ps-navigation-sidebar-text></a>
+                    <a v-else v-bind:href='sidebar.hash' class='ps_navigation-sidebar_item'>
+                        <ps-navigation-sidebar-text v-bind:sidebar='sidebar'></ps-navigation-sidebar-text>
+                    </a>
+                </template>
+                <template v-else>
+                    <span class='ps_navigation-sidebar_text ps_navigation-sidebar_item'>
+                        <ps-navigation-sidebar-text v-bind:sidebar='sidebar'></ps-navigation-sidebar-text>
+                    </span>
+                </template>
+                <div class='ps_navigation-sidebar_icon'>
+                    <i v-bind:class="'ps_icon ps_navigation-icon_'+prefix+sidebar.id"></i>
+                </div>
+                <ps-navigation-sidebar-tree 
+                    slot               = 'content'  
+                    v-bind:sidebars    = 'sidebar.children' 
+                    v-bind:parent      = 'sidebar.id'
+                    v-bind:collapsible = 'collapsible'
+                    v-bind:actives     = 'actives'
+                ></ps-navigation-sidebar-tree>
+            </ps-list-collapsible>
+
+            <template v-else>
+                <template v-if='sidebar.active'>
+                    <a 
+                        v-if        = 'sidebar.external' 
+                        v-bind:href = 'sidebar.href'
+                        target      = '_blank'
+                        class       = 'ps_navigation-sidebar_item'
+                    ><ps-navigation-sidebar-text v-bind:sidebar='sidebar'></ps-navigation-sidebar-text></a>
+                    <a v-else v-bind:href='sidebar.hash' class='ps_navigation-sidebar_item'>
+                        <ps-navigation-sidebar-text v-bind:sidebar='sidebar'></ps-navigation-sidebar-text>
+                    </a>
+                </template>
+                <template v-else>
+                    <span class='ps_navigation-sidebar_text ps_navigation-sidebar_item'>
+                        <ps-navigation-sidebar-text v-bind:sidebar='sidebar'></ps-navigation-sidebar-text>
+                    </span>
+                </template>
+                <div class='ps_navigation-sidebar_icon'>
+                    <i v-bind:class="'ps_icon ps_navigation-icon_'+prefix+sidebar.id"></i>
+                </div>
+                <ps-navigation-sidebar-tree 
+                    v-if               = 'sidebar.children'
+                    slot               = 'content'  
+                    v-bind:sidebars    = 'sidebar.children' 
+                    v-bind:parent      = 'sidebar.id'
+                    v-bind:collapsible = 'collapsible'
+                    v-bind:actives     = 'actives'
+                ></ps-navigation-sidebar-tree>
+            </template>
+        </li>
+    </ul>
+
+    <span data-tag='sidebar-text' class='ps_navigation-sidebar_text'>{{ sidebar.text }}</span>
+
+    <ul data-tag='menu' class='ps_navigation-menu ps-ul_horizontal' v-if='has_item' data-custom-tags='indicator'>
+        <!--
+        | Fake LI for loading only
+        -->
+        <li v-if='is_loading' v-for='ctr in expectedCount' class='ps_navigation-loader'>
+            <a class='ps_navigation-menu_item'><ps-indicator-loader></ps-indicator-loader></a>
+        </li>
+
+        <!--
+        | Real menu
+        | HREF will not be binded if menu is direct trigger
+        | Direct trigger means module activation will depend on click of the menu instead of hash change
+        -->
+        <li v-if='is_loading == false' v-for='(menu, index) in menu_list'>
+            <a  
+                v-bind:data-page = 'menu.page'
+                v-bind:class     = "[{ 'ps_navigation-active': is_active[index] }, 'ps_navigation-menu_item ps_js-menu_item ps_js-menu_'+menu.id+' ps_navigation-menu_'+menu.id]"
+                v-bind:href      = "menu.direct_trigger ? null : menu.hash"
+                v-bind:key       = 'menu.id' 
+            >
+                <div class='ps_menu-text'>
+                    <i v-bind:class = 'menu.icon'></i>
+                    {{menu.text}}
+                    <ps-navigation-badge v-bind:id='menu.id'></ps-navigation-badge>
+                </div>
+            </a>
+        </li>
+    </ul>
+    <span data-tag='badge' data-custom-tags='indicator' v-if='display_badge'>
+        <ps-indicator-badge>{{ badge }}</ps-indicator-badge>
+    </span>
+    <span data-tag='info'>
+        <slot v-if='!is_loading' v-bind:root='navigation'></slot>
+    </span>
+</div>

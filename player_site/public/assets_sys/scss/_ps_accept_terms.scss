@@ -1,0 +1,44 @@
+$ps_accept_terms-button:40px;
+.ps_accept_terms-container {
+	@include ps_color-pdark(.6);
+	position      : relative;
+	height        : 800px;
+    box-shadow    : 0px 0px 20px rgba($ps_color-pdark, 0.19), 
+               		0 0px 6px rgba($ps_color-pdark, 0.23);
+	padding       : ($ps_main-standard-space * 2) 0px;
+    padding-bottom: ($ps_main-standard-space * 4) + $ps_accept_terms-button + $ps_main-features-h-height;
+
+	.ps_accept_terms-content {
+        @include ps_main-page-highlight;
+		height  : 100%;
+		overflow: auto;
+		padding : $ps_main-standard-space;
+	}
+	
+	.ps_accept_terms-button {
+		position   : absolute;
+		bottom     : $ps_main-features-h-height + ($ps_main-standard-space * 2);
+		height     : $ps_accept_terms-button;
+		line-height: $ps_accept_terms-button;
+		text-align : center;  
+		width      : 100%;
+		padding    : 0px $ps_main-standard-space;
+
+		.ps_components-button {
+			font-size  : $ps_main-font-size + 6px;
+			height     : $ps_accept_terms-button;
+			line-height: $ps_accept_terms-button;
+		} 
+	}
+}
+
+.ps_accept_terms-content {
+
+	.ps_accept_terms-table {
+	    border: 0px;
+
+	    tr, td, th {
+	        border: 0px;
+	    }
+	}
+}

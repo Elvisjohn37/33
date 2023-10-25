@@ -1,0 +1,40 @@
+<!--
+| Custom tags
+-->
+<div class='ps_js-media' data-cusotm-tags='indicator,pop'>
+    <div data-tag='webcam' class='ps_media-webcam ps_js-media_webcam'>
+        <ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+        <template v-else>
+            <video class='ps_js-media_webcam_video' autoplay>
+                <ps-indicator-small-notice class='ps_media-webcam_video_error ps_js-media_webcam_error'>
+                    {{ shared.lang.error.ERR_00097 }}
+                </ps-indicator-small-notice>
+            </video>
+        </template>
+    </div>
+
+    <div data-tag='youtube' class='ps_media-youtube ps_js-media_youtube'>
+        <ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+        <div v-if='!is_error' v-bind:class="[{ 'ps-invisible': is_loading },'ps_media-youtube_container']">
+            <div v-bind:id='id'></div>
+        </div>
+        <ps-indicator-onpage-error v-else code='ERR_00103'>
+            <i class='ps_icon md-error_outline' slot='icon'></i>
+        </ps-indicator-onpage-error>
+    </div>
+
+    <span data-tag='sound-manager'>
+        <ps-pop-tooltip
+            class                      = 'ps_media-sound_manager'
+            v-bind:data-original-title = 'is_on ? shared.lang.messages.turn_off_sound : shared.lang.messages.turn_on_sound'
+            data-placement             = 'bottom'
+        >
+            <i v-bind:class="[is_on ? 'md-volume_up' : 'md-volume_off','ps_icon']"></i>
+        </ps-pop-tooltip>
+    </span>
+
+    <span data-tag='sound' class='ps_media-sound'>
+        <slot></slot>
+    </span>
+</div>
+

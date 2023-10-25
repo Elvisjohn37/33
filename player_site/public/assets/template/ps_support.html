@@ -1,0 +1,132 @@
+<!--
+| support
+-->
+<span class='ps_js-support' data-custom-tags='image,indicator,carousel,pop'>
+	<!--
+	| bank
+	-->
+	<div 
+		data-tag    = 'bank' 
+		v-bind:class= "[{'ps_support-active': store.is_show}, 'ps_support-' + type,'ps_support ps-features_content']"
+	>
+		<div class='ps_support-header ps-features_content_header'>
+			{{ shared.lang.language[type + '_support'] }}
+			<span v-bind:class= "[ store.is_show?'md-chevron_left':'md-chevron_right','ps_icon ps_js-support_toggle']">
+			</span>
+		</div>
+		<div class='ps_support-content ps-features_content_body'>
+			<div class='ps_support-alternate_header'>
+				{{ shared.lang.language[type + '_support'] }}
+			</div>
+			<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+			<ps-indicator-small-notice v-if='no_item'></ps-indicator-small-notice>
+			<ps-carousel-bootstrap 
+				v-if             = 'show' 
+				v-bind:class     = "[{'ps_carousel-less':support_length<=5},'ps_carousel-v_slide']" 
+				arrows           = 'true'
+				v-bind:items     = 'support.list'
+				data-index-class = 'reverse'
+				data-interval    = 'false'
+				data-prevent-animation-conflict
+			>
+				<ps-carousel-bootstrap-item v-for='(list, index) in support.list' v-bind:key='index'>
+					<ps-pop-popover 
+						class                 = 'ps_support-item' 
+						data-placement        = 'right'
+						v-bind:data-container = "'.ps_support-' + type"
+						data-trigger          = 'focus'
+					>
+						<span v-bind:class = "'ps_support-' + list.bank" class='ps_support-icon'>
+							<ps-image-lazy 
+								background = 'true'
+								src        = ''
+							></ps-image-lazy>
+						</span>
+						<span v-bind:class="['ps_support-status ps_support-' + list.status]"></span>
+
+						<!-- Popover template -->
+						<template slot='template'>
+							<div class='ps_support-tooltip_status'>
+								<span v-bind:class="['ps_support-status ps_support-' + list.status]"></span>
+								{{ list.status ? shared.lang.language.online:shared.lang.language.offline }}
+							</div>
+							<div class='ps_support-bank_account' v-for='account in list.accounts'>
+								<div class='ps_support-detail'>
+									Account Number: {{ account.number }}
+								</div>
+								<div class='ps_support-detail'>
+									Account Name: {{ account.name }}
+								</div>
+							</div>
+							<div 
+								v-if  = "list.description!=''" 
+								class  = 'ps_support-bank_description'
+								v-html = 'list.description'
+							>
+							</div>
+						</template>
+					</ps-pop-popover>
+				</ps-carousel-bootstrap-item>
+			</ps-carousel-bootstrap>
+		</div>
+	</div>
+
+	<!--
+	| chat
+	-->
+	<div 
+		data-tag     = 'chat' 
+		v-bind:class = "[{'ps_support-active': store.is_show}, 'ps_support-' + type, 'ps_support ps-features_content']"
+	>
+		<div class='ps_support-header ps-features_content_header'>
+			{{ shared.lang.language[type + '_support'] }}
+			<span v-bind:class= "[ store.is_show?'md-chevron_right':'md-chevron_left','ps_icon ps_js-support_toggle']">
+			</span>
+		</div>
+		<div class='ps_support-content ps-features_content_body'>
+			<div class='ps_support-alternate_header'>
+				{{ shared.lang.language[type + '_support'] }}
+			</div>
+			<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+			<ps-indicator-small-notice v-if='no_item'></ps-indicator-small-notice>
+			<ps-carousel-bootstrap 
+				v-if             = 'show' 
+				v-bind:class     = "[{'ps_carousel-less':support_length<=5},'ps_carousel-v_slide']" 
+				arrows           = 'true'
+				v-bind:items     = 'support.list'
+				data-index-class = 'reverse'
+				data-interval    = 'false'
+				data-prevent-animation-conflict
+			>
+				<ps-carousel-bootstrap-item v-for='(list, index) in support.list' v-bind:key='index'>
+					<ps-pop-popover 
+						class                 = 'ps_support-item' 
+						data-placement        = 'left'
+						v-bind:data-container = "'.ps_support-' + type"
+						data-trigger          = 'focus'
+					>	
+						<span v-bind:class="['ps_support-status ps_support-' + list.status]"></span>
+						<span
+							class           = 'ps_support-icon'
+							v-bind:data-app = 'list.application'
+						>
+							<ps-image-lazy 
+								background = 'true'
+								src        = ''
+							></ps-image-lazy>
+						</span>
+						<span class='ps_support-content'>{{ list.content }}</span>
+
+						<!-- Popover template -->
+						<template slot='template'>
+							<div class='ps_support-tooltip_status'>
+								<span v-bind:class="['ps_support-status ps_support-' + list.status]"></span>
+								{{ list.status ? shared.lang.language.online:shared.lang.language.offline }}
+							</div>
+						</template>
+					</ps-pop-popover>
+				</ps-carousel-bootstrap-item>
+			</ps-carousel-bootstrap>
+		</div>
+	</div>
+</span>

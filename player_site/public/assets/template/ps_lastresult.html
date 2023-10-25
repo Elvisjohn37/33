@@ -1,0 +1,22 @@
+<div class='ps_js-lastresult' data-custom-tags='indicator,carousel'>
+	<div data-tag='main' class='ps-features_content ps_lastresult'>
+		<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+		<ps-indicator-small-notice v-if='no_item'></ps-indicator-small-notice>
+		<ps-carousel-bootstrap v-if='show' class='ps_lastresult-carousel' v-bind:items='lastresult.list'>
+			<ps-carousel-bootstrap-item
+				v-for      = '(list, index) in lastresult.list'
+				class      = 'ps_lastresult-carousel_item' 
+				v-bind:key = 'index'
+			>
+				<div class='ps_lastresult-header ps-features_content_header'>
+					{{ shared.lang.language.latest }} {{ list.gameName }} {{ shared.lang.language.result }}
+				</div>
+				<div class='ps_lastresult-content ps-features_content_body'>
+					<div class='ps_lastresult-balls_holder'>
+						<span v-for='digit in list.lastResult' class='ps_lastresult-ball'>{{ digit }}</span>
+					</div>
+				</div>
+			</ps-carousel-bootstrap-item>
+		</ps-carousel-bootstrap>
+	</div>
+</div>

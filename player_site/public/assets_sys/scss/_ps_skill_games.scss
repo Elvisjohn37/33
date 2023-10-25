@@ -1,0 +1,31 @@
+
+.ps_skill_games-lobby_container {
+	@include ps_games_template-iframe_lobby;
+
+	.ps_skill_games-lobby {
+		@include ps_keyframes-fadein-up($ps_main-transition 1);
+		position  : relative;
+		height    : 1000px;
+
+		.ps_skill_games-iframe {
+			@include ps_main-card;
+			width   : 100%;
+			height  : 100%;
+			position: relative;
+			display : block;
+		}
+
+		.ps_skill_games-back_button {
+		    position     : absolute;
+		    height       : 40px;
+		    line-height  : 40px;
+		    width        : 40px;
+		    padding      : 0px;
+		    text-align   : center; 
+		    top          : $ps_main-standard-space;
+		    left         : -40px;
+		    font-size    : $ps_main-font-size + 6px;
+		    border-radius: 20px 0px 0px 20px;;
+		}
+	}
+}

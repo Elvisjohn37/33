@@ -1,0 +1,45 @@
+.ps_products {
+
+	.ps_products-carousel {
+		@include ps_carousel-slide_multi(5);
+		height : 100%;
+		width  : 100%; 
+
+		.item {
+			border-right: 1px solid $ps_color-primary;
+
+			a {
+				position   : relative;
+				display    : block;
+				height     : 100%;
+				width      : 100%;
+    			padding    : $ps_main-standard-space * 2;
+    			font-weight: bold;
+
+				.ps_products-icon {
+					@include ps_color-p;
+					background-size: 100%;
+					position  : relative;
+				    height    : 150px;
+				    width     : 150px;
+				    max-width : 100%;
+				    margin    : 0 auto;
+				}
+
+				.ps_products-text {
+					text-align : center;
+    				margin-top : $ps_main-standard-space;
+				}
+			}
+
+			.ps_products-notice {
+				@include ps_color-s(.5);
+				position: absolute;
+				top     : 0;
+				left    : 0;
+				height  : 100%;
+				width   : 100%;
+			}
+		}
+	}
+}

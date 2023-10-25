@@ -1,0 +1,457 @@
+@mixin ps_icon-default_style() {
+    transform     : translate(0, 2px);
+    font-weight   : normal;
+    font-style    : normal;
+    display       : inline-block;
+    text-transform: none;
+    letter-spacing: normal;
+    word-wrap     : normal;
+    white-space   : nowrap;
+    direction     : ltr;
+    line-height   : normal;
+    
+    /* Support for all WebKit browsers. */
+    -webkit-font-smoothing: antialiased;
+
+    /* Support for Safari and Chrome. */
+    text-rendering: optimizeLegibility;
+
+    /* Support for Firefox. */
+    -moz-osx-font-smoothing: grayscale;
+
+    /* Support for IE. */
+    font-feature-settings: 'liga';
+}
+
+
+//**
+//----------------------------------------------------------------------------------------------------------------------
+//  MATERIAL DESIGN
+//----------------------------------------------------------------------------------------------------------------------
+// Emplementation Guide: http://google.github.io/material-design-icons/
+// NOTE : intead of writing directly the font content, we made md- classes 
+// to let css do the inserting of content through psuedo element ::before
+//
+@font-face {
+    font-family: 'Material Icons';
+    font-style : normal;
+    font-weight: 400;
+    src        : local('Material Icons'),
+                local('MaterialIcons-Regular'),
+                url(../fonts/material_design/Material-Design-Iconic-Font.woff2) format('woff2'), 
+                url(../fonts/material_design/Material-Design-Iconic-Font.woff)  format('woff'), 
+                url(../fonts/material_design/Material-Design-Iconic-Font.ttf)   format('truetype');
+}
+
+@mixin ps_icon-material_design() {
+    @include ps_icon-default_style;
+    font-family: 'Material Icons';
+}
+
+[class*=" md-"],
+[class^=md-] {
+    @include ps_icon-material_design;
+}
+
+@mixin ps_icon-schedule() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'schedule';
+    }
+}
+
+@mixin ps_icon-block() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'block';
+    }
+}
+
+@mixin ps_icon-keyboard_arrow_up() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'keyboard_arrow_up';
+    }
+}
+
+@mixin ps_icon-keyboard_arrow_down() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'keyboard_arrow_down';
+    }
+}
+
+@mixin ps_icon-person() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'person';
+    }
+}
+
+@mixin ps_icon-person_add() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'person_add';
+    }
+}
+
+@mixin ps_icon-account_balance_wallet() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'account_balance_wallet';
+    }
+}
+
+@mixin ps_icon-vertical_align_top() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'vertical_align_top';
+    }
+}
+
+@mixin ps_icon-vertical_align_bottom() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'vertical_align_bottom';
+    }
+}
+
+@mixin ps_icon-lock() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'lock';
+    }
+}
+
+@mixin ps_icon-swap_horiz() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'swap_horiz';
+    }
+}
+
+
+@mixin ps_icon-description() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'description';
+    }
+}
+
+@mixin ps_icon-update() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'update';
+    }
+}
+
+@mixin ps_icon-dvr() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'dvr';
+    }
+}
+
+@mixin ps_icon-home() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'home';
+    }
+}
+
+@mixin ps_icon-help() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'help';
+    }
+}
+
+
+@mixin ps_icon-arrow_back() {
+    @include ps_icon-material_design;
+
+    &::before {
+        content: 'arrow_back';
+    }
+}
+
+.md-alert::before {
+    content: 'error';
+}
+
+.md-insert-emoticon::before {
+    content: 'insert_emoticon';
+}
+
+.md-clear::before {
+    content: 'clear';
+}
+
+.md-volume_off::before{
+    content: 'volume_off';
+}
+
+.md-volume_up::before{
+    content: 'volume_up'; 
+}
+
+.md-account_balance_wallet::before {
+    content: 'account_balance_wallet';
+}
+
+.md-autorenew::before {
+    content: 'autorenew';
+}
+
+.md-refresh::before{
+    content: 'refresh';
+}
+
+.md-person::before{
+    content: 'person';
+}
+
+.md-exit_to_app::before{
+    content: 'exit_to_app';
+}
+
+.md-chevron_left::before{
+    content: 'chevron_left';
+}
+
+.md-chevron_right::before{
+    content: 'chevron_right';
+}
+
+.md-expand_more::before{
+    content: 'expand_more';
+}
+
+.md-send::before {
+    content: 'send';
+}
+
+.md-error_outline::before {
+    content: 'error_outline';
+}
+
+.md-arrow_drop_down::before {
+    content: 'arrow_drop_down';
+}
+
+.md-arrow_drop_up::before {
+    content: 'arrow_drop_up';
+}
+
+.md-lock::before {
+    content: 'lock';
+}
+
+.md-done::before {
+    content: 'done';
+}
+
+.md-mail::before {
+    content: 'mail';
+}
+
+.md-arrow_forward::before {
+    content: 'arrow_forward';
+}
+
+.md-create::before {
+    content: 'create';
+}
+
+.md-launch::before {
+    content: 'launch';
+}
+
+.md-pan_tool::before {
+    content: 'pan_tool';
+}
+
+.md-first_page::before {
+    content: 'first_page';
+}
+
+.md-last_page::before {
+    content: 'last_page';
+}
+
+.md-keyboard_backspace::before {
+    content: 'keyboard_backspace';
+}
+
+.md-search::before {
+    content: 'search';
+}
+
+.md-turned_in::before {
+    content: 'turned_in';
+}
+
+.md-turned_in_not::before {
+    content: 'turned_in_not';
+}
+
+.md-all_out::before {
+    content: 'all_out';
+}
+
+.md-list::before {
+    content: 'list';
+}
+
+.md-play_circle_outline::before {
+    content: 'play_circle_outline';
+}
+
+.md-not_interested::before {
+    content: 'not_interested';
+}
+
+.md-schedule::before {
+    content: 'schedule';
+}
+
+.md-info::before {
+    content: 'info';
+}
+
+.md-arrow_upward::before {
+    content: 'arrow_upward';
+}
+
+.md-arrow_back::before {
+    content: 'arrow_back';
+}
+
+.md-check_box_outline_blank::before {
+    content: 'check_box_outline_blank';
+}
+
+.md-check_box::before {
+    content: 'check_box';
+}
+
+.md-keyboard_arrow_up::before {
+    content: 'keyboard_arrow_up';
+}
+
+.md-phone_iphone::before {
+    content: 'phone_iphone';
+}
+
+.md-image::before {
+    content: 'image';
+}
+
+.md-keyboard_arrow_down::before {
+    content: 'keyboard_arrow_down';
+}
+
+.md-save::before {
+    content: 'save';
+}
+
+.md-rotate_right::before {
+    content: 'rotate_right';
+}
+
+.md-photo_camera::before {
+    content: 'photo_camera';
+}
+
+.md-publish::before {
+    content: 'publish';
+}
+
+.md-camera::before {
+    content: 'camera';
+}
+
+.md-chat::before {
+    content: 'chat';
+}
+
+.md-block::before {
+    content: 'block';
+}
+
+//**
+//----------------------------------------------------------------------------------------------------------------------
+//  CUSTOM ICONS
+//----------------------------------------------------------------------------------------------------------------------
+// Collection of svg, compiled via https://icomoon.io
+//
+
+@font-face {
+    font-family: 'Custom Icons';
+    src        : url(../fonts/custom/ps_338a.eot);
+    src        : url(../fonts/custom/ps_338a.eot?#iefix) format('embedded-opentype'),
+                url(../fonts/custom/ps_338a.woff)        format('woff'),
+                url(../fonts/custom/ps_338a.ttf)         format('truetype'),
+                url(../fonts/custom/ps_338a.svg#custom)  format('svg');
+}
+
+@mixin ps_icon-custom() {
+    @include ps_icon-default_style;
+    font-family: 'Custom Icons';
+}
+
+@mixin ps_icon-sport() {
+    @include ps_icon-custom;
+
+    &::before {
+        content: '\e902';
+    }
+}
+
+@mixin ps_icon-spade() {
+    @include ps_icon-custom;
+
+    &::before {
+        content: '\e901';
+    }
+}
+
+@mixin ps_icon-slot_machine() {
+    @include ps_icon-custom;
+
+    &::before {
+        content: '\e900';
+    }
+}
+
+@mixin ps_icon-table() {
+    @include ps_icon-custom;
+
+    &::before {
+        content: '\e903';
+    }
+}
+
+@mixin ps_icon-card_game() {
+    @include ps_icon-custom;
+
+    &::before {
+        content: '\e904';
+    }
+}

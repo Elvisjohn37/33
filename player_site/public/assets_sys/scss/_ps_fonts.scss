@@ -1,0 +1,84 @@
+/* devanagari */
+@font-face {
+    font-family: 'Sarala';
+    font-style : normal;
+    font-weight: 400;
+    src        : local("Sarala"), 
+                local("Sarala-Regular"), 
+                url(../fonts/googleapi.sarala/P2oxV5hsrwXISafdE4Obc_esZW2xOQ-xsNqO47m55DA.woff2) format("woff2"), 
+                url(../fonts/googleapi.sarala/P2oxV5hsrwXISafdE4Obc_esZW2xOQ-xsNqO47m55DA.ttf) format("truetype");
+    unicode-range: U+02BC, U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200B-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+
+/* latin-ext */
+@font-face {
+    font-family: 'Sarala';
+    font-style : normal;
+    font-weight: 400;
+    src        : local("Sarala"), 
+                local("Sarala-Regular"), 
+                url(../fonts/googleapi.sarala/TmW7dZEsmV6jCG5RD3Gpk_esZW2xOQ-xsNqO47m55DA.woff2) format("woff2"), 
+                url(../fonts/googleapi.sarala/TmW7dZEsmV6jCG5RD3Gpk_esZW2xOQ-xsNqO47m55DA.ttf) format("truetype");
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+/* latin */
+@font-face {
+    font-family: 'Sarala';
+    font-style : normal;
+    font-weight: 400;
+    src        : local("Sarala"), 
+                local("Sarala-Regular"), 
+                url(../fonts/googleapi.sarala/s2t9exVCKzFG-HPaQHVGEA.woff2) format("woff2"), 
+                url(../fonts/googleapi.sarala/s2t9exVCKzFG-HPaQHVGEA.ttf) format("truetype");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+
+/* devanagari */
+@font-face {
+    font-family: 'Sarala';
+    font-style : normal;
+    font-weight: 700;
+    src        : local("Sarala Bold"), 
+                local("Sarala-Bold"), 
+                url(../fonts/googleapi.sarala/07JYj812aYX6GSdYxv2jShJtnKITppOI_IvcXXDNrsc.woff2) format("woff2"),
+                url(../fonts/googleapi.sarala/07JYj812aYX6GSdYxv2jShJtnKITppOI_IvcXXDNrsc.ttf) format("truetype");
+    unicode-range: U+02BC, U+0900-097F, U+1CD0-1CF6, U+1CF8-1CF9, U+200B-200D, U+20A8, U+20B9, U+25CC, U+A830-A839, U+A8E0-A8FB;
+}
+
+
+/* latin-ext */
+@font-face {
+    font-family: 'Sarala';
+    font-style : normal;
+    font-weight: 700;
+    src        : local("Sarala Bold"), 
+                local("Sarala-Bold"),
+                url(../fonts/googleapi.sarala/WRp-PFLWd-4JgZ2_Nf2SQBJtnKITppOI_IvcXXDNrsc.woff2) format("woff2"), 
+                url(../fonts/googleapi.sarala/WRp-PFLWd-4JgZ2_Nf2SQBJtnKITppOI_IvcXXDNrsc.ttf) format("truetype");
+    unicode-range: U+0100-024F, U+1E00-1EFF, U+20A0-20AB, U+20AD-20CF, U+2C60-2C7F, U+A720-A7FF;
+}
+
+
+/* latin */
+@font-face {
+    font-family: 'Sarala';
+    font-style : normal;
+    font-weight: 700;
+    src        : local("Sarala Bold"), 
+                local("Sarala-Bold"), 
+                url(../fonts/googleapi.sarala/NktIEkUOaTGbiS3SsqVszVtXRa8TVwTICgirnJhmVJw.woff2) format("woff2"), 
+                url(../fonts/googleapi.sarala/NktIEkUOaTGbiS3SsqVszVtXRa8TVwTICgirnJhmVJw.ttf) format("truetype");
+    unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2212, U+2215, U+E0FF, U+EFFD, U+F000;
+}
+
+/* regular */
+@font-face {
+    font-family: 'digital';
+    src        : url(../fonts/digital/digital.woff2) format("woff2"), 
+                url(../fonts/digital/digital.ttf) format("truetype"), 
+                url(../fonts/digital/digital.eot) format("embedded-opentype");
+}

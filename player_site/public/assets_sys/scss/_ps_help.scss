@@ -1,0 +1,301 @@
+.ps_js-help_menu_root {
+	@include ps_popup-right-modal;
+	
+	.modal-content .modal-body {
+		padding: 0px;	
+
+		.ps_components-collapsed {
+
+			> .ps_components-list_collapsible_header {
+				color: $ps_color-saccentlight;
+			}
+		}
+
+		.ps_components-list_collapsible_header {
+			text-shadow: 0px 0px 1px darken($ps_color-paccentlight, 20%);
+			transition : all $ps_main-transition;
+				
+			.ps_navigation-sidebar_item {
+				transition: all 0s;
+
+				&:hover {
+					background: transparent;
+					color     : inherit !important;
+				}
+			}
+
+			&:hover {
+				@include ps_color-paccentlight(.1);
+				color: $ps_color-saccentlight;
+			}
+		}
+
+    	li  {
+    		color: inherit !important;
+
+			.ps_navigation-sidebar_item {
+				transition   : all $ps_main-transition;
+				border-bottom: 1px solid rgba($ps_color-primary, .2);
+				color        : inherit !important;
+
+				&:hover {
+					@include ps_color-paccentlight(.1);
+					color     : $ps_color-saccentlight  !important;
+				}
+			}
+		}
+	}
+}
+
+.ps_help-modal_header {
+	@include ps_helper-clearfix;
+	position: relative;
+
+	.ps_help-modal_header_subtext {
+		font-size : $ps_main-font-size - 3px;
+		opacity   : .6; 
+		margin-top: -6px;
+	}
+}
+
+@mixin ps_help-stick-header($stick_now: false) {
+	@include ps_popup-sticky-header-requirement(65px, $ps_popup-modal-l-width, $stick_now);
+}
+
+$ps_help-faq_header_height: 40px;
+.ps_js-faq_root {
+	@include ps_help-stick-header;
+	
+	$ps_help-faq_toggle_size: $ps_main-font-size + 4px;
+	.ps_help-faq_toggle_answers {
+		background  : lighten($ps_color-plight, 10%);
+		font-weight : normal;
+		position    : absolute;
+		right       : 0px;
+		top         : 0px;
+		padding-left: $ps_help-faq_toggle_size  + $ps_main-standard_space;
+		transition  : all $ps_main-transition;
+		font-size   : $ps_main-font-size;
+		margin-right: $ps_main-standard_space;
+
+		.ps_help-toggle_indicator {
+			@include ps_helper-v-center(absolute);
+			left     : $ps_main-standard_space/2;
+			font-size: $ps_help-faq_toggle_size;
+		}
+
+		.ps_help-toggle_indicator_check {
+			opacity   : 0;
+			transition: opacity $ps_main-transition;
+		}
+
+		&:hover {
+
+			.ps_help-toggle_indicator_check {
+				opacity: .7;
+			}
+		}
+
+		&.ps_help-is_expand_all {
+
+			.ps_help-toggle_indicator_check {
+				opacity: 1;
+			}
+		}
+	}
+
+	.modal-content .modal-body {
+		padding: 0px;
+
+		.ps_components-list_collapsible {
+
+			.ps_components-list_collapsible_header {
+				position    : relative;
+				padding     : 11px;
+				padding-left: $ps_help-faq_header_height;
+				transition  : all $ps_main-transition;
+
+				&:hover {
+					color: $ps_color-paccent;
+				}
+
+				.ps_help-faq_item {
+					position   : relative;
+					line-height: normal;
+					display    : inline-block;
+				}
+
+				.ps_help-faq_number {
+					position   : absolute;
+					display    : block;
+					text-align : center; 
+					top        : 0px;
+					left       : 0px;
+					width      : $ps_help-faq_header_height;
+					height     : $ps_help-faq_header_height;
+					line-height: $ps_help-faq_header_height;
+				}
+			}
+
+			&.ps_components-collapsed  {
+
+				.ps_components-list_collapsible_header {
+					color: $ps_color-paccentlight;
+				}
+			}
+
+			.ps_components-list_collapsible_content {
+				border-top  : 1px solid rgba($ps_color-pdark, .1);
+			}
+
+			.ps_help-faq_content {
+				padding-left: $ps_help-faq_header_height;
+			} 
+		}
+	}
+}
+
+.ps_js-gaming_rules_root {
+	.ps_help-gaming_rules_title {
+
+		&:first-child {
+			margin-top: 0px;
+		}
+	}
+	
+	.ps_help-gaming_rules_topic {
+		font-weight: bold;
+	}
+}
+
+.ps_js-game_guide_root {
+	@include ps_help-stick-header;
+	
+	.ps_components-back {
+		display: none;
+	}
+
+	&.ps_popup-active .ps_components-back {
+		display: inline-block;
+	}
+
+	&.ps_popup-modal .modal-content .ps_help-game_guide_select {
+		position    : absolute;
+		right       : 0px;
+		top         : 0px;
+		font-weight : normal;
+		font-size   : $ps_main-font-size;
+		margin-right: $ps_main-standard_space;
+	}
+	
+	// Please take note that game guide content styles should be identical to admin site except the colors
+	.ps_helper-game_guide_content {
+		font-size: 14px;
+
+		h1 {
+		    font-size     : 24px; 
+		    font-weight   : 400;
+		    letter-spacing: 1.5px;
+		    text-transform: uppercase;
+		    padding       : 0;
+		}
+
+		a {
+		    outline        : none;
+		    text-decoration: none;
+
+		    &:hover{
+			    text-decoration: none;
+			}
+		}
+
+		img {
+		    margin   : 0 2px;
+    		max-width: 100%;
+		}
+
+		p, ol {
+		    font-size    : 14px;
+		    margin-bottom: 25px;
+		    color        : rgba($ps_color-ptext, .9);
+		}
+
+		ol {
+		    list-style: none;
+		}
+
+		.table {
+			@include ps_components-table-common-styles;
+
+		    .thead{
+			    > td, > th 
+			     {
+				    text-align      : center;
+				    font-weight     : bold;
+				    vertical-align  : middle !important;
+				}
+			}
+			
+			tbody > tr > td, tfoot > tr > td {
+			    padding       : 6px;
+			    line-height   : 1.42857143;
+			    vertical-align: middle;
+			    font-size     : 11px;
+			}
+		}
+	}
+}
+
+.ps_help-game_guide_tree {
+    margin: ($ps_main-standard-space*2) 0px;
+
+	.ps_navigation-sidebar_tree {
+		padding-left: $ps_main-standard_space * 2; 
+
+		.ps_navigation-sidebar_tree {
+			border-left : 1px dashed rgba($ps_color-ptext,.2);
+		}
+
+		li {
+			.ps_navigation-sidebar_item {
+				padding     : ($ps_main-standard_space/2) 0px;  
+				padding-left: 0px;  
+				height      : auto;
+				line-height : normal;
+			}
+		}
+	}
+}
+
+#ps_js-help_modal {
+
+   	.ps_js-core_view_ingame & {
+   		@include ps_popup-modal-fade-only;
+		@include ps_color-plight-darken;
+   		padding   : 0px;
+
+   		.modal-dialog {
+   			box-shadow: none !important;
+   		}
+   	}
+
+	&.ps_js-faq_root,&.ps_js-gaming_rules_root,&.ps_js-game_guide_root,&.ps_js-terms_conditions_root {
+		@include ps_popup-modal-l;
+		@include ps_popup-modal-full_height;
+	}
+
+	.ps_help-modal_body {
+		min-height: 232px;
+	}
+}
+
+.ps_js-core_view_ingame {
+
+	.ps_js-help_menu_root  {
+		display: none !important;
+	}
+	
+	.ps_js-game_guide_root {
+		@include ps_help-stick-header(true);
+	}
+}

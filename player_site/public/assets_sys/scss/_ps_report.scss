@@ -1,0 +1,422 @@
+$ps_report-title-height: 40px;
+.ps_report {
+	@include ps_navigation-disable-sidebar-dropdown;
+
+	.ps_navigation-hash_carousel .item {
+		padding       : 0px;
+		padding-bottom: $ps_main-standard-space * 4;
+	}
+
+	.ps_report-title, .ps_report-transaction_logs_tools,.ps_report-statement_buttons {
+		position     : relative;
+		background   : rgba($ps_color-plight, .3);
+		padding      : 0px $ps_main-standard-space;
+		height       : $ps_report-title-height;
+		line-height  : $ps_report-title-height;  
+	}
+
+	.ps_report-statement_dates {
+		display     : block;
+
+		li {
+			width: ($ps_main-max_percent/3);
+			position  : relative;
+			display   : block;
+			text-align: center; 
+
+			.ps_report-statement_buttons {
+				display      : block;
+				width        : 100%;
+				border-bottom: 2px solid transparent;
+
+				&:hover {
+					background   : rgba($ps_color-plight, .5);
+					border-bottom: 2px solid rgba($ps_color-paccentlight, .3);
+				}
+
+				&.ps_report-statement_date_selected {
+					color        : $ps_color-paccentlight;
+					background   : rgba($ps_color-plight, .8);
+					border-bottom: 2px solid rgba($ps_color-paccentlight, 1);
+				}
+			}
+		}
+	}
+
+	.ps_report-title {
+		@include ps_helper-clearfix;
+		text-align   : center;
+
+		.ps_report-back {
+		    width     : $ps_report-title-height;
+		    background: rgba($ps_color-plight, .5);
+		    position  : absolute;
+		    left      : 0px;
+		    top       : 0px;
+		}
+	}
+
+	.ps_report-table {
+		width     : 100%;
+		margin-top: ($ps_main-standard-space * 2) - 20px;
+		overflow  : hidden;
+   		padding   : 20px 0px;
+
+	}
+
+	.ps_report-statement_table {
+		thead th {
+
+			&:nth-child(1) {
+				@include ps_components-td-width(32px);
+			}
+
+			&:nth-child(2) {
+				@include ps_components-td-width(80px);
+			}
+
+			&:nth-child(3) {
+				@include ps_components-td-width(65px);
+			}
+
+			&:nth-child(4) {
+				@include ps_components-td-width(75px);
+			}
+
+			&:nth-child(5) {
+				@include ps_components-td-width(65px);
+			}
+
+			&:nth-child(6) {
+				@include ps_components-td-width(80px);
+			}
+
+			&:nth-child(7) {
+				@include ps_components-td-width(80px);
+			}
+
+			&:nth-child(8) {
+				@include ps_components-td-width(90px);
+			}
+
+			&:nth-child(9) {
+				@include ps_components-td-width(80px);
+			}
+		}
+
+		tbody td {
+			text-align: center;
+
+			&:nth-child(n+5) {
+				text-align: right;
+			}
+		}
+
+		tfoot td {
+			text-align: right;
+		}
+	}
+
+	.ps_report-transfer_table {
+
+		thead th {
+			&:nth-child(1) {
+				@include ps_components-td-width(32px);
+			}
+
+			&:nth-child(2) {
+				@include ps_components-td-width(80px);
+			}
+
+			&:nth-child(3) {
+				min-width: 140px;
+			}
+
+			&:nth-child(4) {
+				@include ps_components-td-width(108px);
+			}
+
+			&:nth-child(5) {
+				@include ps_components-td-width(128px);
+			}
+
+			&:nth-child(6) {
+				@include ps_components-td-width(110px);
+			}
+		}
+		
+		tbody td {
+			text-align: center;
+
+			&:nth-child(n+4) {
+				text-align: right;
+			}
+		}
+	}
+
+	.ps_report-betting_table {
+
+		thead th {
+			&:nth-child(1) {
+				@include ps_components-td-width(32px);
+			}
+
+			&:nth-child(2) {
+				@include ps_components-td-width(80px);
+			}
+
+			&:nth-child(3) {
+				min-width: 100px;
+			}
+
+			&:nth-child(4) {
+				@include ps_components-td-width(60px);
+			}
+
+			&:nth-child(5) {
+				min-width: 140px;
+			}
+
+			&:nth-child(6) {
+				@include ps_components-td-width(65px);
+			}
+
+			&:nth-child(7) {
+				@include ps_components-td-width(60px);
+			}
+
+			&:nth-child(8) {
+				@include ps_components-td-width(90px);
+			}
+		}
+		
+		tbody td {
+			text-align: center;
+
+			&:nth-child(n+6) {
+				text-align: right;
+			}
+		}
+	}
+
+	.ps_report-credit_table {
+
+		thead th {
+			&:nth-child(1) {
+				@include ps_components-td-width(32px);
+			}
+
+			&:nth-child(2) {
+				@include ps_components-td-width(80px);
+			}
+
+			&:nth-child(3) {
+				min-width: 140px;
+			}
+
+			&:nth-child(4) {
+				@include ps_components-td-width(85px);
+			}
+
+			&:nth-child(5) {
+				@include ps_components-td-width(128px);
+			}
+
+			&:nth-child(6) {
+				@include ps_components-td-width(110px);
+			}
+		}
+		
+		tbody td {
+			text-align: center;
+
+			&:nth-child(n+4) {
+				text-align: right;
+			}
+		}
+	}
+
+	.ps_report-running_bets_table {
+
+		thead th {
+			&:nth-child(1) {
+				@include ps_components-td-width(32px);
+			}
+
+			&:nth-child(2) {
+				@include ps_components-td-width(80px);
+			}
+
+			&:nth-child(3) {
+				min-width: 100px;
+			}
+
+			&:nth-child(4) {
+				min-width: 140px;
+			}
+
+			&:nth-child(5) {
+				@include ps_components-td-width(65px);
+			}
+
+			&:nth-child(6) {
+				@include ps_components-td-width(60px);
+			}
+		}
+		
+		tbody td {
+			text-align: center;
+
+			&:nth-child(5) {
+				text-align: right;
+			}
+		}
+	}
+	
+	.ps_report-running_bets {
+
+		.ps_report-title {
+			@media (max-width: $ps_main-screen-desktop - 1px) {
+				padding-right: 180px;
+			}
+		}
+
+		.ps_report-total_running_bets {
+	        @include ps_color-paccentlight-fade-lighter;
+			position   : absolute;
+			right      : 0px;
+			top        : 0px;
+	     	text-shadow: -1px -1px 10px rgba($ps_color-paccentlight, 0.2), 
+	     	 			-1px 1px 4px rgba($ps_color-paccentlight, 0.2), 
+	     	 			1px 1px 10px rgba($ps_color-paccentlight, 0.2);
+	     	padding    : 0px $ps_main-standard-space;
+		}
+	}
+
+	$ps_report-transation_logs_date: 220px;
+	.ps_report-transaction_logs {
+		min-height: 420px;
+		
+		.ps_report-transaction_logs_tools {
+			z-index : 3;
+			position: relative;
+
+		    @media all and (max-width:($ps_main-screen-desktop - 1px)) {
+		        .ps_report-logs_arrow_text {
+		        	display: none;
+		        }
+		    }
+		}
+
+		.ps_components-form {
+			@include ps_helper-clearfix;
+			max-width: none;
+
+			.ps_report-transaction_logs_date {
+				width      : $ps_report-transation_logs_date;
+	    		position   : relative;
+	    		display    : inline-block;
+				float      : left;
+				height     : $ps_report-title-height;
+				line-height: $ps_report-title-height;
+				
+				.ps_components-calendar_wrap {
+				    display: inline-block;
+				    width: 100%;
+
+					.ps_components-calendar {
+						line-height: normal;
+					}
+				}
+			}
+
+			.ps_report-logs_date_label {
+				display    : inline-block;
+				float      : left;
+				height     : $ps_report-title-height;
+				line-height: $ps_report-title-height;
+			}
+
+			.ps_components-button {
+				// 30 px is button height
+				margin-top: ($ps_report-title-height - 30px)/2;
+				display   : inline-block;
+				float     : left;
+
+				+ .ps_components-button {
+					margin-left: $ps_main-standard-space/2;
+				}
+			}
+		}
+
+		.ps_report-log_notice {
+			margin-top   : $ps_main-standard-space * 2;
+			margin-bottom: $ps_main-standard-space;
+			color        : $ps_color-ptextsecondary;
+			text-align   : center;  
+		}
+		
+		.ps_report-transaction_logs_table  {
+			padding-top: 0px;
+
+			thead th {
+
+				&:nth-child(1) {
+					@include ps_components-td-width(32px);
+				}
+
+				&:nth-child(2) {
+					@include ps_components-td-width(80px);
+				}
+
+				&:nth-child(3) {
+					@include ps_components-td-width(66px);
+				}
+
+				&:nth-child(4) {
+					min-width: 100px;
+				}
+
+				&:nth-child(5) {
+					@include ps_components-td-width(60px);
+				}
+
+				&:nth-child(6) {
+					min-width: 140px;
+				}
+
+				&:nth-child(7) {
+					@include ps_components-td-width(108px);
+				}
+
+				&:nth-child(8) {
+					@include ps_components-td-width(65px);
+				}
+
+				&:nth-child(9) {
+					@include ps_components-td-width(60px);
+				}
+
+				&:nth-child(10) {
+					@include ps_components-td-width(86px);
+				}
+
+				&:nth-child(11) {
+					@include ps_components-td-width(110px);
+				}
+			}
+			
+			tbody td {
+				text-align: center;
+
+				&:nth-child(n+7) {
+					text-align: right;
+				}
+			}
+		}
+	}
+}
+
+.ps_js-core_view_ingame .ps_report {
+	@include ps_navigation-full-size-page;
+}

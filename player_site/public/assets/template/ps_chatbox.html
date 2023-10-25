@@ -1,0 +1,184 @@
+<!--
+| chatbox
+| Used span as wrapper because root element has v-bind:class which should noe be mixed with normal class attribute,
+| but we need class attribute for the template to be detected.
+-->
+<span class='ps_js-chatbox' data-custom-tags='indicator,form,image,pop'>
+	<span data-tag='main'>
+		<!--
+		| NATIVE
+		-->
+		<div 
+			v-if         = "type=='native' && !is_loading"
+			v-bind:class = "[{'ps_chatbox-active':raw_data.is_active},{'ps_chatbox-hide':raw_data.status.chatStatus=='hide'},'ps_chatbox']"
+		>
+			<div class='ps_chatbox-header ps_js-chatbox_opener'>
+				<span class='ps_chatbox-status' v-bind:class="'ps_chatbox-' + raw_data.status.status"></span>
+				<span class='ps_chatbox-title'>{{ shared.lang.language.live_chat_support }}</span>
+				<ps-indicator-badge v-if='raw_data.status.unread > 0'>{{ raw_data.status.unread }}</ps-indicator-badge>
+				<div v-if='raw_data.is_active' class='ps_components-chatbox_close_icon'>
+					<span class='ps_chatbox-username'>
+						<template v-if='shared.user.is_auth'>
+							{{ shared.user.loginName }}
+						</template>
+						<template v-else>
+							{{ shared.user.username }}
+						</template>
+					</span>
+					<span class='ps_icon md-keyboard_arrow_down'></span>
+				</div>
+			</div>
+			<div class='ps_chatbox-content_wrap'>
+				<div v-bind:class="[{'ps_chatbox-has_notification':chatbox_data.notification}, 'ps_chatbox-body']">
+					<div class='ps_chatbox-notification'>
+						<span v-if="raw_data.status.status == 'online'">
+							<span 
+								v-if  = 'shared.user.is_auth && !shared.user.isWalkIn' 
+								class = 'ps_chatbox-notification_text'
+							>
+								{{ shared.lang.messages.agent_chat_online }}
+							</span>
+							<span v-else class='ps_chatbox-with_photo_notification ps_chatbox-notification_text'>
+								<div class='ps_chatbox-agent_photo'>
+									<ps-image-lazy
+										v-bind:src = "shared.rso.assets + 'images/ps_chatbox/agent.png'"
+									></ps-image-lazy>
+								</div>
+								{{ shared.lang.messages.walkin_chat_online }}
+							</span>
+						</span>
+						<span v-else>
+							<span 
+								v-if  = 'shared.user.is_auth && !shared.user.isWalkIn'
+								class = 'ps_chatbox-notification_text'
+							>
+								{{ shared.lang.messages.agent_chat_offline }}
+							</span>
+							<span v-else class='ps_chatbox-notification_text'>
+								{{ shared.lang.messages.walkin_chat_offline }}
+							</span>
+						</span>
+					</div>
+					<ps-indicator-loader v-if='chatbox_data.is_loading && chatbox_data.message_length <= 0'>
+					</ps-indicator-loader>
+					<div  v-else-if ='chatbox_data.message_length > 0' class='ps_chatbox-messages ps_js-chat_body'>
+						<div 
+							v-if  = 'raw_data.status.has_message' 
+							class = 'ps_chatbox-message_row ps_chatbox-lazy_loader ps_js-lazy_loader'
+						> 
+							<ps-indicator-loader></ps-indicator-loader>
+						</div>
+						<template v-for='message in chatbox_data.messages'>
+							<div v-if='message.showDate' class='ps_chatbox-message_row ps_chatbox-date'>
+								<hr>
+								<span class='ps_chatbox-date_display'>
+									{{ message.displayDate }}
+								</span>
+							</div>
+							<div v-bind:class= "[{'ps_chatbox-is_you':message.is_you}, 'ps_chatbox-message_row']">
+								<div  v-if='!message.is_you' class='ps_chatbox-agent_photo'>
+									<ps-image-lazy
+										v-bind:src = "shared.rso.assets + 'images/ps_chatbox/agent.png'"
+									></ps-image-lazy>
+								</div>
+								<span 
+									v-bind:class= "[{'ps_chatbox-blocked':message.blocked},{'ps_chatbox-sending':message.sending},'ps_chatbox-message_bubble']"
+								>
+									<ps-pop-tooltip
+										v-if           = 'message.blocked'
+										class          = 'ps_chatbox-message_retry_blocked'
+										data-component = 'tooltip'
+										data-placement = 'top'
+										data-container = 'body'
+										v-bind:title   = 'shared.lang.messages.send_when_enable'
+									>
+										<i class='ps_icon md-schedule'></i>
+									</ps-pop-tooltip>
+									<ps-pop-tooltip
+										v-else-if      = 'message.failed'
+										class          = 'ps_chatbox-message_retry ps_js-chatbox_retry'
+										data-component = 'tooltip'
+										data-placement = 'top'
+										data-container = 'body'
+										v-bind:title   = 'shared.lang.language.retry'
+										v-bind:data-id = 'message.send_id'
+									>
+										<i class='ps_icon md-error_outline'></i>
+									</ps-pop-tooltip>
+									<span class='ps_chatbox-message_arrow'></span>
+									<span
+										class  = 'ps_chatbox-message_content'
+										v-html = 'message.messages'
+									></span>
+								</span>
+							</div>
+						</template>
+					</div>
+					<ps-indicator-small-notice v-else>{{shared.lang.messages.no_chat}}</ps-indicator-small-notice>
+				</div>
+				<div class='ps_chatbox-footer'>
+					<form class='ps_js-chatbox_send_form'>
+						<ps-form-elastic-textarea 
+							v-if               = 'multiline'
+							adjust-parent      = '.ps_chatbox-footer' 
+							class              = 'ps_chatbox-composed ps_js-composed' 
+							v-bind:placeholder = 'shared.lang.messages.chatbox_placeholder'
+							v-bind:title       = 'shared.lang.messages.chatbox_placeholder'
+							v-bind:tabindex    = 'raw_data.is_active ? 0 : -1'
+							v-bind:disabled    = '!chatbox_data.can_send_final'
+						></ps-form-elastic-textarea>
+						<ps-form-input 
+							v-else
+							class              = 'ps_chatbox-composed ps_js-composed' 
+							v-bind:placeholder = 'shared.lang.messages.chatbox_placeholder'
+							v-bind:title       = 'shared.lang.messages.chatbox_placeholder'
+							v-bind:tabindex    = 'raw_data.is_active ? 0 : -1'
+							v-bind:disabled    = '!chatbox_data.can_send_final'
+						></ps-form-input>
+					</form>
+				    <ps-indicator-countdown-timer	
+						v-bind:time-info = 'raw_data.status.block_until'
+						v-bind:format    = 'raw_data.chat_block_time'
+						v-bind:retrieve  = "['seconds']"
+						v-bind:class     = "[{ 'ps_chatbox-block_timer_start': raw_data.status.block_until }, 'ps_js-chatbox_block_timer ps_chatbox-block_timer']"
+					>	
+						<template scope='info'>
+							<i class='ps_icon md-block'></i> 
+							{{ shared.lang.messages.sending_message_disabled }}
+							<span class='ps_chatbox-actual_block_time'>
+								{{ info.computed_time.seconds }}{{ shared.lang.language.seconds_symbol }}
+							</span>
+						</template>
+						<template slot='not_running_notice'>
+							<i class='ps_icon md-block'></i> 
+							{{ shared.lang.messages.sending_message_disabled }}
+						</template>
+					</ps-indicator-countdown-timer>
+				</div>
+			</div>
+		</div>
+
+
+		<!--
+		| LIVE CHAT
+		-->
+		<div 
+			v-if  = "type=='livechatinc' && !is_loading && is_mobile_agent"
+			class = 'ps_js-chatbox_opener ps_chatbox-livechatinc_opener'
+		>
+			<i class='ps_icon md-chat'></i>
+			<span class='ps_chatbox-status' v-bind:class="'ps_chatbox-' + raw_data.status.status"></span>
+		</div>
+
+		<!--
+		| SNAP ENGAGE
+		-->
+		<div 
+			v-if  = "type=='snapengage' && !is_loading && !is_mobile_agent"
+			class = 'ps_js-chatbox_opener ps_chatbox-snapengage_opener'
+		>
+			<i class='ps_icon md-chat'></i>
+			<span class='ps_chatbox-status' v-bind:class="'ps_chatbox-' + raw_data.status.status"></span>
+		</div>
+	</span>
+</span>

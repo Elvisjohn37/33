@@ -1,0 +1,62 @@
+.ps_account-profile {
+
+	.ps_avatar-primary_edit {
+		opacity   : 0; 
+		transition: all $ps_main-transition;
+
+		.ps_navigation-page_item.active & {
+			opacity: 1;
+		}
+
+	    @media all and (min-width: $ps_main-screen-desktop) {
+			position  : absolute;
+			// 120px is avatar image size
+			right     : -(120px  + ($ps_main-standard-space * 4));
+			// ($ps_main-standard-space * 4) is page top padding
+			top       : -($ps_main-standard-space + ($ps_main-standard-space * 4));
+	    }
+
+	    @media all and (max-width: $ps_main-screen-desktop - 1px) {
+		    position     : relative;
+		    width        : 120px;
+		    margin       : 0 auto;
+		    margin-top   : -40px;
+		    margin-bottom: 16px;
+	    }
+	}
+}
+
+.ps_account-balance {
+
+	.ps_components-input_wrap {
+		@include ps_components-input_spacing;
+	}
+}
+
+$ps_account-platform_width: 200px;
+$ps_account-wallet_width  : 100px;
+.ps_account-fund_transfer {
+
+	.ps_account-wallet_table {
+		position     : relative;
+		width        : $ps_account-platform_width + $ps_account-wallet_width;
+		margin       : 0 auto;
+		margin-bottom: $ps_main-standard-space*2;
+		
+		th:nth-child(1) {
+			@include ps_components-td-width($ps_account-platform_width);
+		} 
+
+		th:nth-child(2) {
+			@include ps_components-td-width($ps_account-wallet_width);
+		} 
+
+		td:nth-child(2) {
+			text-align: right;
+		} 
+
+		tbody td:nth-child(1) {
+			text-align: center;
+		}
+	}
+}

@@ -1,0 +1,22 @@
+<div class='ps_js-jackpot' data-custom-tags='indicator,carousel'>
+	<div data-tag='main' class='ps_jackpot ps-features_content'>
+		<div class='ps_jackpot-header ps-features_content_header'>{{ shared.lang.language.jackpot }}</div>
+		<div class='ps-features_content_body'>
+			<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+			<ps-indicator-small-notice v-if='no_item'></ps-indicator-small-notice>
+			<ps-carousel-bootstrap v-if='show' class='ps_jackpot-carousel' v-bind:items='jackpot.list' data-transition = 'fade'>
+				<ps-carousel-bootstrap-item
+					v-for      = '(list, index) in jackpot.list'
+					class      = 'ps_jackpot-carousel_item' 
+					v-bind:key = 'index'
+				>
+					<div class='ps_jackpot-prize'>{{ list.jackpot }}</div>
+					<div class='ps_jackpot-product'>
+						{{ list.productName }}
+					</div>
+				</ps-carousel-bootstrap-item>
+			</ps-carousel-bootstrap>
+		</div>
+	</div>
+
+</div>

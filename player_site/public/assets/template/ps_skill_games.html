@@ -1,0 +1,37 @@
+<!--
+| Skill Games page
+-->
+<div class='ps_js-skill_games' data-custom-tags='games_template,indicator,form,pop'>
+	<ps-games-template-thumbnail 
+		v-bind:product-id = 'hash_info.productID' 
+		v-bind:class      = "[{'ps-hidden':page_info.is_lobby}, 'ps_js-skill_games_display']"
+	></ps-games-template-thumbnail>
+	<div v-bind:class = "[{'ps-hidden': !page_info.is_lobby}, 'ps_skill_games-lobby_container']">
+		<div class = 'ps_skill_games-lobby ps-container ps_games_template-lobby'>
+		    <ps-pop-tooltip 
+		    	v-bind:title   = 'shared.lang.language.back' 
+		    	data-placement = 'right'
+		    	class          = 'ps_js-skill_games_back ps_components-button ps_skill_games-back_button'
+		    >
+				<i class='ps_icon md-chevron_left'></i>
+		    </ps-pop-tooltip>
+			<ps-indicator-loader v-if='is_lobby_loading'></ps-indicator-loader>
+			<template  v-else>
+				<iframe 
+					class      = 'ps_js-skill_games_iframe ps_skill_games-iframe' 
+					name       = 'ps_skill_games-iframe'
+					v-bind:src = 'response.URL' 
+				></iframe>
+				<form   
+					class         = 'ps_js-skill_games_form ps-hidden'   
+					v-bind:action = 'response.URL' 
+					method        = 'post'
+					target        = 'ps_skill_games-iframe'
+				>
+					<ps-form-input type='hidden' name='token' v-bind:value='response.token'></ps-form-input>
+					<ps-form-input type='hidden' name='lang'  v-bind:value='response.lang'></ps-form-input>
+				</form>
+			</template>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,21 @@
+.ps_language {
+	display: inline-block;
+	
+	.ps_language-item {
+		@include ps_color-plight; 
+		cursor     : pointer;
+		width      : 33px;
+		height     : 24px;
+		display    : inline-block;
+
+		~ .ps_language-item {
+			margin-left: $ps_main-standard-space;
+		}
+
+		.ps_image-img {
+			height         : 100%;
+			width          : 100%;
+			background-size: 100% 100%;
+		}
+	}
+}

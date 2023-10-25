@@ -1,0 +1,108 @@
+<div class='ps_js-latest_transactions' data-custom-tags='indicator,carousel,pop'>
+	<div data-tag='main' class='ps_latest_transactions ps-features_content'>
+		<div class='ps-features_content_header'>
+			<ul v-if='is_loading' class='ps-ul_horizontal ps_latest_transactions-header_navigation'>
+				<li>
+					<ps-pop-tooltip
+						v-bind:title   = "shared.lang.language.latest_winners"
+						data-placement = 'top'
+						class          = 'ps_latest_transactions-tooltip_link'
+					>
+						<span class='ps_latest_transactions-icon'>
+							<ps-image-lazy 
+							    class        = 'ps_latest_transactions-winners'
+								background   = 'true'
+								v-bind:src   = "shared.rso.assets + 'images/ps_latest_transactions/transaction_type_sprite.png'" 
+							></ps-image-lazy>
+						</span>
+					</ps-pop-tooltip>
+				</li>
+				<li>
+					<ps-pop-tooltip
+						v-bind:title   = "shared.lang.language.latest_deposit"
+						data-placement = 'top'
+						class          = 'ps_latest_transactions-tooltip_link'
+					>
+						<span class='ps_latest_transactions-icon'>
+							<ps-image-lazy 
+							    class        = 'ps_latest_transactions-deposit'
+								background   = 'true'
+								v-bind:src   = "shared.rso.assets + 'images/ps_latest_transactions/transaction_type_sprite.png'" 
+							></ps-image-lazy>
+						</span>
+					</ps-pop-tooltip>
+				</li>
+				<li>
+					<ps-pop-tooltip
+						v-bind:title   = "shared.lang.language.latest_withdrawal"
+						data-placement = 'top'
+						class          = 'ps_latest_transactions-tooltip_link'
+					>
+						<span class='ps_latest_transactions-icon'>
+							<ps-image-lazy 
+							   class         = 'ps_latest_transactions-withdrawal'
+								background   = 'true'
+								v-bind:src   = "shared.rso.assets + 'images/ps_latest_transactions/transaction_type_sprite.png'" 
+							></ps-image-lazy>
+						</span>
+					</ps-pop-tooltip>
+				</li>
+			</ul>
+		</div>
+		<div class='  ps-features_content_body'>
+			<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+			<ps-carousel-bootstrap 
+				v-else 
+				class            = 'ps_jackpot-carousel' 
+				data-index-class = 'true'
+				id        	     = 'ps_latest_transactions-carousel'
+			>
+				<div class='ps_latest_transactions-header' slot='indicators'>
+					<ps-carousel-bootstrap-indicators 
+						v-bind:items = 'contents' 
+						target       = 'ps_latest_transactions-carousel'
+						class        = 'ps_latest_transactions-header_navigation'
+					>
+						<template v-for='(content, index) in contents' v-bind:slot='index'>
+							<ps-pop-tooltip
+								v-bind:title   = "shared.lang.language['latest_' + content.type]"
+								data-placement = 'top'
+								data-container = 'body'
+								v-bind:key     = 'index'
+								class          = 'ps_latest_transactions-tooltip_link'
+							>
+								<span class='ps_latest_transactions-icon'>
+									<ps-image-lazy 
+									    v-bind:class = "'ps_latest_transactions-' + content.type"
+										background   = 'true'
+										v-bind:src   = "shared.rso.assets + 'images/ps_latest_transactions/transaction_type_sprite.png'" 
+									></ps-image-lazy>
+								</span>
+							</ps-pop-tooltip>
+						</template>
+					</ps-carousel-bootstrap-indicators>
+				</div>
+				<ps-carousel-bootstrap-item v-for='(content, index) in contents' v-bind:key='index'>
+					<ps-indicator-small-notice v-if='content.no_item'></ps-indicator-small-notice>
+					<ul v-else class='ps_latest_transactions-list ps-ul_vertical'>
+						<li v-for='item in content.list' v-bind:class="'ps_latest_transactions-' + content.type">
+							<span class='ps_latest_transactions-icon'>
+								<ps-image-lazy 
+								    v-bind:class = "'ps_latest_transactions-' + content.type"
+									background   = 'true'
+									v-bind:src   = "shared.rso.assets + 'images/ps_latest_transactions/transaction_type_sprite.png'" 
+								></ps-image-lazy>
+							</span>
+							<div class="ps_latest_transactions-amount">     {{ item.amount }}     </div>
+							<div class="ps_latest_transactions-displayName">{{ item.displayName }}</div>
+							<div class="ps_latest_transactions-type">       
+								{{ shared.lang.language[content.product_name_key] }}  
+							</div>
+						</li>
+					</ul>
+				</ps-carousel-bootstrap-item>
+			</ps-carousel-bootstrap>
+		</div>
+
+	</div>
+</div>

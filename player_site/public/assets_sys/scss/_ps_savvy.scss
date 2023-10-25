@@ -1,0 +1,18 @@
+.ps_savvy-announcement {
+	position     : absolute;
+    left         : 0px;
+    top          : 0px;
+    padding-right: 347px;
+	width        : 100%;
+	height       : 100%;
+
+	#savvy_ann_container {
+		width : 100%;
+		height: 100%;
+
+		#rtext {
+			width : 100%;
+			height: 100%;
+		}
+	}
+}

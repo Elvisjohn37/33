@@ -1,0 +1,660 @@
+<!--
+| css
+-->
+<link rel='stylesheet' v-bind:href='href'>
+
+<!--
+| User options
+-->
+<div class='ps_js-options_custom_tags' data-cusotm-tags='pop'>
+    <span data-tag='refresh-balance'>
+        <ps-pop-tooltip
+            v-bind:class   = "[{ 'ps_disabled': is_refreshing },'ps_components-refresh_balance']"
+            v-bind:title   = 'shared.lang.language.refresh_balance'
+            data-placement = 'bottom'
+        >
+            <i class='ps_icon md-refresh'></i>
+        </ps-pop-tooltip>
+    </span>
+    <a data-tag='logout' class='ps_components-logout'>
+        <slot></slot>
+    </a>
+</div>
+
+<div class='ps_js-logout_modal_footer' data-custom-tags = 'form'>
+    <ps-form-button class='ps_js-yes'><i class='ps_icon md-done'></i> {{ shared.lang.language.yes }}</ps-form-button>
+    <ps-form-button class='ps_js-no'><i class='ps_icon md-clear'></i> {{ shared.lang.language.no }}</ps-form-button>
+</div>
+
+
+<!--
+| Form custom tags
+-->
+<div class='ps_js-form_custom_tags' data-custom-tags='indicator,form'>
+    <form data-tag='root' class='ps_components-form'>
+        <div class='ps_components-form_loader'><ps-indicator-loader></ps-indicator-loader></div>
+        <div class='ps_components-form_elements'><slot></slot></div>
+    </form>
+    <form data-tag='boundary' class='ps_components-form_boundary'>
+        <slot></slot>
+    </form>
+    <div data-tag='input-wrap' class='ps_components-input_wrap ps_js-input_wrap'>
+        <label class='ps_components-form_sizing'>
+            <span class='ps_components-label_text'><slot name='label'></slot></span>
+        </label>
+        <div   class='ps_components-input_container'><slot></slot></div>
+        <div   class='ps_components-input_error ps_js-input_error_container'></div>
+    </div>
+    <div    data-tag='button-wrap' class='ps_components-button_wrap'><slot></slot></div>
+    <button 
+        data-tag    = 'button'  
+        class       = 'ps_components-button ps_components-form_sizing ps_js-button ps_components-element' 
+        v-bind:type = 'final_type'
+    >
+        <slot></slot>
+    </button>
+    <input  data-tag='input'   class='ps_components-input  ps_components-form_sizing ps_components-element'/>
+    <a data-tag='back' class='ps_components-back ps_components-button ps_components-form_sizing'>
+        <i class='ps_icon md-keyboard_backspace'></i> {{ shared.lang.language.back }}
+    </a>
+    <span data-tag='captcha' class='ps_js-captcha'>
+        <div 
+            v-bind:class="[{'ps_components-captcha_loading': is_loading},'ps_components-captcha']"
+        >
+            <div class='ps_components-captcha_image'>
+               <ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+                <img v-bind:src = "is_loading ? shared.rso.self_hosted + 'images/captcha/c_base.jpg' : captcha.image">
+            </div>
+            <a class='ps_js-captcha_refresh ps_components-captcha_refresh'>
+                <i class='ps_icon md-refresh'></i> {{ shared.lang.messages.refresh_captcha }}
+            </a>
+            <ps-form-input
+                class                        = 'ps_js-captcha_input'
+                v-bind:name                  = 'name'
+                v-bind:placeholder           = 'shared.lang.language.validation_code'
+            ></ps-form-input>
+        </div>
+    </span>
+    <div data-tag='password-meter'>
+        <ps-form-input 
+            class                        = 'ps_js-password_field'
+            type                         = 'password'
+            v-bind:name                  = 'name'
+            v-bind:placeholder           = 'placeholder'
+        ></ps-form-input>
+        <div class='ps_components-password_meter'>
+            <div class='ps_components-password_meter_bar' v-bind:data-score='score'>
+                <div class='ps_components-password_meter_indicator'></div>
+                <div class='ps_components-password_meter_stripe'></div>
+            </div>
+            <div class='ps_components-password_meter_description'>
+                <template v-if='score===1'>
+                    {{shared.lang.messages.password_strength}}: {{shared.lang.messages.very_weak}}
+                </template>
+                <template v-if='score===2'>
+                    {{shared.lang.messages.password_strength}}: {{shared.lang.messages.weak}}
+                </template>
+                <template v-if='score===3'>
+                    {{shared.lang.messages.password_strength}}: {{shared.lang.messages.better}}
+                </template>
+                <template v-if='score===4'>
+                    {{shared.lang.messages.password_strength}}: {{shared.lang.messages.medium}}
+                </template>
+                <template v-if='score===5'>
+                    {{shared.lang.messages.password_strength}}: {{shared.lang.messages.strong}}
+                </template>
+                <template v-if='score===6'>
+                    {{shared.lang.messages.password_strength}}: {{shared.lang.messages.strongest}}
+                </template>
+            </div>
+        </div>
+    </div>
+    <textarea data-tag='elastic-textarea' class='ps_components-input ps_components-elastic_textarea ps_components-element'></textarea>
+    <select   data-tag='select' class='ps_components-input ps_components-form_sizing ps_components-element'>
+        <option v-if ='placeholder' value=''>{{ placeholder }}</option>
+        <template v-for = 'option_item in final_options' >
+            <option 
+                v-if            = 'htmlDescription'
+                v-bind:value    = 'option_item.value'
+                v-bind:selected = 'option_item.selected'
+                v-html          = 'option_item.description'
+            ></option>
+            <option 
+                v-else
+                v-bind:value    = 'option_item.value'
+                v-bind:selected = 'option_item.selected'
+            >{{ option_item.description }}</option>
+        </template>
+    </select>
+    <span data-tag='bank-select'>
+        <ps-form-select 
+            v-bind:options    = 'banks' 
+            v-bind:placeholder= 'shared.lang.language.select_bank_name'
+            class             = 'ps_js-bank_select'
+            v-bind:name       = 'name'
+            v-bind:selected   = 'selected'
+        ></ps-form-select>
+    </span>
+    <div data-tag='bank-input' class='ps_components-input ps_components-bank_input ps_components-form_sizing'>
+        <div class='ps_components-bank_input_wrapper ps_js-bank_input_wrapper'>
+            <!-- Inputs must be direct siblings for next and previous event setup to work -->
+            <input 
+                v-for             = '(number,index) in 5' 
+                v-bind:class      = "[number > segments?'ps-hidden':'','ps_components-input ps_components-form_sizing ps_js-bank_input_segment ps_components-element']"
+                v-bind:name       = 'name+number'
+                v-bind:style      = '{ width:width }'
+                v-bind:data-index = 'index'
+            />
+        </div>
+        <div class='ps_components-bank_input_placeholder' v-if='segments==0'>
+            {{ shared.lang.messages.bank_first }}
+        </div>
+    </div>
+    <span data-tag='currency-select'>
+        <ps-form-select 
+            v-bind:options    = 'currency.enabled'
+            v-bind:placeholder= 'placeholder'
+            class             = 'ps_js-currency_select'
+            v-bind:name       = 'name'
+            v-bind:selected   = 'final_selected'
+        ></ps-form-select>
+    </span>
+    <span data-tag='securityquestion-select'>
+        <ps-form-select 
+            v-bind:options    = 'securityQuestions.list' 
+            v-bind:placeholder= 'shared.lang.language.security_question'
+            class             = 'ps_js-securityQuestion_select'
+            v-bind:name       = 'name'
+            v-bind:selected   = 'selected'
+        ></ps-form-select>
+    </span>
+    <div data-tag='text' class='ps_components-form_sizing ps_components-form_text'>
+        <slot></slot>
+    </div>
+    <div data-tag='text-button' class='ps_components-form_text_button'>
+        <ps-form-text class='ps_js-button_text_content'>
+            <slot></slot>
+        </ps-form-text>
+        <ps-form-button v-if='active' class='ps_js-button_text_trigger'>
+            <slot name='button'></slot>
+        </ps-form-button>
+    </div>
+    <span data-tag='button-file' class='ps_components-button_file'>
+        <ps-form-button 
+            class          ='ps_js-button_file_tigger'
+            type           ='button'
+            v-bind:disabled='disabled'
+        ><slot></slot></ps-form-button>
+        <input 
+            type            = 'file' 
+            v-bind:name     = 'name' 
+            v-bind:accept   = 'accept' 
+            class           = 'ps_js-button_file_target'
+            v-bind:disabled = 'disabled'
+        >
+    </span>
+    <span data-tag='money-input' class='ps_components-money_input'>
+        <ps-form-input v-bind:name='name' v-bind:placeholder='placeholder' class='ps_js-money_input'></ps-form-input>
+    </span>
+    <span data-tag='wallet-select'>
+        <ps-form-select 
+            v-bind:options    = 'final_wallets' 
+            v-bind:placeholder= 'placeholder'
+            class             = 'ps_js-wallet_select'
+            v-bind:name       = 'name'
+            v-bind:selected   = 'selected'
+        ></ps-form-select>
+    </span>
+    <div data-tag='input-range' class='ps_components-form_sizing ps_components-input_range'>
+        <input 
+            type         = 'range' 
+            class        = 'ps_components-input ps_js-input_range_element'
+            v-bind:min   = 'min'
+            v-bind:max   = 'max'
+            v-bind:value = 'value'
+            v-bind:name  = 'name'
+        />
+    </div>
+    <div data-tag='date-picker' class='ps_components-date_picker' tabindex= '0'>
+        <div v-bind:class="[{'ps_components-active': is_active},'ps_components-calendar_wrap']">
+            <div 
+                class='ps_js-date_picker_display ps_components-date_picker_display ps_components-form_sizing ps_components-input'
+            >
+                {{ value }}
+            </div>
+            <ps-form-input 
+                tabindex     = '-1'
+                type         = 'hidden'
+                v-bind:name  = 'name'
+                class        = 'ps_js-date_picker_input'
+                v-bind:value = 'value'
+            ></ps-form-input>
+            <div v-bind:class= "['ps_components-calendar ps_components-calendar_pick_'+active_picker]">
+                <div class='ps_components-calendar_title'>
+                    <div class='ps_components-calendar_title_wrap'>
+                        <div class='ps_js-edit_day ps_components-calendar_editor ps_components-calendar_editor_days'>
+                            <div
+                                class      = 'ps_components-calendar_arrow_left ps_components-calendar_arrow ps_js-calendar_arrow' 
+                                data-arrow = 'prev' 
+                                data-type  = 'day'
+                            >
+                                <i class='ps_icon md-chevron_left'></i>
+                            </div>
+                            <span class='ps_calendar-title_values'>{{ final_day }}</span>
+                            <div
+                                class      = 'ps_components-calendar_arrow_right ps_components-calendar_arrow ps_js-calendar_arrow' 
+                                data-arrow = 'next' 
+                                data-type  = 'day'
+                            >
+                                <i class='ps_icon md-chevron_right'></i>
+                            </div>
+                        </div>
+                        <div class='ps_js-edit_month ps_components-calendar_editor  ps_components-calendar_editor_months'>
+                            <div
+                                class      = 'ps_components-calendar_arrow_left ps_components-calendar_arrow ps_js-calendar_arrow' 
+                                data-arrow = 'prev' 
+                                data-type  = 'month'
+                            >
+                                <i class='ps_icon md-chevron_left'></i>
+                            </div>
+                            <span class='ps_calendar-title_values'>{{ final_month }}</span>
+                            <div
+                                class      = 'ps_components-calendar_arrow_right ps_components-calendar_arrow ps_js-calendar_arrow' 
+                                data-arrow = 'next' 
+                                data-type  = 'month'
+                            >
+                                <i class='ps_icon md-chevron_right'></i>
+                            </div>
+                        </div>
+                        <div class='ps_js-edit_year ps_components-calendar_editor ps_components-calendar_editor_years'>
+                            <div
+                                class      = 'ps_components-calendar_arrow_left ps_components-calendar_arrow ps_js-calendar_arrow' 
+                                data-arrow = 'prev' 
+                                data-type  = 'year'
+                            >
+                                <i class='ps_icon md-chevron_left'></i>
+                            </div>
+                            <span class='ps_calendar-title_values'>{{ final_year }}</span>
+                            <div
+                                class      = 'ps_components-calendar_arrow_right ps_components-calendar_arrow ps_js-calendar_arrow' 
+                                data-arrow = 'next' 
+                                data-type  = 'year'
+                            >
+                                <i class='ps_icon md-chevron_right'></i>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class='ps_components-calendar_body'>
+                    <div class='ps_components-calendar_item ps_components-calendar_days'>
+                        <table class='ps_components-calendar_days_table'>
+                            <thead>
+                                <tr>
+                                    <th v-for='(number, week_number) in 7'>
+                                        <template v-if='week_number==0'>Su</template>
+                                        <template v-if='week_number==1'>Mo</template>
+                                        <template v-if='week_number==2'>Tu</template>
+                                        <template v-if='week_number==3'>We</template>
+                                        <template v-if='week_number==4'>Th</template>
+                                        <template v-if='week_number==5'>Fr</template>
+                                        <template v-if='week_number==6'>Sa</template>
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr v-for = 'week_number in days'>
+                                    <td 
+                                        v-for             = 'day_object in week_number'
+                                        v-bind:class      = "[{'ps_components-calendar_active' : day_object.name==final_day },{'ps_components-calendar_disabled ps_js-disabled':!day_object.enabled },'ps_js-calendar_select']"
+                                        data-type         = 'day'
+                                        v-bind:data-value = 'day_object.value'
+                                    >{{ day_object.name }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class='ps_components-calendar_item ps_components-calendar_months'>
+                        <table class='ps_components-calendar_months_table'>
+                            <tbody>
+                                <tr v-for = 'months_batch in months'>
+                                    <td 
+                                        v-for        = 'month_object in months_batch'
+                                        v-bind:class = "[{'ps_components-calendar_active':month_object.name==final_month },{'ps_components-calendar_disabled ps_js-disabled':!month_object.enabled },'ps_js-calendar_select']"
+                                        data-type         = 'month'
+                                        v-bind:data-value = 'month_object.value'
+                                    >{{ month_object.name }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div class='ps_components-calendar_item ps_components-calendar_years'>
+                        <table class='ps_components-calendar_years_table'>
+                            <tbody>
+                                <tr v-for = 'years_batch in years'>
+                                    <td 
+                                        v-for        = 'years_object in years_batch'
+                                        v-bind:class = "[{'ps_components-calendar_active':years_object.name==final_year },{'ps_components-calendar_disabled ps_js-disabled':!years_object.enabled },'ps_js-calendar_select']"
+                                        data-type         = 'year'
+                                        v-bind:data-value = 'years_object.value'
+                                    >{{ years_object.name }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                <div class='ps_components-calendar_foot'>
+                    <div class='ps_components-calendar_foot_item ps_components-calendar_foot_time'>
+                        {{ final_time }}
+                    </div>
+                    <div v-if='enableHour' class='ps_components-calendar_foot_item ps_components-calendar_foot_range'>
+                        <ps-form-input-range 
+                            min          = '0' 
+                            max          = '23' 
+                            class        = 'ps_js-calendar_hour'
+                        ></ps-form-input-range>
+                        <div class='ps_components-calendar_range_label'>{{ shared.lang.language.hour }}</div>
+                    </div>
+                    <div v-if='enableMinute' class='ps_components-calendar_foot_item ps_components-calendar_foot_range'>
+                        <ps-form-input-range 
+                            min          = '0' 
+                            max          = '59' 
+                            class        = 'ps_js-calendar_minute'
+                        ></ps-form-input-range>
+                        <div class='ps_components-calendar_range_label'>{{ shared.lang.language.minute }}</div>
+                    </div>
+                    <div v-if='enableSecond' class='ps_components-calendar_foot_item ps_components-calendar_foot_range'>
+                        <ps-form-input-range 
+                            min          = '0' 
+                            max          = '59' 
+                            class        = 'ps_js-calendar_second'
+                        ></ps-form-input-range>
+                        <div class='ps_components-calendar_range_label'>{{ shared.lang.language.second }}</div>
+                    </div>
+                    <div class='ps_components-calendar_foot_buttons ps_components-calendar_foot_item'>
+                        <a class='ps_js-calendar_now'>{{ shared.lang.language.now }}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div data-tag='switch' class='ps_components-form_switch'>
+        <input type='hidden' v-bind:value='value' v-bind:name='name' class='ps_js-switch_value'/>
+        <a
+            v-for             = '(number,index) in options_length' 
+            v-bind:key        = 'index'
+            v-bind:data-index = 'index'
+            v-bind:class      = "[{'ps_components-selected': value == options[index] }, 'ps_js-form_switch_option ps_components-switch_option ps_components-form_sizing']"
+        >
+            <slot v-bind:name="'option_'+index">{{ options[index] }}</slot>
+        </a>
+    </div>
+    <!-- If popup this will be close window button else this will be Go to main page -->
+    <span data-tag='close-goto' class='ps_components-form_close_goto'>
+        <ps-form-button class='ps_js-close_goto_button'>
+            <temlate v-if='is_popup'>
+                <i class='ps_icon md-clear'></i> {{ shared.lang.language.close }}
+            </temlate>
+            <template v-else>
+                {{ shared.lang.language.go_to_main }} <i class='ps_icon md-arrow_forward'></i> 
+            </template>
+        </ps-form-button>
+    </span>
+</div>
+
+<!--
+| Indicator
+-->
+<div class='ps_js-indicator_custom_tags'>
+    <div  data-tag='loader' class='ps_components-loader'>
+        <svg 
+            class   = 'ps_components-loader_spinner'
+            width   = '65px' 
+            height  = '65px'
+            viewBox = '0 0 66 66'
+            xmlns   = 'http://www.w3.org/2000/svg'
+        >
+            <circle 
+                class          = 'ps_components-loader_path'
+                fill           = 'none'
+                stroke-width   = '6' 
+                stroke-linecap = 'round' 
+                cx             = '33' 
+                cy             = '33' 
+                r              = '30'></circle>
+        </svg>
+    </div>
+    <span data-tag='small-notice' v-bind:class="'ps_components-notice_' + type + ' ps_components-small_notice'">
+        <slot>{{ shared.lang.error.ERR_00094 }}</slot>
+    </span>
+    <div data-tag='loading-bar' class="ps_components-loading_bar">
+        <div  class='ps_components-growing_bar' v-bind:style="{ width: percent + '%' }"></div>
+        <div class='ps_components-loading_bar_text'><slot></slot></div>
+    </div>
+    <div data-tag='onpage-error' class='ps_components-onpage_error_wrap'>
+        <span class='ps_components-onpage_error_icon'>   <slot name='icon'></slot></span>
+        <div class='ps_components-onpage_error_body'>
+            <div  class='ps_components-onpage_error_title'>  {{ error_message.title   }}</div>
+            <div  class='ps_components-onpage_error_message'>{{ error_message.content }}</div>
+            <slot></slot>
+        </div>
+    </div>
+    <div data-tag='nontransactable' class='ps_components-nontransactable_wrap'>
+        <template v-if='has_err_code'>
+            <ps-indicator-onpage-error v-bind:code='err_code'>
+                <i class='ps_icon md-pan_tool' slot='icon'></i>
+            </ps-indicator-onpage-error>
+        </template>
+    </div>
+    <div data-tag='hint' class='ps_components-hint'>
+        <slot></slot>
+    </div>
+    <div data-tag='badge' class='ps_components-badge'><slot></slot></div>
+    <div data-tag='logo'  class='ps_components-logo'></div>
+
+    <span data-tag='countdown-timer' class="ps_js-countdown_timer">
+
+        <template v-if                 = 'is_running'>
+            <slot v-bind:computed_time = 'computed_time'></slot>
+        </template>
+
+        <template  v-else >
+            <slot name='not_running_notice'>-- : -- : --</slot>
+        </template>
+    </span>
+
+
+</div>
+
+
+<!--
+| Bootstrap popover and tooltip
+-->
+<div class='ps_js-pop_custom_tags'>
+    <a 
+        data-tag           = 'popover' 
+        role               = 'button' 
+        v-bind:data-content= 'content_attr'
+        v-bind:data-html   = 'is_html'
+        v-bind:tabindex    = 'tabindex_attr'
+        v-bind:data-trigger= 'dataTrigger'
+    >
+        <slot></slot>
+        <span class='ps_js-pop_template' v-if='has_template'><slot name='template'></slot></span>
+    </a>
+    <a 
+        data-tag           = 'tooltip' 
+        role               = 'button' 
+        v-bind:data-content= 'content_attr'
+        v-bind:data-html   = 'is_html'
+        v-bind:tabindex    = 'tabindex_attr'
+        v-bind:data-trigger= 'dataTrigger'
+    >
+        <slot></slot>
+        <span class='ps_js-pop_template' v-if='has_template'><slot name='template'></slot></span>
+    </a>
+</div>
+
+
+<!--
+| Used balance
+-->
+<div class='ps_js-usedbalance_custom_tags'>
+    <span data-tag='root' class='ps_components-usedbalance_root ps_js-usedbalance_root'>
+        <slot 
+            v-bind:list           = 'usedBalance.list'
+            v-bind:display        = 'usedBalance.display'
+            v-bind:length         = 'length' 
+            v-bind:joinable       = 'joinable' 
+            v-bind:loading        = 'is_loading' 
+            v-bind:joinable-class = 'joinable_class'></slot>
+    </span>
+    <span data-tag='wallets' class='ps_components-usedbalance_wallets ps_js-usedbalance_wallets'>
+        <slot 
+            v-bind:list    = 'wallets_balance' 
+            v-bind:length  = 'length' 
+            v-bind:loading = 'is_loading'
+        ></slot>
+    </span>
+</div>
+
+<!--
+| Table
+-->
+<div class='ps_js-table_custom_tags' data-custom-tags='indicator,form'>
+    <div data-tag='root' class='ps_components-table ps_js-table_root'>
+        <div class='ps_components-table_wrapper'>
+            <table class='ps_js-table_main_element'>
+                <thead> 
+                    <tr>
+                        <th 
+                            v-for          = '(column_num, column_index) in columns'
+                            v-bind:key     = "'head' + column_index"
+                            v-bind:colspan = "final_column_attributes['head:0:'+column_index+':colspan'] || final_column_attributes['head:*:'+column_index+':colspan']|| final_column_attributes['*:*:'+column_index+':colspan']"
+                        >
+                            <slot v-bind:name="'head_'+column_index"></slot>
+                        </th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-if='recent_loading' class='ps_components-table_tr_loader'>
+                        <td v-bind:colspan='columns'>
+                            <ps-indicator-loader></ps-indicator-loader>
+                        </td>
+                    </tr>
+                    <tr v-else-if = 'final_rows > 0' v-for='(row_num, row_index) in final_rows' >
+                        <td 
+                            v-if           = "final_column_attributes['body:'+row_index+':filler'] || final_column_attributes['body:*:filler']|| final_column_attributes['*:*:filler']"
+                            v-bind:colspan ='columns'
+                            class          = 'ps_components-table_filler' 
+                        ></td>
+                        <td
+                            v-else
+                            v-for          = '(column_num, column_index) in columns'
+                            v-bind:key     = "'body' + row_index + column_index"
+                            v-bind:colspan = "final_column_attributes['body:'+row_index+':'+column_index+':colspan'] || final_column_attributes['body:*:'+column_index+':colspan']|| final_column_attributes['*:*:'+column_index+':colspan']"
+                        ><slot v-bind:name="'body_'+row_index+'_'+column_index"></slot></td>
+                    </tr>
+                    <tr v-else class='ps_components-table_tr_empty'>
+                        <td v-bind:colspan='columns'>
+                            <ps-indicator-small-notice><slot name='body_no_item'></slot></ps-indicator-small-notice>
+                        </td>
+                    </tr>
+                </tbody>
+                <tfoot v-if='footerRows > 0' v-if='!recent_loading'>
+                    <tr v-for='(row_num, row_index) in footerRows'>
+                        <td 
+                            v-for          = '(column_num, column_index) in final_footerColumns' 
+                            v-bind:key     = "'foot' + row_index + column_index"
+                            v-bind:colspan = "final_column_attributes['foot:'+row_index+':'+column_index+':colspan'] || final_column_attributes['foot:*:'+column_index+':colspan']|| final_column_attributes['*:*:'+column_index+':colspan']"
+                        >
+                            <slot v-bind:name="'footer_'+row_index+'_'+column_index"></slot>
+                        </td>
+                    </tr>
+                </tfoot>
+            </table>
+            <div v-bind:class="[{'ps_components-show': non_recent_loading},'ps_components-table_secondary_loader']">
+                <ps-indicator-loader></ps-indicator-loader> {{ shared.lang.language.loading }}
+            </div>
+        </div>
+
+        <!-- paging -->
+        <div class='ps_components-table_paging' v-if='show_paging'>
+            <div class='ps_components-paging_wrap'>
+                <a 
+                    v-bind:class       = "[{'ps_components-paging_disabled': page_first===false},'ps_js-paging_button ps_components-paging_button ps_components-paging_button_arrow']" 
+                    v-bind:data-number = 'page_first'
+                ><i class='ps_icon md-first_page'></i></a>
+
+                <a 
+                    v-bind:class       = "[{'ps_components-paging_disabled': page_previous===false},'ps_js-paging_button ps_components-paging_button ps_components-paging_button_arrow']" 
+                    v-bind:data-number = 'page_previous'
+                ><i class='ps_icon md-chevron_left'></i></a>
+                
+                <a 
+                    v-for              = 'number in page_buttons' 
+                    v-bind:class       = "[{'ps_components-paging_selected': number===page},'ps_js-paging_button ps_components-paging_button']"
+                    v-bind:data-number = 'number'
+                    v-bind:key         = 'number'
+                >{{ number }}</a>
+
+                <a 
+                    v-bind:class       = "[{'ps_components-paging_disabled': page_next===false},'ps_js-paging_button ps_components-paging_button ps_components-paging_button_arrow']" 
+                    v-bind:data-number = 'page_next'
+                ><i class='ps_icon md-chevron_right'></i></a>
+
+                <a
+                    v-bind:class       = "[{'ps_components-paging_disabled': page_last===false},'ps_js-paging_button ps_components-paging_button ps_components-paging_button_arrow']" 
+                    v-bind:data-number = 'page_last'
+                ><i class='ps_icon md-last_page'></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--
+| List
+-->
+<div class='ps_js-list_custom_tags'>
+    <div data-tag='collapsible' v-bind:class="[{ 'ps_components-collapsed': is_active },'ps_components-list_collapsible ps_js-collapsible']">
+        <div 
+            v-bind:class = "['ps_components-list_collapsible_header ps_js-components_trigger ps_js-'+collapsible_id]"
+        >
+            <slot></slot>
+        </div>
+        <div class= 'ps_components-list_collapsible_content'>
+            <slot name='content'></slot>
+        </div>
+    </div>
+</div>
+
+<!--
+| Position
+| This custom tags is used for element positioning that requires JS
+-->
+<div class='ps_js-position_custom_tags'>
+    <span data-tag='sticky' class='ps_components-sticky_wrap'>
+        <div v-bind:class="['ps_components-sticky ps_components-sticky_scroll'+scroll_direction, { 'ps_components-sticky_active': is_sticky }]">
+            <slot></slot>
+        </div>
+    </span>
+</div>
+
+
+<!--
+| Iframes
+| This custom tags is used for iframes
+-->
+<div class='ps_js-iframe_custom_tags'>
+    <div 
+        data-tag     = 'rescale' 
+        class        = 'ps_components-iframe_rescale'
+        v-bind:style = "[parent_width ? { width: parent_width + 'px' } : {}, parent_height ? { height: parent_height + 'px' } : {}, parent_margin_bottom ? { 'margin-bottom': parent_margin_bottom + 'px' } : {}, parent_margin_right ? { 'margin-right': parent_margin_right + 'px' } : {}]"
+    >
+        <iframe 
+            class            = 'ps_js-iframe_element'
+            v-bind:scrolling = 'scrolling' 
+            v-bind:src       = 'src' 
+            v-bind:style     = "[width_adjustment ? { width: width_adjustment + 'px' } : {},height_adjustment ? { height: height_adjustment + 'px' } : {},scale_adjustment ? { transform: 'scale('+scale_adjustment + ')', '-webkit-transform': 'scale('+scale_adjustment + ')', '-ms-transform': 'scale('+scale_adjustment + ')' } : {}]"
+        ></iframe>
+    </div>
+</div>

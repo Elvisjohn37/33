@@ -1,0 +1,158 @@
+<!--
+| modal body
+-->
+<div class='ps_js-register ps_register-form_wrap' data-custom-tags='form,indicator'>
+	<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+	<ps-form-root 
+		v-else
+		v-bind:id         = "'ps_js-register_'+form_id"
+		v-bind:class      = "[{'ps_components-form_loading': info.loading },'ps_js-register_form']"
+		v-bind:validation = 'info.validation_id' 
+	>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.first_name }}</template>
+			<ps-form-input 
+				name              = 'ps_reg_firstName' 
+				class             = 'ps_js-firstName ps_js-register_first ps_js-password_meter_criteria'
+				type              = 'text' 
+				v-bind:placeholder= 'shared.lang.language.first_name'
+			></ps-form-input>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.last_name }}</template>
+			<ps-form-input 
+				name              = 'ps_reg_lastName' 
+				class             = 'ps_js-lastName ps_js-password_meter_criteria'
+				type              = 'text' 
+				v-bind:placeholder= 'shared.lang.language.last_name'
+			></ps-form-input>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.login_name }}</template>
+			<ps-form-input 
+				name              = 'ps_reg_loginName' 
+				class             = 'ps_js-loginName ps_js-password_meter_criteria'
+				type              = 'text' 
+				v-bind:placeholder= 'shared.lang.language.login_name'
+			></ps-form-input>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.password }}</template>
+			<ps-form-password-meter 
+				name                    = 'ps_reg_password' 
+				class                   = 'ps_js-password'
+				v-bind:criteria-fields  =  "['#ps_js-register_'+form_id+' .ps_js-password_meter_criteria']"
+				v-bind:placeholder      = 'shared.lang.language.password'
+			></ps-form-password-meter>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.retype_password }}</template>
+			<ps-form-input 
+				name              = 'ps_reg_retypePassword' 
+				class             = 'ps_js-retypePassword'
+				type              = 'password' 
+				v-bind:placeholder= 'shared.lang.language.retype_password'
+			></ps-form-input>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.email_address }}</template>
+			<ps-form-input 
+				name              = 'ps_reg_emailAddress' 
+				class             = 'ps_js-emailAddress'
+				type              = 'text' 
+				v-bind:placeholder= 'shared.lang.language.email_address'
+			></ps-form-input>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.confirm_email }}</template>
+			<ps-form-input 
+				name              = 'ps_reg_confirmEmailAddress' 
+				class             = 'ps_js-confirmEmailAddress'
+				type              = 'text' 
+				v-bind:placeholder= 'shared.lang.language.confirm_email'
+			></ps-form-input>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.mobile_number }}</template>
+			<ps-form-input 
+				name              = 'ps_reg_mobileNo' 
+				class             = 'ps_js-mobileNo'
+				type              = 'text' 
+				v-bind:placeholder= 'shared.lang.language.mobile_number'
+			></ps-form-input>
+		</ps-form-input-wrap>
+		<template
+			v-if="bank_account_info == 'default'"
+		>
+			<ps-form-input-wrap>
+				<template slot='label'>{{ shared.lang.language.bank_name }}</template>
+	            <ps-form-bank-select 
+					name              = 'ps_reg_bankName' 
+					class             = 'ps_js-bankName'
+				></ps-form-bank-select>
+			</ps-form-input-wrap>
+			<ps-form-input-wrap>
+				<template slot='label'>{{ shared.lang.language.account_bank_no }}</template>
+	            <ps-form-bank-input 
+					name               = 'ps_reg_bankName_BankInput' 
+					class              = 'ps_js-bankName_BankInput'
+					type               = 'text'
+					v-bind:bank-source = "'#ps_js-register_'+form_id+' .ps_js-bankName .ps_js-bank_select'"
+				></ps-form-bank-input>
+			</ps-form-input-wrap>
+			<ps-form-input-wrap>
+				<template slot='label'>{{ shared.lang.language.account_bank_name }}</template>
+				<ps-form-input 
+					name              = 'ps_reg_accountBankName' 
+					class             = 'ps_js-accountBankName'
+					type              = 'text' 
+					v-bind:placeholder= 'shared.lang.language.account_bank_name'
+				></ps-form-input>
+			</ps-form-input-wrap>
+		</template>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.currency }}</template>
+            <ps-form-currency-select 
+				name   = 'ps_reg_currency' 
+				class  = 'ps_js-currency'
+				type   = 'text' 
+			></ps-form-currency-select>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap v-if='view_data.bonus_new_member.isEnabled'>
+			<template slot='label'>{{ shared.lang.language.bonus_new_member }}</template>
+			<ps-form-select
+				name           = 'ps_promotion'
+				class          = 'ps_js-promotion'
+				v-bind:options = 'view_data.bonus_new_member.dropdown'
+			></ps-form-select>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.security_question }}</template>
+			<ps-form-securityquestion-select 
+				name  = 'ps_reg_securityQuestion'
+				class = 'ps_js-securityQuestion'
+			></ps-form-securityquestion-select>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.your_answer }}</template>
+			<ps-form-input 
+				name              = 'ps_reg_yourAnswer' 
+				class             = 'ps_js-yourAnswer'
+				type              = 'text' 
+				v-bind:placeholder= 'shared.lang.language.your_answer'
+			></ps-form-input>
+		</ps-form-input-wrap>
+		<ps-form-input-wrap>
+			<template slot='label'>{{ shared.lang.language.validation_code }}</template>
+			<ps-form-captcha name='ps_reg_captchainput'></ps-form-captcha>
+		</ps-form-input-wrap>
+		<ps-form-button-wrap>
+			<ps-form-button 
+				name           = 'ps_js-register_submit' 
+				data-step      = 'info.step'
+				v-bind:disabled= 'info.loading'
+				type           = 'submit'
+			>{{ shared.lang.language.send }}</ps-form-button>
+		</ps-form-button-wrap>
+	</ps-form-root>
+</div>

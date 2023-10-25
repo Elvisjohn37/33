@@ -1,0 +1,34 @@
+<div class='ps_js-products' data-custom-tags='image,indicator,carousel'>
+	<div data-tag='main' class='ps_products ps-features_content'>
+		<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+		<ps-indicator-small-notice v-if='no_item'></ps-indicator-small-notice>
+		<ps-carousel-bootstrap 
+			v-if             = 'show' 
+			v-bind:class     = "[{'ps_carousel-less':featured_length<=5},'ps_products-carousel']"
+			arrows           = 'true'
+			v-bind:items     = 'featured'
+			data-interval    = 'false'
+			data-index-class = 'reverse'
+			data-prevent-animation-conflict
+		>
+			<ps-carousel-bootstrap-item
+				v-for        = '(menu, index) in featured'
+				v-bind:class = "[{'ps_products-carousel_item ps_js-products_chunk ps_products-' + menu.id]"
+				v-bind:key   = 'index'
+			>
+				<a v-bind:href='menu.hash'>
+					<div class='ps_products-icon'>
+						<ps-image-lazy 
+							background = 'true'
+							src        = ''
+						></ps-image-lazy>
+					</div>
+					<div class='ps_products-text'>{{ menu.text }}</div>
+				</a>
+				<div v-if='menu.featured.soon' class='ps_products-notice'>
+					<ps-indicator-small-notice>{{ shared.lang.language.coming_soon }}</ps-indicator-small-notice>
+				</div>
+			</ps-carousel-bootstrap-item>
+		</ps-carousel-bootstrap>
+	</div>
+</div>

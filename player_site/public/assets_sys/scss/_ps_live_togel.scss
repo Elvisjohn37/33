@@ -1,0 +1,169 @@
+$ps_live_togel-avatar-container: 350px;
+$ps_live_togel-lobby-max-width : 850px;
+$ps_live_togel-lobby-min-height: 524px;
+
+.ps_live_togel {
+    background         : url('../images/ps_live_togel/background.jpg'); 
+    background-size    : 100% auto;
+    background-position: center;
+    background-repeat  : no-repeat; 
+
+	&:before {
+        @include ps_color-paccentlight-radial-lighter;
+        position  : absolute;
+        content   : '';
+        height    : 100%;
+        width     : 100%;
+        left      : 0px;
+        top       : 0px;
+    }
+}
+
+.ps_live_togel-content {
+    padding     : ($ps_main-standard-space * 4) 0px;
+    padding-left: $ps_live_togel-avatar-container;
+    position    : relative;
+    min-height  : $ps_live_togel-lobby-min-height;
+    max-width   : $ps_live_togel-lobby-max-width;
+
+    .ps_live_togel-lobby {
+	    @include ps_keyframes-fadein-left($ps_main-transition 1);
+	    padding  : $ps_main-standard-space;
+	    width    : 100%;
+
+	    .ps_components-table_wrapper {
+	    	border       : $ps_main-standard-space solid transparent;
+     		box-shadow   : 0px 0px 20px rgba($ps_color-pdark, 0.8);
+	    	border-radius: $ps_main-radius;
+	    }
+
+	    .ps_live_togel-lobby_title {
+	    	font-size  : $ps_main-font-size * 2;
+	    	padding    : $ps_main-standard-space;
+	    	color      : $ps_color-paccentlight;
+    		text-shadow: 1px 1px 1px $ps_color-pdark;
+     		font-family: 'Trajan';
+	    }
+
+	    .ps_live_togel-table {
+			
+			thead  {
+      			background-color: rgba($ps_color-secondary, .8);
+
+	     		th {
+    				text-shadow:0px 0px 5px rgba($ps_color-ptext, 0.5);
+
+					&:nth-child(1) {
+						@include ps_components-td-width(200px);
+					}
+
+					&:nth-child(2) {
+						@include ps_components-td-width(122px);
+					}
+
+					&:nth-child(2) {
+						@include ps_components-td-width(108px);
+					}
+				}
+			}
+			
+			tbody {
+      			background-color: rgba($ps_color-pdark, .7);
+				
+				tr {
+
+					&:nth-child(even) {
+      					background-color: rgba($ps_color-plight, .3);
+					}
+
+					td {
+						text-align : center;
+      					border     : 1px solid transparent;
+
+    					.ps_live_togel-red {
+    						color: $ps_color-error;
+    					}
+					}
+				}
+			}
+		}
+    }
+
+	.ps_live_togel-avatar_side {
+		top       : 0px;
+    	text-align: center;
+	    padding   : $ps_main-standard-space;
+	    position  : absolute;
+	    left      : 0px;
+	    width     : $ps_live_togel-avatar-container;
+	    max-width : 100%;
+
+	    .ps_live_togel-avatar_display {
+	    	@include ps_keyframes-fadein-down($ps_main-transition 1);
+			display  : inline-block;
+		    margin   : 0 auto;
+			position : relative;
+			height   : 320px;
+
+			&::after {
+				@include ps_helper-center(absolute);
+				content   : '';
+				width     : 350px;
+				height    : 320px;
+				background: url('../images/ps_live_togel/frames/dealer_frame.png');
+			}
+
+			.ps_live_togel-avatar_image {
+				@include ps_helper-center(absolute);
+				width        : 145px;
+				height       : 185px;
+				// frame adjustment
+				border-radius: 120px;
+				overflow     : hidden;
+			}
+
+			.ps_live_togel-display_name {
+				@include ps_helper-h-center(absolute);
+				z-index       : 3;
+				text-align    : center;
+				bottom        : 92px;
+				left          : 0px;
+				color         : $ps_color-pdark;
+				font-size     : $ps_main-font-size + 4px;
+				font-weight   : bold;
+     			text-transform: uppercase;
+     			width         : 232px;
+			}
+
+	    }
+
+	    .ps_live_togel-btn_side {
+	    	@include ps_keyframes-fadein-up($ps_main-transition 1);
+		    position: relative;
+		    padding : $ps_main-standard-space ($ps_main-standard-space*2);
+
+		    .ps_live-togel-button_container {
+		    	display      : inline-block;
+	    		border       : ($ps_main-standard-space/2) solid transparent;
+	    		border-radius: $ps_main-radius;
+     			box-shadow   : 0px 0px 20px rgba($ps_color-secondary, 0.8);
+		    	width        : 100%;
+		    }
+
+		    .ps_live_togel-play_btn {
+		    	padding       : ($ps_main-standard-space/2) ($ps_main-standard-space * 4);
+                text-transform: uppercase;
+                font-size     : $ps_main-font-size + 4px;
+                line-height   : normal;
+		    	width         : 100%;
+
+                .ps_live_togel-timer {
+                	margin    : 0px;
+	            	text-align: center;
+                	font-size : $ps_main-font-size - 2px;
+                }
+		    }
+
+	    }
+	}
+}

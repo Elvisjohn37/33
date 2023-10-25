@@ -1,0 +1,676 @@
+//** This will hold color schemes
+//## FROM material design color palette
+//## https://material.io/guidelines/style/color.html#color-color-system 
+
+$ps_color-void          : #121212;
+$ps_color-error         : #fb2828;
+$ps_color-success       : #1e7d05;
+$ps_color-info          : #0070ff;
+
+$ps_color-primary       : #0f0f0f;
+$ps_color-plight        : #353535;
+$ps_color-pdark         : #000000;
+$ps_color-plightcard    : darken($ps_color-plight, 12%);
+$ps_color-pred          : #d60000;
+$ps_color-pyellow       : #c18a00;
+$ps_color-pgreen        : #229205;
+$ps_color-pskyblue      : #05abdc;
+$ps_color-pblue         : #0070ff;
+$ps_color-ptext         : #ffffff;
+$ps_color-ptextsecondary: darken(#ffffff, 30%);
+
+$ps_color-paccent     : goldenrod;
+$ps_color-paccentlight: gold;
+$ps_color-paccentdark : #c7a600;
+$ps_color-paccenttext : #000000;
+
+// this is the opposite version of our primary colors
+$ps_color-o-primary: #e2e2e2;
+$ps_color-o-plight : #ffffff;
+$ps_color-o-pdark  : #b0b0b0;
+$ps_color-o-ptext  : #000000;
+
+$ps_color-secondary   : #600001;
+$ps_color-slight      : #93352b;
+$ps_color-sdark       : #390000;
+$ps_color-stext       : #ffffff;
+$ps_color-sred        : #d60000;
+$ps_color-sblue       : #0062e0;
+
+$ps_color-saccent     : #ffc122;
+$ps_color-saccentlight: #fff35c;
+$ps_color-saccentdark : #c79100;
+$ps_color-saccenttext : #000000;
+
+// Primary
+@mixin ps_color-p($opacity: 1) {
+
+    background-color: rgba($ps_color-primary, $opacity);
+    color           : $ps_color-ptext;
+}
+
+@mixin ps_color-p-fading-edges() {
+    background: -webkit-linear-gradient(
+                    left, 
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0.1) 16%, 
+                    rgba(darken($ps_color-plight, 10%),0.5) 52%, 
+                    rgba($ps_color-pdark,0.1) 87%, 
+                    rgba($ps_color-pdark,0) 100%
+                );
+    background: -o-linear-gradient(
+                    left, 
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0.1) 16%, 
+                    rgba(darken($ps_color-plight, 10%),0.5) 52%, 
+                    rgba($ps_color-pdark,0.1) 87%, 
+                    rgba($ps_color-pdark,0) 100%
+                );
+    background: linear-gradient(
+                    to right, 
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0.1) 16%, 
+                    rgba(darken($ps_color-plight, 10%),0.5) 52%, 
+                    rgba($ps_color-pdark,0.1) 87%, 
+                    rgba($ps_color-pdark,0) 100%
+                );
+    filter: progid:DXImageTransform.Microsoft.gradient(
+                startColorstr='#{$ps_color-pdark}', 
+                endColorstr='#{$ps_color-plight}',
+                GradientType=1 
+            );
+}
+
+@mixin ps_color-pdark-fading-edges() {
+    background: -webkit-linear-gradient(
+                    left, 
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0.3) 16%, 
+                    rgba(darken($ps_color-pdark, 10%),0.5) 52%, 
+                    rgba($ps_color-pdark,0.3) 87%, 
+                    rgba($ps_color-pdark,0) 100%
+                );
+    background: -o-linear-gradient(
+                    left, 
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0.3) 16%, 
+                    rgba(darken($ps_color-pdark, 10%),0.5) 52%, 
+                    rgba($ps_color-pdark,0.3) 87%, 
+                    rgba($ps_color-pdark,0) 100%
+                );
+    background: linear-gradient(
+                    to right, 
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0.3) 16%, 
+                    rgba(darken($ps_color-pdark, 10%),0.5) 52%, 
+                    rgba($ps_color-pdark,0.3) 87%, 
+                    rgba($ps_color-pdark,0) 100%
+                );
+    filter: progid:DXImageTransform.Microsoft.gradient(
+                startColorstr='#{$ps_color-pdark}', 
+                endColorstr='#{$ps_color-pdark}',
+                GradientType=1 
+            );
+}
+
+@mixin ps_color-plight($opacity: 1) {
+    background-color: rgba($ps_color-plight, $opacity);
+    color           : $ps_color-ptext;
+}
+
+@mixin ps_color-plight-darken($percent: 3%) {
+    background-color: darken($ps_color-plight, $percent);
+    color           : $ps_color-ptext;
+}
+
+@mixin ps_color-plightcard($opacity: 1) {
+    background-color: rgba($ps_color-plightcard, $opacity);
+    color           : $ps_color-ptext;
+}
+
+@mixin ps_color-paccentlight-fade-left-simple() {
+    background: -moz-linear-gradient(
+                    left,
+                    rgba($ps_color-paccentlight,0) 0%, 
+                    rgba($ps_color-paccentlight,0.2) 100%
+                );
+    background: -webkit-linear-gradient(
+                    left, 
+                    rgba($ps_color-paccentlight,0) 0%,
+                    rgba($ps_color-paccentlight,0.2) 100%
+                );
+    background: linear-gradient(
+                    to right, 
+                    rgba($ps_color-paccentlight,0) 0%,
+                    rgba($ps_color-paccentlight, 0.2) 100%
+                );
+    filter    : progid:DXImageTransform.Microsoft.gradient( 
+                    startColorstr= '#{$ps_color-pdark}', 
+                    endColorstr  = '#{$ps_color-paccentlight}',
+                    GradientType = 1 
+                );
+}
+
+@mixin ps_color-plight-lighten($percent: 3%) {
+    background-color: lighten($ps_color-plight, $percent);
+    color           : $ps_color-ptext;
+}
+
+@mixin ps_color-pdark($opacity: 1) {
+
+    background-color: rgba($ps_color-pdark, $opacity);
+    color           : $ps_color-ptext;
+}
+
+@mixin ps_color-paccent($opacity: 1) {
+    background-color: rgba($ps_color-paccent, $opacity);
+    color           : $ps_color-paccenttext;
+}
+
+@mixin ps_color-paccent-gradient-diagonal() {
+    background: -moz-linear-gradient(-45deg, 
+                    rgba($ps_color-paccentlight,0.40) 0%,
+                    rgba($ps_color-paccentlight,0.35) 10%,
+                    rgba($ps_color-paccent,0.18) 60%,
+                    rgba($ps_color-primary,0.2) 80%,
+                    rgba($ps_color-primary,0.69) 100%
+                );
+    background: -webkit-linear-gradient(
+                    -45deg, 
+                    rgba($ps_color-paccentlight,0.40) 0%,
+                    rgba($ps_color-paccentlight,0.35) 10%,
+                    rgba($ps_color-paccent,0.18) 60%,
+                    rgba($ps_color-primary,0.2) 80%,
+                    rgba($ps_color-primary,0.69) 100%
+                );
+    background: linear-gradient(
+                    135deg, 
+                    rgba($ps_color-paccentlight,0.40) 0%,
+                    rgba($ps_color-paccentlight,0.35) 10%,
+                    rgba($ps_color-paccent,0.18) 60%,
+                    rgba($ps_color-primary,0.4) 95%,
+                    rgba($ps_color-primary,0.5) 100%
+                );
+    filter    : progid:DXImageTransform.Microsoft.gradient(
+                    startColorstr= '#{$ps_color-paccentlight}', 
+                    endColorstr  = '#{$ps_color-primary}',
+                    GradientType = 1 
+                );
+}
+
+@mixin ps_color-paccentlight($opacity: 1) {
+    background-color: rgba($ps_color-paccentlight, $opacity);
+    color           : $ps_color-paccenttext;
+}
+
+@mixin ps_color-paccentlight-fade-left() {
+    background: -moz-linear-gradient(
+                    left, 
+                    rgba($ps_color-paccentlight,0) 0%, 
+                    rgba($ps_color-paccentlight,0.04) 49%, 
+                    rgba($ps_color-paccentlight,0.05) 67%, 
+                    rgba($ps_color-paccentlight,0.1) 100%
+                );
+    background: -webkit-linear-gradient(
+                    left, 
+                    rgba($ps_color-paccentlight,0) 0%, 
+                    rgba($ps_color-paccentlight,0.04) 49%, 
+                    rgba($ps_color-paccentlight,0.05) 67%, 
+                    rgba($ps_color-paccentlight,0.1) 100%
+                );
+    background: linear-gradient(
+                    to right, 
+                    rgba($ps_color-paccentlight,0) 0%, 
+                    rgba($ps_color-paccentlight,0.04) 49%, 
+                    rgba($ps_color-paccentlight,0.05) 67%, 
+                    rgba($ps_color-paccentlight,0.1) 100%
+                );
+    filter: progid:DXImageTransform.Microsoft.gradient( 
+                    startColorstr='#00fefcea', 
+                    endColorstr='#{$ps_color-paccentlight}',
+                    GradientType=1 
+                );
+}
+
+@mixin ps_color-paccentlight-fade-lighter() {
+    background: -moz-linear-gradient(
+                    left, 
+                    rgba($ps_color-paccentlight,0) 0%, 
+                    rgba($ps_color-paccentlight,0.1) 49%, 
+                    rgba($ps_color-paccentlight,0.2) 67%, 
+                    rgba($ps_color-paccentlight,0.3) 100%
+                );
+    background: -webkit-linear-gradient(
+                    left, 
+                    rgba($ps_color-paccentlight,0) 0%, 
+                    rgba($ps_color-paccentlight,0.1) 49%, 
+                    rgba($ps_color-paccentlight,0.2) 67%, 
+                    rgba($ps_color-paccentlight,0.3) 100%
+                );
+    background: linear-gradient(
+                    to right, 
+                    rgba($ps_color-paccentlight,0) 0%, 
+                    rgba($ps_color-paccentlight,0.1) 49%, 
+                    rgba($ps_color-paccentlight,0.2) 67%, 
+                    rgba($ps_color-paccentlight,0.3) 100%
+                );
+    filter: progid:DXImageTransform.Microsoft.gradient( 
+                    startColorstr='#00fefcea', 
+                    endColorstr='#{$ps_color-paccentlight}',
+                    GradientType=1 
+                );
+}
+
+@mixin ps_color-paccentlight-radial-top() {
+    background: -moz-radial-gradient(
+                top, 
+                ellipse cover, 
+                rgba($ps_color-paccentlight, 0.3) 0%,
+                rgba($ps_color-pdark, 0.51) 
+            );
+    background: -webkit-radial-gradient(
+                top, 
+                ellipse cover, 
+                rgba($ps_color-paccentlight, 0.3) 0%,
+                rgba($ps_color-pdark, 0.51) 
+            );
+    background: radial-gradient(
+                ellipse at top, 
+                rgba($ps_color-paccentlight, 0.3) 0%,
+                rgba($ps_color-pdark, 0.51) 
+            100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(         
+                startColorstr='#{$ps_color-paccentlight}', 
+                endColorstr='#{$ps_color-pdark}',
+                GradientType=1 
+            );
+}
+
+@mixin ps_color-paccentlight-radial-lighter() {
+    background: -moz-radial-gradient(
+                top, 
+                ellipse cover, 
+                rgba($ps_color-paccentlight, 0.5) 0%,
+                rgba($ps_color-pdark, 0.51) 
+            );
+    background: -webkit-radial-gradient(
+                top, 
+                ellipse cover, 
+                rgba($ps_color-paccentlight, 0.5) 0%,
+                rgba($ps_color-pdark, 0.51) 
+            );
+    background: radial-gradient(
+                ellipse at top, 
+                rgba($ps_color-paccentlight, 0.5) 0%,
+                rgba($ps_color-pdark, 0.51) 
+            100%);
+    filter: progid:DXImageTransform.Microsoft.gradient(         
+                startColorstr='#{$ps_color-paccentlight}', 
+                endColorstr='#{$ps_color-pdark}',
+                GradientType=1 
+            );
+}
+
+@mixin ps_color-paccentlight-radial-center() {
+    background: -moz-radial-gradient(
+                    center, 
+                    ellipse cover, 
+                    rgba($ps_color-paccentlight,0.4) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    background: -webkit-radial-gradient(
+                    center, 
+                    ellipse cover, 
+                    rgba($ps_color-paccentlight,0.4) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    background: radial-gradient(
+                    ellipse at center, 
+                    rgba($ps_color-paccentlight,0.4) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    filter: progid:DXImageTransform.Microsoft.gradient( 
+                startColorstr='#{$ps_color-paccentlight}', 
+                endColorstr='#{$ps_color-pdark}',
+                GradientType=1 
+            );
+}
+
+@mixin ps_color-paccentdark($opacity: 1) {
+    background-color: rgba($ps_color-paccentdark, $opacity);
+    color           : $ps_color-paccenttext;
+}
+
+@mixin ps_color-pred {
+    background-color: $ps_color-pred;
+    color           : $ps_color-ptext;
+}
+
+// Secondary
+@mixin ps_color-s($opacity: 1) {
+    
+    background-color: rgba($ps_color-secondary, $opacity);
+    color           : $ps_color-stext;
+}
+
+@mixin ps_color-slight {
+    
+    background-color: $ps_color-slight;
+    color           : $ps_color-stext;
+}
+
+@mixin ps_color-slight-lighten($percent: 5%) {
+    background-color: lighten($ps_color-slight, $percent);
+    color           : $ps_color-stext;
+}
+
+@mixin ps_color-sdark($opacity: 1) {
+    background-color: rgba($ps_color-sdark, $opacity);
+    color           : $ps_color-stext;
+}
+
+@mixin ps_color-sred {
+    background-color: $ps_color-sred;
+    color           : $ps_color-stext;
+}
+
+@mixin ps_color-saccent($opacity: 1) {
+    background-color: rgba($ps_color-saccent, $opacity);
+    color           : $ps_color-saccenttext;
+}
+
+@mixin ps_color-s-radial-center() {
+    background: -moz-radial-gradient(
+                    center, 
+                    ellipse cover, 
+                    rgba($ps_color-secondary,0.5) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    background: -webkit-radial-gradient(
+                    center, 
+                    ellipse cover, 
+                    rgba($ps_color-secondary,0.5) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    background: radial-gradient(
+                    ellipse at center, 
+                    rgba($ps_color-secondary,0.5) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    filter: progid:DXImageTransform.Microsoft.gradient( 
+                startColorstr='#{$ps_color-secondary}', 
+                endColorstr='#{$ps_color-pdark}',
+                GradientType=1 
+            );
+}
+
+@mixin ps_color-plight-fade-bottom {
+    /* FF3.6-15 */
+    background: -moz-linear-gradient(
+                    top,
+                    rgba($ps_color-plight,0) 0%,
+                    rgba($ps_color-plight,0) 50%,
+                    rgba($ps_color-plight,.6) 100%
+                );
+
+    /* Chrome10-25,Safari5.1-6 */
+    background: -webkit-linear-gradient(
+                    top, 
+                    rgba($ps_color-plight,0) 0%,
+                    rgba($ps_color-plight,0) 50%,
+                    rgba($ps_color-plight,.6) 100%
+                ); 
+
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(
+                    to bottom, 
+                    rgba($ps_color-plight,0) 0%,
+                    rgba($ps_color-plight,0) 50%,
+                    rgba($ps_color-plight,.6) 100%
+                ); 
+
+    /* IE6-9 */
+    $ps_color-plight-nohash: '#00' + ps_helper-str_replace($ps_color-plight,'#');
+    filter                 : progid:DXImageTransform.Microsoft.gradient(
+                                startColorstr=#{$ps_color-plight-nohash}, 
+                                endColorstr=#{$ps_color-plight},
+                                GradientType=0
+                            ); 
+}
+
+@mixin ps_color-plightcard-fade-bottom {
+    /* FF3.6-15 */
+    background: -moz-linear-gradient(
+                    top,
+                    rgba($ps_color-plightcard,0) 0%,
+                    rgba($ps_color-plightcard,0) 50%,
+                    rgba($ps_color-plightcard,.6) 100%
+                );
+
+    /* Chrome10-25,Safari5.1-6 */
+    background: -webkit-linear-gradient(
+                    top, 
+                    rgba($ps_color-plightcard,0) 0%,
+                    rgba($ps_color-plightcard,0) 50%,
+                    rgba($ps_color-plightcard,.6) 100%
+                ); 
+
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(
+                    to bottom, 
+                    rgba($ps_color-plightcard,0) 0%,
+                    rgba($ps_color-plightcard,0) 50%,
+                    rgba($ps_color-plightcard,.6) 100%
+                ); 
+
+    /* IE6-9 */
+    $ps_color-plightcard-nohash: '#00' + ps_helper-str_replace($ps_color-plightcard,'#');
+    filter: progid:DXImageTransform.Microsoft.gradient(
+                startColorstr=#{$ps_color-plightcard-nohash}, 
+                endColorstr=#{$ps_color-plightcard},
+                GradientType=0
+            ); 
+}
+
+@mixin ps_color-pdark-fade-bottom {
+    /* FF3.6-15 */
+    background: -moz-linear-gradient(
+                    top,
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0) 50%,
+                    rgba($ps_color-pdark,.6) 100%
+                );
+
+    /* Chrome10-25,Safari5.1-6 */
+    background: -webkit-linear-gradient(
+                    top, 
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0) 50%,
+                    rgba($ps_color-pdark,.6) 100%
+                ); 
+
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(
+                    to bottom, 
+                    rgba($ps_color-pdark,0) 0%,
+                    rgba($ps_color-pdark,0) 50%,
+                    rgba($ps_color-pdark,.6) 100%
+                ); 
+
+    /* IE6-9 */
+    $ps_color-pdark-nohash: '#00' + ps_helper-str_replace($ps_color-pdark,'#');
+    filter: progid:DXImageTransform.Microsoft.gradient(
+                startColorstr=#{$ps_color-pdark-nohash}, 
+                endColorstr=#{$ps_color-pdark},
+                GradientType=0
+            ); 
+}
+
+
+@mixin ps_color-sdark-fade-bottom {
+    /* FF3.6-15 */
+    background: -moz-linear-gradient(
+                    top,
+                    rgba($ps_color-sdark,0) 0%,
+                    rgba($ps_color-sdark,0) 30%,
+                    rgba($ps_color-sdark,1) 100%
+                );
+
+    /* Chrome10-25,Safari5.1-6 */
+    background: -webkit-linear-gradient(
+                    top, 
+                    rgba($ps_color-sdark,0) 0%,
+                    rgba($ps_color-sdark,0) 30%,
+                    rgba($ps_color-sdark,1) 100%
+                ); 
+
+    /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    background: linear-gradient(
+                    to bottom, 
+                    rgba($ps_color-sdark,0) 0%,
+                    rgba($ps_color-sdark,0) 30%,
+                    rgba($ps_color-sdark,1) 100%
+                ); 
+
+    /* IE6-9 */
+    $ps_color-sdark-nohash: '#00' + ps_helper-str_replace($ps_color-sdark,'#');
+    filter: progid:DXImageTransform.Microsoft.gradient(
+                startColorstr=#{$ps_color-sdark-nohash}, 
+                endColorstr=#{$ps_color-sdark},GradientType=0
+            ); 
+    color  : $ps_color-stext;
+}
+
+@mixin ps_color-s-emboss {
+    /* FF3.6-15 */
+    background: #5b1e1b;
+    background: -webkit-gradient(
+                    linear, left top, left bottom, 
+                    color-stop(0%, #5b1e1b), 
+                    color-stop(50%, #5a1f1b),
+                    olor-stop(52%, #670900), 
+                    color-stop(100%, #670900)
+                );
+    background: -webkit-linear-gradient(
+                    top, 
+                    #5b1e1b 0%, 
+                    #5a1f1b 50%, 
+                    #670900 52%, 
+                    #670900 100%
+                );
+    background: -o-linear-gradient(
+                    top, 
+                    #5b1e1b 0%, 
+                    #5a1f1b 50%, 
+                    #670900 52%, 
+                    #670900 100%
+                );
+    background: -webkit-gradient(
+                    linear, left top, left bottom, 
+                    from(#5b1e1b), 
+                    color-stop(50%, #5a1f1b), 
+                    color-stop(52%, #670900), 
+                    to(#670900)
+                );
+    background: linear-gradient(
+                    to bottom, 
+                    #5b1e1b 0%, 
+                    #5a1f1b 50%, 
+                    #670900 52%, 
+                    #670900 100%
+                );
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#5b1e1b',endColorstr='#670900',GradientType=0);
+}
+
+@mixin ps_color-s-diagonal() {
+    background: $ps_color-secondary;
+    background: -moz-linear-gradient(45deg, lighten($ps_color-secondary, 8%) 35%,$ps_color-secondary 100%);
+    background: -webkit-linear-gradient(45deg, lighten($ps_color-secondary, 8%) 35%,$ps_color-secondary 100%);
+    background: linear-gradient(45deg, lighten($ps_color-secondary, 6%) 35%,$ps_color-secondary 100%);
+    $ps_color-secondary-lighten: lighten($ps_color-secondary, 6%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$ps_color-secondary-lighten}', endColorstr='#{$ps_color-secondary}',GradientType=1 );
+    color  : $ps_color-stext;
+}
+
+@mixin ps_color-s-diagonal-reverse() {
+    background: rgb(155,0,0);
+    background: -moz-linear-gradient(135deg, rgba(155,0,0,1) 32%, rgba(96,0,1,1) 100%);
+    background: -webkit-linear-gradient(135deg, rgba(155,0,0,1) 32%,rgba(96,0,1,1) 100%);
+    background: linear-gradient(135deg, lighten($ps_color-secondary, 6%) 35%,$ps_color-secondary 100%);
+    $ps_color-secondary-lighten: lighten($ps_color-secondary, 6%);
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#{$ps_color-secondary-lighten}', endColorstr='#{$ps_color-secondary}',GradientType=1 );
+    color  : $ps_color-stext;
+}
+
+@mixin ps_color-saccent-gradient-diagonal() {
+    background: -moz-linear-gradient(
+                    135deg, 
+                    rgba($ps_color-saccentlight,0.50) 0%,
+                    rgba($ps_color-saccentlight,0.4) 10%,
+                    rgba($ps_color-saccent,0.2) 60%,
+                    rgba($ps_color-secondary,0.35) 80%,
+                    rgba($ps_color-secondary,0.45) 100%
+                );
+    background: -webkit-linear-gradient(
+                    135deg, 
+                    rgba($ps_color-saccentlight,0.50) 0%,
+                    rgba($ps_color-saccentlight,0.4) 10%,
+                    rgba($ps_color-saccent,0.2) 60%,
+                    rgba($ps_color-secondary,0.35) 80%,
+                    rgba($ps_color-secondary,0.45) 100%
+                );
+    background: linear-gradient(
+                    135deg, 
+                    rgba($ps_color-saccentlight,0.50) 0%,
+                    rgba($ps_color-saccentlight,0.4) 10%,
+                    rgba($ps_color-saccent,0.2) 60%,
+                    rgba($ps_color-secondary,0.35) 80%,
+                    rgba($ps_color-secondary,0.45) 100%
+                );
+    filter    : progid:DXImageTransform.Microsoft.gradient(
+                    startColorstr= '#{$ps_color-saccentlight}', 
+                    endColorstr  = '#{$ps_color-secondary}',
+                    GradientType = 1 
+                );
+    color     : $ps_color-stext;
+}
+
+@mixin ps_color-o-p($opacity: 1) {
+    background-color: rgba($ps_color-o-primary, $opacity);
+    color           : $ps_color-o-ptext;
+}
+
+@mixin ps_color-o-plight($opacity: 1) {
+    background-color: rgba($ps_color-o-plight, $opacity);
+    color           : $ps_color-o-ptext;
+}
+
+@mixin ps_color-o-pdark($opacity: 1) {
+    background-color: rgba($ps_color-o-pdark, $opacity);
+    color           : $ps_color-o-ptext;
+}
+
+@mixin ps_color-s-circle-center() {
+    background: -moz-radial-gradient(
+                    center, 
+                    circle closest-corner, 
+                    rgba($ps_color-secondary,0.4) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    background: -webkit-radial-gradient(
+                    center, 
+                    circle closest-corner, 
+                    rgba($ps_color-secondary,0.4) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    background: radial-gradient(
+                    circle closest-corner, 
+                    rgba($ps_color-secondary,0.4) 0%, 
+                    rgba($ps_color-pdark,0.4) 100%
+                );
+    filter: progid:DXImageTransform.Microsoft.gradient( 
+                startColorstr='#{$ps_color-secondary}', 
+                endColorstr='#{$ps_color-pdark}',
+                GradientType=1 
+            );
+}

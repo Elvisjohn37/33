@@ -1,0 +1,138 @@
+
+@mixin ps_live_casino-casino_container {
+    background: url('../images/ps_navigation/page_background.jpg'); 
+
+	&:before {
+        @include ps_color-paccentlight-radial-lighter;
+        position  : absolute;
+        content   : '';
+        height    : 100%;
+        width     : 100%;
+        left      : 0px;
+        top       : 0px;
+    }
+}
+
+@mixin ps_live_casino-iframe_lobby {
+	@include ps_live_casino-casino_container;
+	
+	.ps_live_casino-lobby {
+	    @include ps_color-pdark(.8);
+        box-shadow: 0px 0px 20px rgba($ps_color-pdark, 0.6), 
+                    0 0px 6px rgba($ps_color-pdark, 0.8);
+	}
+
+}
+
+.ps_live_casino-thumbnail_container {
+	@include ps_live_casino-casino_container;
+    min-height: $ps_navigation-page-min-height;
+    position  : relative; 
+}
+
+.ps_live_casino-thumbnail {
+	@include ps_helper-clearfix;
+    box-shadow    : none;
+	min-height    : $ps_navigation-page-min-height;
+	position      : relative;
+	padding-bottom: $ps_main-features-h-height;
+
+	.ps_live_casino-body {
+		padding   : (($ps_main-standard-space * 2) - $ps_main-standard-space/4)  0px;
+		min-height: $ps_navigation-page-min-height;
+
+		.ps_live_casino-list {
+			@include ps_helper-clearfix;
+			@include ps_keyframes-fadein-up($ps_main-transition 1);
+			position     : relative;
+
+			.ps_live_casino-item {
+
+				.ps_live_casino-version {
+					float  : left;
+					width  : 25%;
+					padding: $ps_main-standard-space/2;
+
+				    @media all and (max-width:($ps_main-screen-desktop - 1px)) {
+						width: 33.3333333333%;
+				    }
+
+				    .ps_live_casino-content {
+				    	@include ps_color-pdark(.7);
+	    				border-radius    : $ps_main-radius;
+	    				box-shadow       : 0 1px 3px rgba($ps_color-pdark,.12),0 1px 2px rgba($ps_color-pdark,.24);
+	   					transition       : all $ps_main-transition;
+
+	   					.ps_live_casino-casino_name {
+	   						padding    : $ps_main-standard-space;
+	   						font-weight: bold;
+	   					}
+
+	   					.ps_live_casino-casino_image {
+							@include ps_color-p;
+							position: relative;
+							display : block;
+		
+							.ps_image-lazy {
+								line-height: 0px;
+
+								.ps_image-img {
+									width : 100%;
+									height: 100%;
+									max-height: 125px;
+									
+									&.ps_image-broken {
+										width : auto;
+									}
+								}
+							}
+
+							.ps_live_casino-thumbnail_placeholder {
+								z-index: -1;
+								opacity: 0;
+							}
+							
+							.ps_live_casino-casino_real_images {
+								position: absolute;
+								top     : 0px;
+								height  : 100%;
+								width   : 100%;
+
+								.ps_live_casino-animated_image {
+									position: absolute;
+									top     : 0px;
+									left    : 0px;
+								}
+							}
+						}
+
+						.ps_live_casino-play_button {
+							position: relative;
+							padding : $ps_main-standard-space/2;		
+
+							.ps_components-button {
+								width: 100%;
+							}			
+						}
+				    }
+				}
+			}
+		}
+	}
+}
+
+.ps_live_casino-play_button {
+	position   : relative; 
+	font-weight: bold;
+
+	.ps_live_casino-not_playable {
+		min-height : 38px;
+		line-height: 38px; 
+	}
+	
+	.ps_live_casino-play_icon {
+		@include ps_helper-v-center(absolute);
+		right    : $ps_main-standard-space;
+		font-size: $ps_main-font-size + 6px;
+	}
+}

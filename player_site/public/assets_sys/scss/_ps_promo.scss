@@ -1,0 +1,240 @@
+$ps_promo-search-button-size : 30px;
+$ps_promo-filter-tools-height: 50px;
+
+.ps_promo {
+	@include ps_games_template-game_container;
+	@include ps_color-plight;
+	@include ps_main-card;
+	min-height: $ps_navigation-page-min-height;
+	
+	.ps_promo-container {
+		@include ps_helper-clearfix;
+		box-shadow    : none;
+		min-height    : $ps_navigation-page-min-height;
+		position      : relative;
+		padding-top   : ($ps_main-standard-space*2) + $ps_promo-filter-tools-height;
+		padding-bottom: $ps_main-features-h-height;
+	}
+
+    .ps_promo-filter_tools {
+		@include ps_keyframes-fadein-down($ps_main-transition 1);
+    	@include ps_main-card;
+    	@include ps_color-pdark(.8);
+    	position     : absolute;
+    	width  		 : 100%;
+        height  	 : $ps_promo-filter-tools-height;
+        top     	 : ($ps_main-standard-space*2);
+
+        .ps_components-switch_option {
+        	height        : $ps_promo-filter-tools-height;
+        	line-height   : $ps_promo-filter-tools-height;
+        	text-transform: uppercase;
+        }
+
+		.ps_promo-search_bar {
+			@include ps_helper-clearfix;
+			float   : right;
+			display : inline-block;
+			position: relative;
+
+			.ps_components-input {
+	        	height             : $ps_promo-filter-tools-height;
+	        	line-height        : $ps_promo-filter-tools-height;
+	        	padding-right      : $ps_promo-search-button-size + ($ps_main-standard-space * 2);
+	        	width              : 280px;
+	        	border-bottom-width: 2px;
+			}
+
+			.ps_components-button {
+				@include ps_helper-v-center(absolute);
+				right    : $ps_main-standard-space;
+				font-size: $ps_main-font-size + 4px;
+				padding  : 0px;
+				height   : $ps_promo-search-button-size;
+				width    : $ps_promo-search-button-size;
+			}
+		}
+
+		.ps_components-form {
+			max-width: none;
+		}
+    }
+
+    .ps_promo-body {
+    	padding   : (($ps_main-standard-space * 2) - $ps_main-standard-space/4)  0px;
+		min-height: $ps_navigation-page-min-height - ($ps_main-standard-space + $ps_games_template-filter-tools-height);
+
+	    .ps_promo-back_button {
+			margin-top: $ps_main-standard-space;
+			text-align: right;
+	    }
+
+	    .ps_promo-list {
+			@include ps_keyframes-fadein-up($ps_main-transition 1);
+			@include ps_helper-clearfix;
+			position: relative;
+
+			.ps_promo-item {
+				float  : left;
+				width  : 25%;
+				padding: $ps_main-standard-space/2;
+
+				&.ps_promo-filtered_out .ps_promo-content {
+					opacity: .2;
+				}
+
+				&.ps_promo-searched_out {
+					display: none;
+				}
+
+				.ps_promo-content {
+    				@include ps_color-pdark(.7);
+    				border-radius: $ps_main-radius;
+    				box-shadow   : 0 1px 3px rgba($ps_color-pdark,.12),0 1px 2px rgba($ps_color-pdark,.24);
+   					transition   : all $ps_main-transition;
+   					cursor       : pointer;
+   					position     : relative;
+
+					&:hover {
+    					@include ps_color-pdark(.9);
+   						opacity   : 1;
+    					box-shadow: 0 14px 28px rgba($ps_color-pdark,.25),0 10px 10px rgba($ps_color-pdark,.22);
+
+						.ps_promo-click_more_info {
+							opacity: 1;
+						}
+					}
+
+					.ps_promo-title {
+						position   : relative;
+						height     : ($ps_main-font-size + $ps_main-standard-space + 2) * 2;
+						
+						.ps_promo-title_wrap {
+							height  : 100%;
+							position: relative;
+							overflow: hidden;
+							padding : $ps_main-standard-space/2;	
+
+							&::after {
+								@include ps_color-pdark-fade-bottom;
+								content : '';
+								position: absolute;
+								height  : 100%;
+								width   : 100%;
+								top     : 0px;
+								left    : 0px;
+							}
+						}
+
+						.ps_promo-preview_text {
+							font-size : $ps_main-font-size - 2px;
+							opacity   : .7;
+							text-align: justify; 
+						}
+					}
+
+					.ps_promo-click_more_info {
+						@include ps_color-pdark(.9);
+						@include ps_main-card;
+						transition: $ps_main-transition;
+						opacity   : 0; 
+						position  : absolute;
+						top       : $ps_main-standard-space;
+						left      : $ps_main-standard-space;
+						padding   : $ps_main-standard-space/2;
+						z-index   : 4; 
+					}
+				}
+			}
+		}
+    }
+}
+
+.ps_promo-image {
+	@include ps_color-p;
+	position: relative;
+	display : block;
+
+	.ps_image-lazy {
+		line-height: 0px;
+
+		.ps_image-img {
+			width : 100%;
+			height: 100%;
+			
+			&.ps_image-broken {
+				width : auto;
+			}
+		}
+	}
+
+	.ps_promo-thumbnail_placeholder {
+		z-index: -1;
+		opacity: 0;
+	}
+
+	.ps_promo-real_image, .ps_promo-video {
+		position: absolute;
+		top     : 0px;
+		left    : 0px;
+		width   : 100%;
+	}
+
+	.ps_promo-video {
+		height  : 100%;
+	}
+
+	.ps_promo-new {
+		position   : absolute;
+		font-weight: bold;
+		height     : 45px;
+		width      : 45px;
+		bottom     : $ps_main-standard-space/2;
+		right      : $ps_main-standard-space/2;
+		padding    : $ps_main-standard-space/2;
+
+		.ps_image-img {
+				filter: drop-shadow(0 0 3px rgba($ps_color-paccentlight, .5));
+		}
+	}
+}
+
+.ps_js-promo_root {
+	@include ps_popup-modal-full_height;
+
+	.modal-content  .modal-body {
+		padding: 0px;
+		height : 100%;
+	}
+
+	.ps_promo-sticky_image {
+		@include ps_popup-follow-modal-width;
+		position: absolute;
+		top     : 0px;
+		margin  : 0 auto;
+	}
+
+	.ps_components-sticky_active .ps_promo-sticky_image {
+		@media (max-width: $ps_main-min_width) and (min-height: 600px) {
+			position: fixed;
+		}
+
+		@media (min-width: $ps_main-min_width) and (min-height: 500px) {
+			position: fixed;
+		}
+	}
+	
+	// NOTE: style of this also depends on admin site, consult with admin site team before altering something
+	.ps_promo-description {
+		font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+		font-size  : 14px;
+    	padding    : 20px;
+		white-space: pre-wrap;
+	    line-height: normal;
+	    text-align: justify;
+
+		p {
+			margin: 0;
+		}
+	}
+}

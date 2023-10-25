@@ -1,0 +1,459 @@
+$ps_games_template-thumbnail-frame    : 25;
+$ps_games_template-filter-tools-height: 50px;
+$ps_games_template-max-item           : 50;
+
+@mixin ps_games_template-game_container {
+    background: url('../images/ps_navigation/page_background.jpg'); 
+
+	&:before {
+        @include ps_color-paccentlight-radial-lighter;
+        position  : absolute;
+        content   : '';
+        height    : 100%;
+        width     : 100%;
+        left      : 0px;
+        top       : 0px;
+    }
+}
+
+@mixin ps_games_template-iframe_lobby {
+	@include ps_games_template-game_container;
+	
+	.ps_games_template-lobby {
+	    @include ps_color-pdark(.8);
+        box-shadow: 0px 0px 20px rgba($ps_color-pdark, 0.6), 
+                    0 0px 6px rgba($ps_color-pdark, 0.8);
+	}
+
+}
+
+.ps_games_template-thumbnail_container {
+	@include ps_games_template-game_container;
+    min-height: $ps_navigation-page-min-height;
+    position  : relative; 
+}
+
+$ps_games_template-search-button-size: 30px;
+.ps_games_template-thumbnail {
+	@include ps_helper-clearfix;
+    box-shadow    : none;
+	min-height    : $ps_navigation-page-min-height;
+	position      : relative;
+	padding-top   : ($ps_main-standard-space*2) + $ps_games_template-filter-tools-height;
+	padding-bottom: $ps_main-features-h-height;
+
+    .ps_games_template-filter_tools {
+		@include ps_keyframes-fadein-down($ps_main-transition 1);
+    	@include ps_main-card;
+    	@include ps_color-pdark(.7);
+    	position: absolute;
+    	width   : 100%;
+        height  : $ps_games_template-filter-tools-height;
+        top     : ($ps_main-standard-space*2);
+
+        .ps_components-form_switch {
+			float: left;
+
+	        .ps_components-switch_option {
+	        	height        : $ps_games_template-filter-tools-height;
+	        	line-height   : $ps_games_template-filter-tools-height;
+	        	text-transform: uppercase; 
+	        }
+        }
+
+		.ps_games_template-game_type_filter {
+			float       : left;
+    		border-left : 1px solid rgba(lighten($ps_color-plight, 100%),.2);
+
+			.ps_games_template-game_type_item {
+	        	height        : $ps_games_template-filter-tools-height;
+	        	line-height   : $ps_games_template-filter-tools-height;
+	        	text-transform: uppercase; 
+    			border-bottom : 2px solid transparent;
+    			padding       : 0 $ps_main-standard-space*2;
+    			display       : block;
+
+    			&.ps_games_template-active {
+					color         : $ps_color-paccent;
+					background    : rgba($ps_color-plight, .5);
+					color         : $ps_color-paccentlight;
+					border-bottom : 2px solid rgba($ps_color-paccentlight, 1);
+				}
+
+				.ps_icon {
+
+					&[data-game-type = 'Table'] {
+    					@include ps_icon-table();
+					}
+
+					&[data-game-type = 'Card'] {
+    					@include ps_icon-card_game();
+					}
+
+					&[data-game-type = 'Slot'] {
+    					@include ps_icon-slot_machine();
+					}
+				}
+			}
+		}
+
+		.ps_games_template-search_bar {
+			@include ps_helper-clearfix;
+			float   : right;
+			display : inline-block;
+			position: relative;
+
+			.ps_components-input {
+	        	height             : $ps_games_template-filter-tools-height;
+	        	line-height        : $ps_games_template-filter-tools-height;
+	        	padding-right      : $ps_games_template-search-button-size + ($ps_main-standard-space * 2);
+	        	width              : 280px;
+	        	border-bottom-width: 2px;
+			}
+
+			.ps_components-button {
+				@include ps_helper-v-center(absolute);
+				right    : $ps_main-standard-space;
+				font-size: $ps_main-font-size + 6px;
+				padding  : 0px;
+				height   : $ps_games_template-search-button-size;
+				width    : $ps_games_template-search-button-size;
+			}
+		}
+
+		.ps_components-form {
+			max-width: none;
+		}
+    }
+
+    .ps_games_template-body {
+    	padding   : (($ps_main-standard-space * 2) - $ps_main-standard-space/4)  0px;
+		min-height: $ps_navigation-page-min-height - ($ps_main-standard-space + $ps_games_template-filter-tools-height);
+
+	    .ps_games_template-back_button {
+			margin-top: $ps_main-standard-space;
+			text-align: right;
+	    }
+
+		.ps_games_template-list {
+			@include ps_helper-clearfix;
+			@include ps_keyframes-fadein-up($ps_main-transition 1);
+			position     : relative;
+
+			.ps_games_template-item {
+				float  : left;
+				width  : 25%;
+				padding: $ps_main-standard-space/2;
+
+			    @media all and (max-width:($ps_main-screen-desktop - 1px)) {
+					width: 33.3333333333%;
+			    }
+
+				&.ps_games_template-filtered_out .ps_games_template-content {
+					opacity: .2;
+				}
+
+				&.ps_games_template-searched_out {
+					display: none;
+				}
+
+				.ps_games_template-content {
+    				@include ps_color-pdark(.7);
+    				border-radius    : $ps_main-radius;
+    				box-shadow       : 0 1px 3px rgba($ps_color-pdark,.12),0 1px 2px rgba($ps_color-pdark,.24);
+   					transition       : all $ps_main-transition;
+
+   					&:hover {
+    					@include ps_color-pdark(.9);
+   						opacity   : 1;
+    					box-shadow: 0 14px 28px rgba($ps_color-pdark,.25),0 10px 10px rgba($ps_color-pdark,.22);
+
+						.ps_games_template-game_image .ps_games_template-game_real_images {
+							.ps_games_template-animated_image .ps_image-img.ps_js-image_loaded {
+								@include ps_keyframes-sprite-animation(25, 5s 1);
+								animation-fill: forward;
+								display       : block;
+								opacity       : 0;
+
+								&.ps_image-broken {
+									display  : none;
+									animation: none;
+								}
+							}
+						}
+
+						.ps_games_template-modal_trigger {
+							opacity: .5;
+						}
+   					}
+
+					.ps_games_template-game_name {
+						padding    : $ps_main-standard-space 
+							         $ps_main-standard-space * 4 
+							         $ps_main-standard-space 
+							         $ps_main-standard-space;
+						font-weight: bold;
+						position   : relative;
+
+						.ps_games_template-table,
+						.ps_games_template-slot,
+						.ps_games_template-card {
+							width : auto;
+						    height: auto;
+						    right : $ps_main-standard-space;
+						    @include ps_helper-v-center(absolute);
+
+						    .ps_icon {
+
+								&[data-game-type = 'Table'] {
+			    					@include ps_icon-table();
+								}
+
+								&[data-game-type = 'Card'] {
+			    					@include ps_icon-card_game();
+								}
+
+								&[data-game-type = 'Slot'] {
+			    					@include ps_icon-slot_machine();
+								}
+							}
+						}
+					}
+
+					.ps_games_template-game_image {
+						@include ps_color-p;
+						position: relative;
+						display : block;
+	
+						.ps_image-lazy {
+							line-height: 0px;
+
+							.ps_image-img {
+								width : 100%;
+								height: 100%;
+								
+								&.ps_image-broken {
+									width : auto;
+								}
+							}
+						}
+
+						.ps_games_template-thumbnail_placeholder {
+							z-index: -1;
+							opacity: 0;
+						}
+						
+						.ps_games_template-game_real_images {
+							position: absolute;
+							top     : 0px;
+							height  : 100%;
+							width   : 100%;
+
+							.ps_games_template-animated_image {
+								position: absolute;
+								top     : 0px;
+								left    : 0px;
+
+								.ps_image-img {
+									display        : none;
+									background-size: 100%*$ps_games_template-thumbnail-frame auto;
+								}
+							}
+						}
+					}
+	
+					.ps_games_template-play_button {
+						position: relative;
+						padding : $ps_main-standard-space/2;		
+
+						.ps_components-button {
+							width: 100%;
+						}			
+					}
+
+					.ps_games_template-modal_trigger {
+						@include ps_helper-center(absolute);
+						color      : $ps_color-stext;
+						text-shadow: 0px 0px 2px rgba($ps_color-secondary,.5);
+						font-size  : 60px;
+						opacity    : 0;
+						transition : $ps_main-transition;
+						cursor     : pointer;
+    					line-height: 0px;
+
+						&:hover {
+							opacity: 1;
+						}
+					}
+
+					.ps_games_template-new {
+						position   : absolute;
+						font-weight: bold;
+						height     : 45px;
+						width      : 45px;
+						bottom     : $ps_main-standard-space/2;
+						right      : $ps_main-standard-space/2;
+						padding    : $ps_main-standard-space/2;
+
+						.ps_image-img {
+     						filter: drop-shadow(0 0 3px rgba($ps_color-paccentlight, .5));
+						}
+					}
+				}
+			}
+		}
+    }
+}
+
+.ps_games_template-not_playable {
+	color     : $ps_color-error;
+	text-align: center;
+}
+
+$ps_games_template-description-size: 300px;
+.ps_js-game_preview_root {
+	@include ps_popup-modal-xl;
+	
+	&::after {
+		@include ps_color-paccentlight-radial-center;
+		position: absolute;
+		height: 100%;
+		width:100%;
+		top: 0px;
+		left: 0px;
+		content:'';
+		display: block;
+	}
+
+	.modal-dialog {
+		z-index: 3;
+	}
+
+	&.ps_popup-modal .modal-content {
+		@include ps_color-pdark(.9);
+
+		.modal-body {
+			padding      : 0px;
+			padding-right: $ps_games_template-description-size;
+		}
+	}
+
+	$ps_gamps_games_template-indicators-space: 40px;
+	.ps_games_template-slides {
+		@include ps_color-pdark(.8);
+		width         : 100%;
+		line-height   : 0px;
+		position      : relative;
+		padding-bottom: $ps_gamps_games_template-indicators-space;
+		
+		&::before {
+			content : '';
+			display : block;
+			position: absolute;
+			bottom  : 0px; 
+			width   : 100%;
+			height  : $ps_gamps_games_template-indicators-space;
+		}
+
+		.ps_image-img {
+			height: 100%;
+		}
+
+		.ps_games_template-slides_wrap {
+			position: relative;
+			height  : 100%;
+			width   : 100%;
+		}
+
+		.ps_games_template-slide_placeholder .ps_image-img {
+			width : 100%;
+		}
+
+		.ps_games_template-slide_placeholder {
+			opacity: 0;
+		}
+
+		.ps_games_template-carousel {
+			position   : absolute;
+			top        : 0px;
+			left       : 0px;
+			width      : 100%;
+			height     : 100%;
+			line-height: normal;
+
+			.carousel-indicators {
+				bottom     : -(($ps_gamps_games_template-indicators-space/2) + 3px);
+			}
+		}
+
+		.ps_media-youtube {
+			width : 100%;
+			height: 100%;
+		}
+	}
+
+	.ps_games_template-description {
+		@include ps_color-plight(.5);
+		position      : absolute;
+		top           : 0px;
+		right         : 0px;
+		width         : $ps_games_template-description-size;
+		height        : 100%;
+		// 28px is button height
+		padding-bottom: ($ps_main-standard-space*4) + 28px;
+
+		.ps_games_template-description_header {
+			padding      : $ps_main-standard-space*2;
+			// 20px is modal close button  font-size
+			padding-right: ($ps_main-standard-space*4) + 20px;
+			font-weight  : bold; 
+		}
+
+		.ps_games_template-description_body {
+			padding: 0px $ps_main-standard-space*2;
+		}
+
+		.ps_games_template-description_button {
+			padding   : $ps_main-standard-space*2;
+			position  : absolute;
+			bottom    : 0px;
+			width     : 100%;
+
+			.ps_components-button {
+				width: 100%;
+			}
+
+			.ps_games_template-not_playable {
+				padding: 0px;
+			}
+		}
+	}
+}
+
+.ps_games_template-play_button {
+	position   : relative; 
+	font-weight: bold;
+
+	.ps_games_template-not_playable {
+		min-height : 38px;
+		line-height: 38px; 
+	}
+	
+	.ps_games_template-play_icon {
+		@include ps_helper-v-center(absolute);
+		right    : $ps_main-standard-space;
+		font-size: $ps_main-font-size + 6px;
+	}
+}
+
+.ps_games_template-running_modal_footer {
+	@include ps_helper-clearfix;
+
+	.ps_components-button {
+		float: right;
+
+		+ .ps_components-button {
+			margin-right:  $ps_main-standard-space;
+		}
+	}
+}

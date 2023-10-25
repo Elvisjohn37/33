@@ -1,0 +1,12 @@
+.ps_js-register_root {
+	@include ps_popup-right-modal;
+
+	.ps_register-form_wrap {
+		padding: $ps_main-standard-space * 2;
+		
+		form {
+			position: relative;
+		}
+	}
+}
+

@@ -1,0 +1,41 @@
+<!--
+| Custom tags
+-->
+<div class='ps_js-image' data-cusotm-tags='indicator'>
+    <span 
+        data-tag             = 'lazy'
+        class                = 'ps_image-lazy' 
+        v-bind:data-default  = "shared.rso.assets + 'images/ps_image/broken_image.png'"
+        v-bind:data-portrait = 'is_portrait'
+    >   
+        <span  v-if='is_loading' class='ps_image-loader_wrap'><i class='ps_icon md-image ps_image-loader'></i></span>
+        <div  
+            v-else-if    = 'background' 
+            v-bind:style = "{ backgroundImage: 'url(' + final_src + ')' }"
+            v-bind:class = "[{ 'ps_image-broken ps_js-image_broken': is_broken },{'ps_js-image_loaded':dom_loaded},'ps_image-img ps_image-img_background ps_js-image']"
+        ></div>
+        <img  
+            v-else 
+            v-bind:src   = 'final_src' 
+            v-bind:alt   = 'alt' 
+            v-bind:class = "[{'ps_image-broken ps_js-image_broken': is_broken},{'ps_js-image_loaded':dom_loaded},'ps_image-img ps_js-image']"
+        >
+    </span>
+    <span 
+        data-tag               = 'crop'
+        class                  = 'ps_image-crop ps_js-image_cropper' 
+        v-bind:data-portrait   = 'is_portrait'
+    >
+        <span  v-if='is_loading' class='ps_image-loader_wrap'><i class='ps_icon md-image ps_image-loader'></i></span>
+        <ps-indicator-small-notice v-else-if='is_error' class='ps_image-crop_error'>
+            {{ shared.lang.error.ERR_00096 }}
+        </ps-indicator-small-notice>
+        <template v-else>
+            <div class='ps_image-crop_image'>
+                <img v-bind:src='src' class="ps_image-crop_img ps_js-image_crop">
+            </div>
+            <canvas class = 'ps_js-image_save_cropped'></canvas>
+            <ps-form-input class='ps_js-image_save_base64' type='hidden' v-bind:name='name'></ps-form-input>
+        </template>
+    </span>
+</div>

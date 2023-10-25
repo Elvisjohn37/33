@@ -1,0 +1,22 @@
+<div class='ps_js-language' data-custom-tags='image,indicator,pop'>
+	<div data-tag='selector' class='ps_language'>
+		<div class='ps_language-item ps_language-loader' v-if='is_loading'>
+			<ps-indicator-loader></ps-indicator-loader>
+		</div>
+		<template v-else>
+			<ps-pop-tooltip
+				v-for                = 'lang in language.list' 
+				class                = 'ps_language-item ps_js-language_item' 
+				v-bind:title         = 'lang.text'
+				data-placement       = 'bottom'
+				v-bind:data-language = 'lang.langID'
+				v-bind:key           = 'lang.langID'
+			>
+				<ps-image-lazy 
+					background = 'true' 
+					v-bind:src = "shared.rso.assets+'images/ps_language/'+lang.langID+'.jpg'">
+				</ps-image-lazy>
+			</ps-pop-tooltip>
+		</template>
+	</div>
+</div>

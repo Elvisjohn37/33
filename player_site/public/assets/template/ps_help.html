@@ -1,0 +1,162 @@
+<!--
+| help sidebars
+-->
+<div class='ps_js-help_menu' data-custom-tags='navigation'>
+	<ps-indicator-loader   v-if='is_loading'></ps-indicator-loader>
+    <ps-navigation-sidebar v-else v-bind:hash='hash_info.hash'></ps-navigation-sidebar>
+</div>
+
+<!--
+| FAQ modal parts
+-->
+<div class='ps_js-faq_header ps_help-modal_header' data-custom-tags='form'>
+	<div class='ps_help-modal_header_text'>
+		{{ text }}
+		<div class='ps_help-modal_header_subtext'>
+			{{ shared.lang.language.faq }}
+		</div>
+	</div>
+	<a
+		v-bind:class="[{'ps_help-is_expand_all': modal_info.is_expand_all}, 'ps_help-faq_toggle_answers ps_js-faq_toggle_answers ps_components-form_sizing']"
+	>
+		<i class='ps_icon md-check_box_outline_blank ps_help-toggle_indicator ps_help-toggle_indicator_uncheck'></i>
+		<i class='ps_icon md-check_box ps_help-toggle_indicator ps_help-toggle_indicator_check'></i>
+		{{ shared.lang.language.toggle_all_answers }}
+	</a>
+</div>
+<div class='ps_js-faq_body ps_help-modal_body' data-custom-tags='indicator'>
+	<ps-indicator-loader   v-if='is_loading'></ps-indicator-loader>
+	<div v-else class='ps_help-faq_content'>
+        <ps-list-collapsible v-for='(list, index) in faq.list' v-bind:key='index'>
+        	<template v-for='(content, question) in list'>
+           		<span class='ps_help-faq_number'>{{ index + 1  }}.</span>
+           		<div v-html='question' class='ps_help-faq_item'></div>
+           		<p class='ps_help-faq_content' slot='content' v-html='content'></p>
+        	</template>
+        </ps-list-collapsible>
+	</div>
+</div>
+
+<!--
+| GAMING RULES modal parts
+-->
+<div class='ps_js-gaming_rules_header ps_help-modal_header'  data-custom-tags='form'>
+	<div class='ps_help-modal_header_text'>
+		{{ text }}
+		<div class='ps_help-modal_header_subtext'>
+			{{ shared.lang.language.gaming_rules }}
+		</div>
+	</div>
+</div>
+<div 
+	class              = 'ps_js-gaming_rules_body ps_help-modal_body' 
+	data-custom-tags   = 'indicator'
+	data-ingame-width  = '820'
+	data-ingame-height = '900'
+>
+	<ps-indicator-loader   v-if='is_loading'></ps-indicator-loader>
+	<div v-else class='ps_help-gaming_rules_content'>
+		<h4 class='ps_help-gaming_rules_title'>{{ shared.lang.language.gm_sub }}</h4>
+		<p  class='ps_help-gaming_rules_intro' v-html='gaming_rules.description'></p>
+		<h4 class='ps_help-gaming_rules_title'>{{ gaming_rules.title }}</h4>
+		<ol class='ps_help-gaming_rules_items'>
+			<li v-for='item in gaming_rules.items'>
+				<div class='ps_help-gaming_rules_description'>
+					<div class='ps_help-gaming_rules_topic' v-html='item.topic'></div>
+					<p 
+						v-for  = 'paragraph in item.paragraphs' 
+						class  = 'ps_help-gaming_rules_paragraph'
+						v-html = 'paragraph'
+					></p>
+					<ul v-if='item.bullets'>
+						<li 
+							v-for  = 'bullet in item.bullets' 
+							class  = 'ps_help-gaming_rules_bullets'
+						><p v-html = 'bullet'></p></li>
+					</ul>
+				</div>
+			</li>
+		</ol>
+	</div>
+</div>
+<div class='ps_js-game_guide_tree ps_help-game_guide_tree' data-custom-tags='navigation'>
+	<ps-navigation-sidebar-tree 
+		v-bind:sidebars    = 'game_guide' 
+		v-bind:collapsible = 'false'
+		v-bind:actives     = 'view_data.navigation.actives'
+	></ps-navigation-sidebar-tree>
+</div>
+
+<!--
+| GAME GUIDE modal parts
+-->
+<div class='ps_js-game_guide_header ps_help-modal_header' data-custom-tags='form'>
+	<div class='ps_help-modal_header_text'>
+		{{ text }}
+		<div class='ps_help-modal_header_subtext'>
+			{{ shared.lang.language.game_guide }}
+		</div>
+	</div>
+	<template v-if='modal_info.is_header_ready'>
+		<ps-form-boundary v-if='!modal_info.under_construction' class='ps_help-game_guide_select'>
+			<ps-form-input-wrap>
+				<template slot='label'>{{ modal_info.header_title }}</template>
+				<ps-form-select 
+					v-bind:options         = 'modal_info.header_options' 
+					v-bind:selected        = 'modal_info.active_page' 
+					v-bind:html-description='true'
+					class                  = 'ps_js-game_guide_select'
+				></ps-form-select>
+			</ps-form-input-wrap>
+		</ps-form-boundary>
+	</template>
+</div>
+<div 
+	class              = 'ps_js-game_guide_body ps_help-modal_body' 
+	data-custom-tags   = 'indicator,form'
+	data-ingame-width  = '820'
+	data-ingame-height = '900'
+>
+	<ps-form-back v-if='page_info.previous_sidebar' v-bind:href='page_info.previous_sidebar'></ps-form-back>
+	<template v-if = 'modal_info.is_header_ready'>
+		<ps-indicator-onpage-error v-if='modal_info.under_construction' code='ERR_00099'>
+			<i class='ps_icon md-error_outline' slot='icon'></i>
+		</ps-indicator-onpage-error>
+		<div 
+			v-else
+			v-for       ='(page_info,page) in modal_info.page_infos'
+			v-bind:class="[{ 'ps-hidden': modal_info.active_page != page }, 'ps_help-game_guide_content ps_js-game_guide_' + page]" 
+		>
+			<div v-if='page_info.loaded' class='ps_helper-game_guide_content'>
+				<span v-if='page_info.success' v-html='page_info.content' class='ps-enable_bootstrap'></span>
+				<ps-indicator-onpage-error v-else code='ERR_00100'>
+					<i class='ps_icon md-error_outline' slot='icon'></i>
+				</ps-indicator-onpage-error>
+			</div>
+			<ps-indicator-loader v-else></ps-indicator-loader>
+		</div>
+	</template>
+	<ps-indicator-loader  v-else></ps-indicator-loader>
+</div>
+<span class='ps_js-game_guide_images ps_help-modal_images' data-custom-tags='image'>
+	<ps-image-lazy 
+		v-bind:src   = "shared.rso.gameguide +'../'+ attributes['data-src']"
+		v-bind:class = "[{'ps-invisible': is_loading},'ps_js-gg_image_selector ps_image-uncontrolled ' + attributes.class]"
+	></ps-image-lazy>
+</span>
+
+<!--
+| TERMS AND CONDITIONS modal parts
+-->
+<div class='ps_js-terms_conditions_body ps_help-modal_body' data-custom-tags='accept_terms'>
+	<ps-accept-terms-content></ps-accept-terms-content>
+</div>
+
+
+<!--
+| CONTACT US modal parts
+-->
+<div class='ps_js-contact_us_body ps_help-modal_body' data-custom-tags='indicator'>
+	<ps-indicator-loader  v-if='is_loading'></ps-indicator-loader>
+	<div v-else class='ps_help-contact_us' v-html='content'></div>
+</div>

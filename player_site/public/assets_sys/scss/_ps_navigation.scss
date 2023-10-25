@@ -1,0 +1,622 @@
+$ps_navigation-top-height    :28px;
+$ps_navigation-mid-height    :80px;
+$ps_navigation-bottom-height :50px;
+
+.ps-main_wrapper {
+
+    @media(min-height:500px) and (min-width:$ps_main-min_width) {
+        padding-top: $ps_navigation-top-height + $ps_navigation-mid-height + $ps_navigation-bottom-height;
+
+        header {
+            position: fixed;
+            top     : 0px;
+            z-index : 3;
+        }
+    }
+}    
+
+header {
+    @include ps_main-card;
+    width: 100%;
+
+    .ps_navigation-top {
+        @include ps_color-p;
+
+        .ps-container {
+            @include ps_helper-clearfix;
+            height: $ps_navigation-top-height;
+        }
+
+        .ps_navigation-toolbar {
+            position: relative;
+            margin  : 0px;
+            float   : right;
+
+            li {
+                height     : $ps_navigation-top-height;
+                line-height: $ps_navigation-top-height;
+                text-align : center;
+                border-left: 1px solid $ps_color-primary;
+                min-width  : $ps_navigation-top-height;
+
+                + li {
+                    margin-left: $ps_main-standard-space * 2;
+                }
+
+                &:last-of-type {
+                    border-right: 1px solid $ps_color-primary;
+                }
+
+                a {
+                    display: inline-block;
+                    height : 100%;
+                    color  : $ps_color-ptext;
+
+                    &:hover {
+                        color: $ps_color-paccentlight;
+                    }
+                }
+            }
+        }
+    }
+
+    .ps_navigation-mid {
+        @include ps_color-plight;
+        background-image : url(../images/ps_navigation/mid_background.png);
+        background-repeat: no-repeat;
+        position         : relative;
+        z-index          : 3;
+
+        .ps-container {
+            @include ps_helper-clearfix;
+            height     : $ps_navigation-mid-height;
+            line-height: $ps_navigation-mid-height;
+        }
+        
+        .ps_navigation-logo {
+            @include ps_helper-v-center;
+            float      : left;
+            display    : inline-block;
+            line-height: normal;
+
+            .ps_components-logo {
+                width : 175px;
+                height: 70px;
+                filter: drop-shadow(0 0 40px $ps_color-paccentlight);
+            }
+        }
+
+        .ps_navigation-submenu {
+            position: absolute;
+            right   : 0px; 
+            top     : 0px;
+            display : inline-block;
+            height  : 100%;
+
+            .ps_navigation-menu {
+                margin : 0px;
+                display: inline-block;
+
+                li {
+                    position   : relative;
+                    margin-left: $ps_main-standard-space;
+                    text-align : center;
+
+                    .ps_navigation-menu_item {
+                        display      : block;
+                        padding      : 0px 10px;
+                        color        : $ps_color-ptext;
+                        text-shadow  : 1px 1px rgba($ps_color-pdark,1);
+                        font-weight  : bold;
+                        height       : $ps_navigation-mid-height;
+                        line-height  : $ps_navigation-mid-height;
+                        border-bottom: 2px solid transparent;
+
+                        &:hover {
+                            text-decoration: none; 
+                            color          : $ps_color-paccentlight;
+                            text-shadow    : -1px -1px 10px rgba($ps_color-paccent, 0.2), 
+                                            1px -1px 7px rgba($ps_color-paccent, 0.2), 
+                                            -1px 1px 4px rgba($ps_color-paccent, 0.2), 
+                                            1px 1px 10px rgba($ps_color-paccent, 0.2);
+                        }
+
+                        &.ps_navigation-active  {
+                            color        : $ps_color-paccentlight;
+                            border-bottom: 2px solid $ps_color-paccentlight;
+                            text-shadow  : -1px -1px 10px rgba($ps_color-paccentlight, 0.2), 
+                                            1px -1px 7px rgba($ps_color-paccentlight, 0.2), 
+                                            -1px 1px 4px rgba($ps_color-paccentlight, 0.2), 
+                                            1px 1px 10px rgba($ps_color-paccentlight, 0.2);
+                        }
+                    }
+
+                    &.ps_navigation-loader > .ps_navigation-menu_item {
+                        min-width: 164px; 
+                    } 
+                }
+            }
+
+            .ps_language {
+                @include ps_helper-v-center;
+                line-height: normal;
+                float      : right;
+                line-height: 0px;
+            }
+        }
+
+        .ps_navigation-login {
+            @include ps_helper-v-center;
+            position: relative;
+            float   : right;
+        }
+    }
+
+    .ps_navigation-bottom {
+        @include ps_color-s-diagonal-reverse;
+        border-bottom: 1px solid rgba($ps_color-slight, .7);
+
+        .ps-container {
+            height     : $ps_navigation-bottom-height;
+            line-height: $ps_navigation-bottom-height;
+        }
+
+        .ps_navigation-menu {
+            margin      : 0px;
+            display     : table;
+            width       : 100%;
+
+            &::after {
+                display: none;
+            }
+
+            li {
+                display    : table-cell;
+                text-align : center;
+                padding    : 0;
+                margin     : 0;
+                float      : none;
+                width      : 1%;
+                
+                &.ps_navigation-loader {
+                    height: $ps_navigation-bottom-height;
+                    width : 20%;
+                } 
+
+                .ps_navigation-menu_item {
+                    position       : relative;
+                    display        : block;
+                    height         : 100%;
+                    text-transform : uppercase;
+                    width          : 100%;
+                    letter-spacing : 2px;
+                    text-shadow    : 1px 1px rgba($ps_color-sdark,1);
+                    border-bottom  : 2px solid transparent;
+                    transition     : all $ps_main-transition;
+                    color          : $ps_color-stext;
+                    // -3px is border-bottom + 1px in negative form
+                    height     : $ps_navigation-bottom-height;
+                    line-height: $ps_navigation-bottom-height;
+                    float      : left;
+                    padding    : 0 $ps_main-standard-space;
+
+
+                    &:hover {
+                        text-decoration: none; 
+                        color          : $ps_color-saccentlight;
+                        text-shadow    : -1px -1px 10px rgba($ps_color-saccent, 0.2), 
+                                        1px -1px 7px rgba($ps_color-saccent, 0.2), 
+                                        -1px 1px 4px rgba($ps_color-saccent, 0.2), 
+                                        1px 1px 10px rgba($ps_color-saccent, 0.2);
+                    }
+
+                    &.ps_navigation-active  {
+                        border-bottom: 2px solid $ps_color-saccentlight;
+                        color        : $ps_color-saccentlight;
+                        text-shadow  : -1px -1px 10px rgba($ps_color-saccentlight, 0.2), 
+                                        1px -1px 7px rgba($ps_color-saccentlight, 0.2), 
+                                        -1px 1px 4px rgba($ps_color-saccentlight, 0.2), 
+                                        1px 1px 10px rgba($ps_color-saccentlight, 0.2);
+                    }
+
+                }
+
+                .ps_components-badge {
+                    @include ps_main-card;
+                    position     : absolute;
+                    top          : 1px;
+                    right        : $ps_main-standard-space;
+                    border-radius: 0px 0px $ps_main-radius $ps_main-radius;
+                }
+            }
+        }
+    }
+}
+
+.ps_menu-text {
+    display       : inline-block;
+    line-height   : normal;
+    vertical-align: middle; 
+}
+
+$ps_navigation-page_top_space:  ($ps_main-standard-space*2);
+$ps_navigation-page-min-height: 350px;
+$ps_navigation-sidebar-width  : 220px;
+$ps_navigation-sidebar-item   : 40px;
+$ps_navigation-route          : 40px;
+.ps_navigation-page_container {
+    background-color: $ps_color-void;
+    position        : relative;
+
+    @media all and (min-width: $ps_main-screen-desktop) {
+        @include ps_components-horizontal-form;
+    }
+
+    @media all and (max-width: $ps_main-screen-desktop - 1px) {
+        @include ps_components-vertical-form;
+    }
+
+    .ps_navigation-default_background {
+        min-height: $ps_navigation-page-min-height;
+        position  : relative; 
+        background: url('../images/ps_navigation/page_background.jpg'); 
+
+        &:before {
+            position  : absolute;
+            content   : '';
+            height    : 100%;
+            width     : 100%;
+            left      : 0px;
+            top       : 0px;
+            @include ps_color-paccentlight-radial-top;
+        }
+    }
+
+    .ps_navigation-page  { 
+        position  : absolute;
+        width     : 100%;
+        opacity   : 0;
+        display   : none;
+        z-index   : 0;
+        min-height: $ps_navigation-page-min-height;
+        
+        .ps_js-core_view_ingame & {
+            min-height: 100vh;
+        }
+
+        > * {
+            opacity   : 0;
+            animation : none;
+        }
+
+        &.ps_navigation-active {
+            display : block;
+            opacity : 1; 
+            z-index : 1;
+            position: relative;
+
+            > * {
+                @include ps_keyframes-fadein($ps_main-transition 1);
+                opacity : 1;
+            }
+        }
+    }
+
+    .ps_navigation-page_layout {
+        @include ps_color-pdark(.6);
+        box-shadow: 0px 0px 20px rgba($ps_color-pdark, 0.19), 
+                    0 0px 6px rgba($ps_color-pdark, 0.23);
+        overflow  : hidden;
+
+        .ps_js-core_view_ingame & {
+            min-height: 100vh;
+        }
+    }
+
+    .ps_navigation-page_body {
+        @include ps_helper-clearfix;
+        display    : block;
+        position   : relative;
+        padding-top: $ps_navigation-route +  $ps_navigation-page_top_space;
+        overflow   : hidden;
+    }
+
+    .ps_navigation-page_wrapper {
+        position   : relative;
+        z-index    : 3;
+    }
+
+    .ps_navigation-route {
+        position     : absolute;
+        top          :  $ps_navigation-page_top_space;
+        height       : $ps_navigation-route;
+        line-height  : $ps_navigation-route;
+        width        : 100%;
+        padding      : 0px ($ps_main-standard-space * 2);
+
+        .ps_navigation-route_item {
+            display: inline-block;
+            float  : left;
+
+            a {
+                color: $ps_color-ptextsecondary;
+
+                &:hover {
+                    color: $ps_color-paccentlight;
+                }
+            }
+
+            &:last-child a {
+                color: $ps_color-ptext;
+            }
+
+            &.ps_navigation-route_separator {
+                color  : $ps_color-ptextsecondary;
+                padding: 0px $ps_main-standard-space;
+            }
+        }
+    }
+    
+    .ps_navigation-hash_has_sidebars {
+        padding-left: $ps_navigation-sidebar-width;
+        position    : relative;
+
+        &::before {
+            @include ps_color-pdark(.3);
+            content         : '';
+            position        : absolute;
+            width           : $ps_navigation-sidebar-width;
+            top             : 0px;
+            left            : 0px;
+            bottom          : 0px;
+            border-right    : 1px solid rgba(lighten($ps_color-plight, 100%), .1);
+        }
+
+        &::after {
+            @include ps_main-card;
+            content    : '';
+            position   : absolute;
+            top        : 0px;
+            left       : $ps_navigation-sidebar-width;
+            bottom     : 0px;
+            right      : 0px;
+        }
+    }
+
+    .ps_navigation-hash_carousel, .ps_navigation-hash_sidebars {
+        float     : left;
+        min-height: $ps_navigation-page-min-height;
+    }
+
+    .ps_navigation-hash_sidebars {
+        width      : $ps_navigation-sidebar-width;
+        margin-left: -$ps_navigation-sidebar-width;
+        margin-top : $ps_main-standard-space * 2;
+        overflow   : hidden;
+
+        .ps_navigation-sidebar_tree {
+            position: relative;
+
+            li  {
+                color        : $ps_color-ptext;
+                border-right : 2px solid transparent; 
+                transition   : all $ps_main-transition;
+                text-shadow  : 1px 1px 1px $ps_color-primary;
+
+                .ps_navigation-sidebar_item {
+                    text-align   : right;
+                    padding-right: $ps_navigation-sidebar-item;
+                    color        : inherit;
+                    font-size    : $ps_main-font-size - 1px; 
+                    transition   : all 0s ease 0s;
+                }
+
+                .ps_navigation-sidebar_icon {
+                    right: 0px;
+                }
+
+                &:before {
+                    @include ps_color-paccentlight-fade-left;
+                    position        : absolute;
+                    content         : '';
+                    display         : block;
+                    top             : 0px;
+                    left            : 0px;
+                    width           : 100%;
+                    height          : 100%;
+                    transform       : scale(0 ,1);
+                    transform-origin: right;
+                    transition      : all $ps_main-transition;
+                }
+
+                &:hover {
+                    color       : $ps_color-paccent;
+                    border-right: 2px solid $ps_color-paccent;
+
+                    > .ps_navigation-sidebar_item {
+                        color: $ps_color-paccent;
+                    }
+                }
+
+                &.ps_navigation-active {
+                    color       : $ps_color-paccentlight;
+                    border-right: 2px solid $ps_color-paccentlight;
+                    text-shadow : -1px -1px 10px rgba($ps_color-saccent, 0.2), 
+                                -1px 1px 4px rgba($ps_color-saccent, 0.2), 
+                                1px 1px 10px rgba($ps_color-saccent, 0.2);
+
+                    &:before {
+                        transform : scale(1,1);
+                    }
+
+                    > .ps_navigation-sidebar_item {
+                        color: $ps_color-paccentlight;
+                    }
+                }
+            }
+        }
+
+    }
+    
+    .ps_navigation-hash_carousel {
+        width         : 100%;
+        display       : block;
+        padding-top   : $ps_main-standard-space * 2;
+        padding-bottom: ($ps_main-standard-space * 2) + $ps_main-features-h-height;
+
+        .ps_js-core_view_ingame & {
+            padding-bottom: 0px;
+        }
+
+        .carousel-inner, .item {
+            min-height: $ps_navigation-page-min-height;
+        }
+
+        .carousel-inner .item {
+            opacity  : 0;
+            transform: none;
+
+            &.active {
+                opacity: 1;
+            }
+        }
+
+        .item {
+            padding: ($ps_main-standard-space * 4) $ps_main-standard-space;
+        }
+    }
+
+    .ps_navigation-route,  .ps_navigation-hash_carousel .carousel-inner {
+        @include ps_main-page-highlight;
+    }
+}
+
+
+.ps_navigation-sidebar_tree {
+    position: relative;
+
+    li  {
+
+        .ps_navigation-sidebar_item {
+            position     : relative;
+            display      : block;
+            padding      : 0px $ps_main-standard-space;
+            padding-left : $ps_navigation-sidebar-item;
+            height       : $ps_navigation-sidebar-item;
+            line-height  : $ps_navigation-sidebar-item; 
+            z-index      : 2;
+        }
+
+        .ps_navigation-sidebar_icon, .ps_navigation-sidebar_dropdown_icon  {
+            position    : absolute;
+            width       : $ps_navigation-sidebar-item;
+            height      : $ps_navigation-sidebar-item;
+            line-height : $ps_navigation-sidebar-item; 
+            top         : 0px;
+            bottom      : 0px;
+            text-align  : center;
+            font-size   : $ps_main-font-size + 4px;
+        }
+    }
+}
+
+@mixin ps_navigation-disable-sidebar-dropdown {
+    .ps_navigation-sidebar_tree {
+
+        .ps_components-list_collapsible_content, .ps_navigation-sidebar_dropdown_icon {
+            display: none;
+        }
+
+        .ps_navigation-sidebar_item {
+            padding-left: $ps_main-standard-space;
+        }
+    }
+}
+
+/* PS menu icons*/
+.ps_navigation-menu_home i {
+    @include ps_icon-home;
+    font-size  : $ps_main-font-size + 6px;
+}
+
+.ps_navigation-menu_help i {
+    @include ps_icon-help;
+}
+
+.ps_navigation-icon_profile {
+    @include ps_icon-person;
+}
+
+.ps_navigation-icon_balance {
+    @include ps_icon-account_balance_wallet;
+}
+
+.ps_navigation-icon_register_friend {
+    @include ps_icon-person_add;
+}
+
+.ps_navigation-icon_deposit_confirmation {
+    @include ps_icon-vertical_align_top;
+}
+
+.ps_navigation-icon_withdrawal_request {
+    @include ps_icon-vertical_align_bottom;
+}
+
+.ps_navigation-icon_change_password {
+    @include ps_icon-lock;
+}
+
+.ps_navigation-icon_fund_transfer {
+    @include ps_icon-swap_horiz;
+}
+
+.ps_navigation-icon_statement {
+    @include ps_icon-description;
+}
+
+.ps_navigation-icon_running_bets {
+    @include ps_icon-update;
+}
+
+.ps_navigation-icon_transaction_logs {
+    @include ps_icon-dvr;
+}
+
+.ps_navigation-page_heading {
+    @include ps_main-page-highlight;
+    color     : $ps_color-paccent;
+    font-size : $ps_main-font-size + 6px;
+    position  : relative;
+    text-align: center;
+    padding   : $ps_main-standard-space;
+}
+
+.ps_navigation-page_sub_heading {
+    text-align : center;
+    font-size  : $ps_main-font-size - 1px; 
+    color      : $ps_color-ptextsecondary;
+}
+
+.ps_navigation-page_content {
+    @include ps_main-page-highlight;
+    margin-top: $ps_main-standard-space * 2;
+    padding   : $ps_main-standard-space * 2;
+}
+
+@mixin ps_navigation-full-size-page() {
+    @include ps_color-plight;
+
+    .ps_navigation-page_layout {
+        margin: 0px;
+        width : 100%;
+    }
+
+    .ps_navigation-page_hash {
+        padding-left: 0px;
+
+        &::before, &::after, .ps_navigation-sidebars {
+            display: none;
+        }
+    }
+}

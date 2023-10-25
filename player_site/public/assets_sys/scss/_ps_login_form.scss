@@ -1,0 +1,174 @@
+$ps_login_form-register-button-size: 75px;
+$ps_login_form-login-button-size   : 75px;
+.ps_login_form {
+	line-height: normal;
+
+	.ps_login_form-has_registration {
+		padding-right: $ps_login_form-register-button-size + $ps_main-standard-space;
+	}
+
+	.ps_login_form-register {
+		@include ps_keyframes-levitate(2.4s infinite);
+		height    : $ps_login_form-register-button-size;
+		width     : $ps_login_form-register-button-size;
+		position  : absolute;
+		right     : 0px; 
+		bottom    : 0px;
+		display   : block;
+		height: 70px;
+	    margin-top: 3px;
+
+		.ps_image-img {
+			height         : 100%;
+			width          : 100%;
+			background-size: 100% 100%;
+		}
+	}
+
+	.ps_login_form-main {
+		@include ps_helper-clearfix;
+		position: relative;
+		display : block;
+	}
+	
+	form {
+		display: inline;
+	}
+
+	.ps_components-input, .ps_components-button {
+		float: left;
+
+		& + .ps_components-input, & + .ps_components-button {
+			margin-left: $ps_main-standard-space
+		}
+	}
+
+	.ps_components-button {
+		width: $ps_login_form-login-button-size;
+	}
+
+	.ps_components-input {
+		width: 160px;
+	}
+
+	.ps_login_form-other_options {
+		@include ps_helper-clearfix;
+		margin-top : $ps_main-standard-space + ($ps_main-standard-space/2);
+		position   : relative;
+		display    : block;
+    	line-height: $ps_main-font-size;
+
+		.ps_navigation-menu {
+			display: inline-block;
+			margin-right: 83px;
+		    display: flex;
+		    justify-content: flex-end;
+
+			li {
+				position    : relative;
+				display     : inline-block;
+				float       : left;
+
+				+ li {
+					border-left : 1px solid $ps_color-secondary;
+					padding-left: $ps_main-standard-space;
+					margin-left : $ps_main-standard-space;
+				}
+			}
+		}
+
+		.ps_language {
+			@include ps_helper-v-center(absolute);
+			right: 0px;
+		}
+	}
+
+	.ps_language {
+		position   : absolute;
+     	line-height: 0px;
+
+		a {
+			width : 27px;
+			height: 20px;
+		}
+	}
+	
+	$ps_login_form-um_size      : 50px;
+	$ps_login_form-um_icon_width: 40px;
+	.ps_login_form-um {
+		height       : $ps_navigation-mid-height - 4px;
+		padding-right: $ps_login_form-um_size - 4px;
+		padding-left : $ps_login_form-um_size - 4px;
+
+		&::before, &::after {
+			content          : '';
+			display          : block;
+			position         : absolute;
+			height           : $ps_login_form-um_size;
+			width            : $ps_login_form-um_size;
+			background       : url('../images/ps_login_form/um_edge.png');
+			background-size  : 100% 100%;
+			background-repeat: no-repeat;
+			top              : 0px;
+		}
+
+		&::before {
+			left     : 0px;
+			transform: scale(-1, 1);
+		}
+
+		&::after {
+			right: 0px;
+		}
+
+		.ps_language {
+			right : $ps_login_form-um_size;
+			bottom: 0px;
+		}
+
+		.ps_login_form-um_wrap {
+			@include ps_color-s-emboss;
+			padding-left : $ps_login_form-um_icon_width + $ps_main-standard-space;
+			height       : $ps_login_form-um_size;
+     		line-height  : $ps_login_form-um_size;
+     		position     : relative;
+     		border-bottom: 1px solid lighten($ps_color-secondary, 14%);
+			
+			.ps_login_form-um_items {
+				line-height   : normal;
+			    display       : inline-block;
+			    vertical-align: middle;
+			}
+
+			.ps_login_form-um_icon {
+				@include ps_helper-v-center(absolute);
+				height  : 42px;
+				width   : $ps_login_form-um_icon_width;
+				left    : 0px;
+
+				.ps_image-img {
+					height         : 100%;
+					width          : 100%;
+					background-size: 100% 100%;
+				}
+			}
+
+			.ps_login_form-um_title {
+				text-transform: uppercase;
+				color         : $ps_color-saccentlight;
+			}
+
+			.ps_login_form-um_content {
+				font-size: $ps_main-font-size - 2px;
+			}
+		}
+	}
+}
+
+.ps_js-login_captcha_root {
+	@include ps_popup-modal-s;
+}
+
+.ps_js-resend_email_root {
+	@include ps_popup-modal-s;
+}

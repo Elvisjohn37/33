@@ -1,0 +1,67 @@
+//** This contains custom mixins for this site
+
+$ps_main-radius              : 2px;
+$ps_main-standard-space      : 8px;
+$ps_main-transition          : .3s;
+$ps_main-footer_height       : 40px;
+$ps_main-screen-big-desktop  : 1200px;
+$ps_main-screen-desktop      : 992px; 
+$ps_main-screen-tablet       : 768px;
+$ps_main-screen-mobile       : 700px;
+$ps_main-min_width           : 768px;
+$ps_main-font-size           : 14px;
+$ps_main-footer_game_supports: 40px;
+$ps_main-features-h-height   : 36px;
+$ps_main-features-item-height: 270px + $ps_main-features-h-height;
+$ps_main-banks_count         : 4;
+$ps_main-max_percent         : 100%;
+
+// Custom mixins 
+@mixin ps_main-card() {  
+    border-radius: $ps_main-radius;
+    box-shadow   : 0px 1px 3px rgba($ps_color-pdark,.5);
+} 
+
+@mixin ps_main-page-highlight {
+    @include ps_color-plightcard;
+    box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.72);
+}
+
+@mixin ps_main-link_style {
+    cursor         : pointer;
+    text-decoration: none;
+    color          : $ps_color-paccent;
+    transition     : all $ps_main-transition;
+
+    &:hover {
+        color: $ps_color-paccentlight;
+    }
+}
+
+@mixin ps_main-container_sizing() {
+    margin-right: auto;
+    margin-left : auto;
+    width       : $ps_main-screen-big-desktop;
+    position    : relative;
+    display     : block;
+
+    @include ps_helper-media(desktop) {
+        width: $ps_main-screen-desktop;
+    }
+
+    @include ps_helper-media('smallest-desktop') {
+        width: $ps_main-min_width;
+    }
+
+    @include ps_helper-media(tablet) {
+        width: $ps_main-min_width;
+    }
+
+    @include ps_helper-media(mobile) {
+        width: $ps_main-min_width;
+    }
+
+    &.fluid {
+        width: 100% !important;
+    }
+}

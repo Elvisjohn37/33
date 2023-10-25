@@ -1,0 +1,226 @@
+<!--
+| games template custom tags
+| Not to be confused with real game pages, 
+| this contains templates that multiple game pages share in common
+-->
+<div class='ps_js-games_template'>
+
+	<!-- play button -->
+	<span data-tag='play' data-custom-tags='form'>
+		<ps-form-button 
+			v-if            = 'game.playable' 
+			class           = 'ps_js-play_button ps_games_template-play_button'
+			v-bind:data-gid = 'game.gameID'
+		>
+			<div class='ps_games_template-play_icon'><i class='ps_icon md-launch'></i></div> {{ shared.lang.messages.play_now }}
+		</ps-form-button>
+		<div v-else class='ps_games_template-not_playable'>
+			<i class='ps_icon md-not_interested'></i> 
+			<template v-if='game.mobile == 0 && shared.site.is_mobile'>
+				{{ shared.lang.error.ERR_00078[0] }}
+			</template> 
+			<template v-else>
+				{{ shared.lang.language.not_available }}
+			</template>
+		</div>
+	</span>
+
+	<!-- Thumbnail -->
+	<div 
+		data-tag         = 'thumbnail' 
+		class            = 'ps_games_template-thumbnail_container' 
+		data-custom-tags = 'form,indicator,image'
+	>
+		<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+		<div 
+			v-else-if = 'games.is_success && shared.user.derived_is_transactable' 
+			class     = 'ps-container ps_games_template-thumbnail'
+		>
+			<div class='ps_games_template-filter_tools'>
+				<ps-form-root class='ps_js-games_template_form'>
+					<ps-form-switch
+						v-bind:options = "['all','new']"
+						name           = 'filter'
+						class          = 'ps_js-games_template_switch'
+					>
+						<template slot='option_0'>
+							<i class='ps_icon md-list'></i> {{ shared.lang.language.all }}
+						</template>
+						<template slot='option_1'>
+							<i class='ps_icon md-turned_in'></i> {{ shared.lang.language.new }}
+						</template>
+					</ps-form-switch>
+					<div v-if='display_game_type' class='ps_games_template-game_type_filter'>
+						<ul class='ps-ul_horizontal'>
+							<li v-for='game_type in game_type_filters'>
+								<a 
+									v-bind:class          = "[{'ps_games_template-active': selected_game_type == game_type},'ps_js-game_type_item ps_games_template-game_type_item']"
+									v-bind:data-game-type = 'game_type'
+								>
+									<div class='ps_games_template-game_type_caption'>
+										<i class='ps_icon' v-bind:data-game-type='game_type'></i> {{ game_type }}
+									</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class='ps_games_template-search_bar'>
+						<ps-form-input  
+							class              = 'ps_js-search_game' 
+							v-bind:placeholder = 'shared.lang.language.search_game'
+						></ps-form-input>
+						<ps-form-button class='ps_js-search_game_button' type='submit'> 
+							<i class='ps_icon md-search'></i>
+						</ps-form-button>
+					</div>
+				</ps-form-root>
+			</div>
+			<div class='ps_games_template-body' v-if='is_display_result'>
+				<div v-bind:class="[{'ps-hidden': !total }, 'ps_games_template-list']">
+					<div 
+						v-bind:class      = "[{'ps_games_template-filtered_out': !is_filtered[index]},{'ps_games_template-searched_out': !is_searched[index]}, 'ps_games_template-item ps_js-game_item']"
+						v-bind:data-index = 'index' 
+						v-bind:key        = 'index' 
+						v-for             = '(game, index) in games.rows'
+					>
+						<div class='ps_games_template-content'>
+							<div class='ps_games_template-game_name'>
+								{{ game.gameName }}
+								<div v-bind:class="['ps_games_template-game_type_caption ps_games_template-' + game.type.toLowerCase()]">
+									<i class='ps_icon' v-bind:data-game-type='game.type'></i>
+								</div>
+							</div>
+							<div class='ps_games_template-game_image'>
+								<!-- placeholder -->
+								<ps-image-lazy 
+									class     = 'ps_games_template-thumbnail_placeholder'
+									v-bind:src= "shared.rso.assets + 'images/common/ps_games_template/thumbnail_placeholder.jpg'"
+								></ps-image-lazy>
+
+								<div class='ps_games_template-game_real_images'>
+									<ps-image-lazy 
+										class      = 'ps_games_template-static_image'
+										v-bind:alt = 'game.description'
+										v-bind:src = "shared.rso.assets+'images/common/ps_games_template/static_thumbnail/'+game_keys[index]+'.jpg'"
+									></ps-image-lazy>
+
+									<ps-image-lazy 
+										v-if       = 'is_hovered[index]'
+										class      = 'ps_games_template-animated_image'
+										v-bind:src = "shared.rso.assets+'images/ps_games_template/sprite_thumbnail/'+game_keys[index]+'.jpg'"
+										background = 'true'
+									></ps-image-lazy>
+								</div>
+								
+								<div 
+									class             = 'ps_js-game_modal_trigger ps_games_template-modal_trigger'
+									v-bind:data-index = 'index' 
+								>
+									<i class='ps_icon md-play_circle_outline'></i>
+								</div>
+								<div class='ps_games_template-new' v-if='game.isNew'>
+									<ps-image-lazy 
+										v-bind:src = "shared.rso.assets+'images/ps_games_template/new_icon/'+shared.lang_config.active+'.png'"
+									>
+									</ps-image-lazy>
+								</div>
+							</div>
+							<div class='ps_games_template-play_button'>
+								<ps-games-template-play v-bind:game='game'></ps-games-template-play>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div v-bind:class="[{'ps-hidden': total }, 'ps_games_template-not_found']">
+					<ps-indicator-onpage-error code='ERR_00101'>
+			            <i class='ps_icon md-search' slot='icon'></i>
+						<div class='ps_games_template-back_button' v-if='games.total'>
+							<ps-form-button class='ps_js-games_template_back'>
+								<i class='ps_icon md-keyboard_backspace'></i> 
+								{{ shared.lang.language.back_previous_result }}
+							</ps-form-button>
+						</div>
+					</ps-indicator-onpage-error>
+				</div>
+			</div>
+
+			<!-- game result loader -->
+			<ps-indicator-loader v-else></ps-indicator-loader>
+		</div>
+		<ps-games-template-error v-else v-bind:code='games.err_code'></ps-games-template-error>
+	</div>
+
+	<!-- error display -->
+	<span data-tag='error' data-custom-tags='indicator'>
+		<ps-indicator-onpage-error 
+			v-if        = 'shared.user.derived_is_transactable' 
+			v-bind:code = 'code'
+		>
+            <i class='ps_icon md-error_outline' slot='icon'></i>
+            <slot></slot>
+		</ps-indicator-onpage-error>
+		<ps-indicator-nontransactable v-else></ps-indicator-nontransactable>
+	</span>
+</div>
+
+<!--
+| Preview modal template 
+-->
+<div class='ps_js-game_preview_modal' data-custom-tags='indicator,form,games_template,media,carousel'>
+	<div class='ps_games_template-slides'>
+		<div class='ps_games_template-slides_wrap'>
+			<!-- placeholder -->
+			<ps-image-lazy 
+				class 	   = 'ps_games_template-slide_placeholder'
+				v-bind:src = "shared.rso.assets + 'images/common/ps_games_template/game_preview_placeholder.jpg'"
+			></ps-image-lazy>
+			<ps-carousel-bootstrap 
+				v-if              = 'is_loaded'
+				v-bind:items      = 'items'
+				class             = 'ps_games_template-carousel'
+				indicators        = 'true'
+				v-bind:data-pause = 'carousel_pause'
+				v-bind:active     = 'modal_info.slide_active'
+			>
+				<ps-carousel-bootstrap-item
+					v-for      = '(item, item_index) in items'
+					class      = 'ps_games_template-carousel_item'
+					v-bind:key = 'item_index'
+				>
+					<ps-media-youtube 
+						v-if            = "item.type=='video'" 
+						v-bind:src      = 'item.src'
+						v-bind:autoplay = '!is_video_stop'
+					></ps-media-youtube>
+					<ps-image-lazy 
+						v-else
+						class      = 'ps_banner-main_image'
+						v-bind:src = "shared.rso.assets+'images/ps_games_template/game_preview/'+item.src+'.jpg'"
+					></ps-image-lazy>
+				</ps-carousel-bootstrap-item>
+			</ps-carousel-bootstrap>
+			<ps-indicator-loader v-else></ps-indicator-loader>
+		</div>
+	</div>
+	<div class='ps_games_template-description'>
+		<div class='ps_games_template-description_header'>
+			<span class='ps_games_template-description_title'>
+				{{ game.gameName }}
+			</span>
+		</div>
+		<div class='ps_games_template-description_body' v-html='game.description'></div>
+		<div class='ps_games_template-description_button'>
+			<ps-games-template-play v-bind:game='game'></ps-games-template-play>
+		</div>
+	</div>
+</div>
+
+<!--
+| Runnning game footer
+-->
+<div class='ps_js-running_modal_footer ps_games_template-running_modal_footer' data-custom-tags='form'>
+	<ps-form-button class='ps_js-running_game_continue'>{{ shared.lang.language.continue }}</ps-form-button>
+	<ps-form-button class='ps_js-running_game_cancel ps_components-secondary'> 
+		{{ shared.lang.language.cancel }}
+	</ps-form-button>
+</div>

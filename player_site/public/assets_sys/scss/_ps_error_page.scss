@@ -1,0 +1,36 @@
+.ps_error_page {
+	position: relative;
+	width   : 100%;
+	height  : 100%;
+}
+
+.ps_error_page-full {
+    @include ps_color-s-circle-center;
+	position: relative;
+	width   : 100%;
+	height  : 100%;
+	
+    &::before {
+        content          : '';
+        display          : block;
+        position         : absolute;
+        top              : 0px;
+        left             : 0px;
+        width            : 100%;
+        height           : 100%;
+        background       : url('../images/ps_error_page/error_bg.jpg') center;
+        background-repeat: no-repeat;
+        opacity          : .02;
+    }
+
+	.ps_error_page-full_content {
+    	@include ps_main-container_sizing;
+		position: relative;
+		width   : 100%;
+		height  : 100%;
+	}
+
+    .ps_components-button {
+        margin-top: $ps_main-standard-space;
+    }
+}

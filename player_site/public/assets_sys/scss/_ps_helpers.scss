@@ -1,0 +1,242 @@
+//** This contains helper mixins
+//## All mixins here should be for generic purpose only
+
+// Alignment 
+@mixin ps_helper-v-center($position: relative) {
+    position           : $position;
+    top                : 50%;
+    transform          : translateY(-50%);
+    backface-visibility: hidden;
+}
+
+@mixin ps_helper-h-center($position: relative) {
+    position           : $position;
+    left               : 50%;
+    transform          : translateX(-50%);
+    backface-visibility: hidden;
+}
+
+@mixin ps_helper-child-center($child_selector) {
+    text-align: center;
+    font-size : 0px;
+
+    &:before {
+        content       : '';
+        height        : 100%;
+        width         : 1px;
+        display       : inline-block;
+        vertical-align: middle;
+        margin-left   : -1px;
+    }
+    
+    #{$child_selector} {
+        max-width     : 100%;
+        text-align    : left;
+        display       : inline-block;
+        vertical-align: middle;
+    }
+
+    >* {
+        font-size     : $ps_main-font_size;
+    }
+}
+
+@mixin ps_helper-center($position:fixed) {
+    position           : $position;
+    top                : 50%;
+    left               : 50%;
+    transform          : translate(-50%, -50%);
+    backface-visibility: hidden;
+}
+
+// Pseudo default
+@mixin ps_helper-pseudo($display: block, $pos: absolute, $content: '') {
+    content : $content;
+    display : $display;
+    position: $pos;
+}
+
+// media queries
+@mixin ps_helper-media($break_point...) {
+
+    @if nth($break_point,1) == big-desktop {
+
+        @media (min-width: $ps_main-screen-big-desktop) { @content; }
+
+    } @else if nth($break_point,1)  == desktop {
+
+        @media all and (min-width: $ps_main-screen-desktop) and (max-width: ($ps_main-screen-big-desktop - 1)) { 
+            @content; 
+        }
+
+    } @else if nth($break_point,1)  == smallest-desktop {
+
+        @media all and (min-width: ($ps_main-screen-tablet + 1)) and (max-width: ($ps_main-screen-desktop - 1)) { 
+            @content; 
+        }
+
+    } @else if nth($break_point,1) == tablet {
+        
+        @media all and (min-width: ($ps_main-screen-mobile + 1)) and (max-width: $ps_main-screen-tablet) { @content; }
+
+    } @else if nth($break_point,1) == mobile {
+
+        @media all and (max-width: $ps_main-screen-mobile), all and (max-device-width: $ps_main-screen-mobile) { 
+            @content; 
+        }
+
+    } @else {
+
+        @media all and ($break_point) { @content; }
+        
+    }
+
+}
+
+/// Background Gradient
+/// @param {Color} $startColor [#3C3C3C] - Start Color
+/// @param {Color} $endColor [#999999] - End Color
+@mixin ps_helper-background-gradient($startColor: #3C3C3C, $endColor: #999999) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, left bottom, from($startColor), to($endColor));
+    background-image: -webkit-linear-gradient(top, $startColor, $endColor);
+    background-image:    -moz-linear-gradient(top, $startColor, $endColor);
+    background-image:     -ms-linear-gradient(top, $startColor, $endColor);
+    background-image:      -o-linear-gradient(top, $startColor, $endColor);
+    background-image:         linear-gradient(top, $startColor, $endColor);
+    filter:            progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}');
+}
+
+/// Background Horizontal
+/// @param {Color} $startColor [#3C3C3C] - Start Color
+/// @param {Color} $endColor [#999999] - End Color
+@mixin ps_helper-background-horizontal($startColor: #3C3C3C, $endColor: #999999) {
+    background-color: $startColor;
+    background-image: -webkit-gradient(linear, left top, right top, from($startColor), to($endColor));
+    background-image:         linear-gradient(left, $startColor, $endColor);
+    filter:            progid:DXImageTransform.Microsoft.gradient(startColorStr='#{$startColor}', endColorStr='#{$endColor}', gradientType='1');
+}
+
+/// Background Radial
+/// @param {Color} $startColor [#3C3C3C] - Start Color
+/// @param {Percentage} $startPos [0%] - Start position
+/// @param {Color} $endColor [#999999] - End Color
+/// @param {Percentage} $endPos [100%] - End position
+@mixin ps_helper-background-radial($startColor: #FFFFFF, $startPos: 0%, $endColor: #000000, $endPos:100%) {
+    background: -moz-radial-gradient(center, ellipse cover, $startColor $startPos, $endColor $endPos);
+    background: -webkit-gradient(radial, center center, 0px, center center, 100%, color-stop($startPos,$startColor), color-stop($endPos,$endColor));
+    background: -webkit-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: -o-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: -ms-radial-gradient(center, ellipse cover, $startColor $startPos,$endColor $endPos);
+    background: radial-gradient(ellipse at center, $startColor $startPos,$endColor $endPos);
+}
+
+// clearfix mixin
+@mixin ps_helper-clearfix() {
+
+    &::after {
+        display: block;
+        content: "";
+        clear  : both;
+    }
+
+}
+
+/// Test if `$value` is a valid direction
+/// @param {*} $value - Value to test
+/// @return {Bool}
+@function ps_helper-is-direction($value) {
+  $is-keyword: index((
+                        to top, 
+                        to top right, 
+                        to right top, 
+                        to right, 
+                        to bottom right, 
+                        to right bottom, 
+                        to bottom, 
+                        to bottom left, 
+                        to left bottom, 
+                        to left, 
+                        to left top, 
+                        to top left
+                    ), $value);
+  $is-angle  : type-of($value) == 'number' and index('deg' 'grad' 'turn' 'rad', unit($value));
+
+  @return $is-keyword or $is-angle;
+}
+
+/// Mixin printing a linear-gradient
+/// as well as a plain color fallback
+/// and the `-webkit-` prefixed declaration
+/// @access public
+/// @param {Keyword | Angle} $direction - Linear gradient direction
+/// @param {Arglist} $color-stops - List of color-stops composing the gradient
+@mixin ps_helper-linear-gradient($direction, $color-stops...) {
+    @if ps_helper-is-direction($direction) == false {
+        $color-stops: $direction, $color-stops;
+        $direction: 180deg;
+    }
+
+    background: nth(nth($color-stops, 1), 1);
+    background: -webkit-linear-gradient(ps_helper-legacy-direction($direction), $color-stops);
+    background: linear-gradient($direction, $color-stops);
+}
+
+/// Convert a direction to legacy syntax
+/// @param {Keyword | Angle} $value - Value to convert
+/// @require {function} is-direction
+/// @require {function} convert-angle
+/// @throw Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be a direction.;
+@function ps_helper-legacy-direction($value) {
+    @if ps_helper-is-direction($value) == false {
+        @error "Cannot convert `#{$value}` to legacy syntax because it doesn't seem to be a direction.";
+    }
+
+    $conversion-map: (
+        to top          : bottom,
+        to top right    : bottom left,
+        to right top    : left bottom,
+        to right        : left,
+        to bottom right : top left,
+        to right bottom : left top,
+        to bottom       : top,
+        to bottom left  : top right,
+        to left bottom  : right top,
+        to left         : right,
+        to left top     : right bottom,
+        to top left     : bottom right
+    );
+
+    @if map-has-key($conversion-map, $value) {
+        @return map-get($conversion-map, $value);
+    }
+
+    @return 90deg - $value;
+}
+
+/// Replace `$search` with `$replace` in `$string`
+/// @author Hugo Giraudel
+/// @param  {String} $string - Initial string
+/// @param  {String} $search - Substring to replace
+/// @param  {String} $replace ('') - New value
+/// @return {String} - Updated string
+@function ps_helper-str_replace($string, $search, $replace: '') {
+    $string: ps_helper-to-string($string);
+    $index : str-index($string, $search);
+
+    @if $index {
+
+        $child_replace: ps_helper-str_replace(str-slice($string,$index + str-length($search)), $search , $replace);
+        @return str-slice($string, 1 , $index - 1) + $replace + $child_replace;
+
+    }
+  
+    @return $string;
+}
+
+/// Cast value to string
+/// @param  {Mixed} $value
+/// @return {String} 
+@function ps_helper-to-string($value) {
+    @return inspect($value);
+}

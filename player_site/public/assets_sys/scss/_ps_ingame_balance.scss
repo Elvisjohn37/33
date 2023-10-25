@@ -1,0 +1,54 @@
+.ps_js-ingame_balance_root {
+	@include ps_popup-modal-m;
+
+	.ps_popup-modal_back_top {
+		display: none !important;
+	}
+
+	&.ps_popup-show_back_top .modal-dialog {
+		margin-bottom: 0px;
+	}
+	
+	.modal-content .modal-body  {
+		padding   : 0px;
+		min-height: 100px;
+	}
+
+	.ps_ingame_balance-table {
+		thead th {
+			&:nth-child(1) {
+				@include ps_components-td-width(175px);
+			}
+
+			&:nth-child(2) {
+				@include ps_components-td-width(120px);
+				padding     : $ps_main-standard-space ($ps_main-standard-space/3);
+				border-right: 1px solid transparent; 
+				text-align  : right;
+			}
+
+			&:nth-child(3) {
+				@include ps_components-td-width(50px);
+				border-left: 1px solid transparent; 
+			}
+		}
+
+		tbody td {
+			&:nth-child(2) {
+				text-align: right;
+			}
+
+			&:nth-child(3) {
+				text-align: center;
+			}
+
+			&:nth-child(4) {
+				text-align: center;
+			}
+		}
+	}
+}
+
+.ps_js-core_view_ingame .ps_js-ingame_balance_root {
+	@include ps_popup-modal_opaque;
+}

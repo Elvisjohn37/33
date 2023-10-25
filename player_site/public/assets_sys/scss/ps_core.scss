@@ -1,0 +1,409 @@
+//** This will import all scss use for our main display
+//** Avoid using 'unset' in attributes, not good in IE
+
+/* Libraries */
+@import 'libraries/bootstrap_v3/bootstrap-filtered';
+@import 'libraries/cropper'; 
+
+/* Helpers */  
+@import 'ps_helpers'; 
+@import 'ps_reset'; 
+@import 'ps_color';
+@import 'ps_icons';
+@import 'ps_keyframes';
+ 
+/* Fonts */
+@import 'ps_fonts';
+
+/* Main */
+@import 'ps_main'; 
+ 
+/* Modules */
+@import 'ps_components'; 
+@import 'ps_popup'; 
+@import 'ps_navigation'; 
+@import 'ps_carousel'; 
+@import 'ps_news'; 
+@import 'ps_jackpot'; 
+@import 'ps_lastresult'; 
+@import 'ps_latest_transactions'; 
+@import 'ps_products'; 
+@import 'ps_support'; 
+@import 'ps_chatbox'; 
+@import 'ps_language'; 
+@import 'ps_login_form'; 
+@import 'ps_forgot_password'; 
+@import 'ps_register'; 
+@import 'ps_banner'; 
+@import 'ps_avatar'; 
+@import 'ps_account'; 
+@import 'ps_image'; 
+@import 'ps_media'; 
+@import 'ps_displayname'; 
+@import 'ps_report'; 
+@import 'ps_help'; 
+@import 'ps_ingame_balance'; 
+@import 'ps_announcement'; 
+@import 'ps_games'; 
+@import 'ps_games_template'; 
+@import 'ps_skill_games'; 
+@import 'ps_sports'; 
+@import 'ps_tangkas'; 
+@import 'ps_promo';
+@import 'ps_live_togel'; 
+@import 'ps_accept_terms'; 
+@import 'ps_change_credentials'; 
+@import 'ps_expired_password'; 
+@import 'ps_savvy'; 
+@import 'ps_websocket';
+@import 'ps_live_casino';
+
+// Global rules
+html , body {
+    height    : 100%;
+    width     : 100%;
+    min-width : fit-content;
+    background: $ps_color-void;
+    color     : $ps_color-ptext;
+}
+
+body {
+    overflow   : auto;
+    font-size  : $ps_main-font-size;
+    font-family: 'Sarala', sans-serif; 
+
+    &.ps_js-popup_modal_open .ps-main_wrapper {
+        filter: grayscale(80%) blur(1px);
+    }
+}
+
+.ps-main_wrapper {
+    position      : relative;  
+    display       : block;
+    min-height    : 100%;
+    overflow      : hidden;
+}
+
+footer {
+    font-size  : $ps_main-font-size - 2px; 
+    position   : relative;
+    display    : block;
+    bottom     : 0px;
+    width      : 100%;
+    height     : $ps_main-footer_height;
+    line-height: $ps_main-footer_height;
+    z-index    : 4;
+
+    a {
+        text-transform: uppercase;
+
+        & + a {
+            margin-left: $ps_main-standard-space * 3;
+        }
+    }
+
+    .ps-footercopy_right {
+        text-transform: uppercase;
+        display       : inline-block;
+        float         : right;
+        opacity       : .6;
+    }
+
+    .ps-footer_game_supports {
+        @include ps_helper-clearfix;
+        @include ps_helper-h-center(absolute);
+        top    : -(($ps_main-footer_game_supports/16) * 15);
+        display: inline-block;
+
+        .ps-game_supports_icon {
+            @include ps_color-pdark;
+            height       : $ps_main-footer_game_supports;
+            width        : $ps_main-footer_game_supports;
+            display      : inline-block;
+            float        : left;
+            margin       : 0 -4px;
+            border-radius: 50% 50% 0;
+            overflow     : hidden;
+            box-shadow   : 0 0 5px 1px rgba($ps_color-pdark,.5);
+            border       : 2px solid $ps_color-secondary;
+            position     : relative;
+            transform    : rotate(45deg);
+            transition   : all $ps_main-transition;
+            
+            &:hover {
+                z-index    : 4;
+
+                &.ps-game_supports_link {
+                    box-shadow : 0 0 15px 1px $ps_color-pdark;
+                    border     : 2px solid $ps_color-paccent;
+                }
+
+                .ps_image-img {
+                    opacity: 1; 
+                }
+            }
+
+            .ps_image-img {
+                display            : block;
+                background-size    : (100%*4) auto;
+                background-repeat  : no-repeat;
+                height             : 100%;
+                width              : 100%;
+                border-radius      : 50% 50% 0;
+                opacity            : .9; 
+                transition         : all $ps_main-transition;
+            }
+
+            &.ps-footer_gambling_therapy .ps_image-img {
+                background-position: (100%/3) * 0 center;
+            }
+
+            &.ps-footer_gamcare .ps_image-img {
+                background-position: (100%/3) * 1 center;
+            }
+
+            &.ps-footer_no_usa .ps_image-img {
+                background-position: (100%/3) * 2 center;
+            }
+
+            &.ps-footer_18_plus .ps_image-img {
+                background-position: (100%/3) * 3 center;
+            }
+        }
+    }
+}
+
+// Global rules  
+a { 
+    @include ps_main-link_style();
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+}
+
+.ps-container {
+    @include ps_main-container_sizing;
+}
+
+.ps-row {
+    width: 100%;
+}
+
+.ps-ul_horizontal {
+    @include ps_helper-clearfix;
+    list-style: none;
+    padding   : 0;
+    margin    : 0;
+
+    li {
+        float:left;
+    }
+
+}
+
+.ps-ul_vertical {
+    list-style: none;
+    padding   : 0;
+    margin    : 0;
+
+    li {
+        position: relative;
+        display : block;
+    }
+
+}
+
+// scroll bar
+* {
+    &::-webkit-scrollbar {
+        width : $ps_main-standard-space; 
+        height: $ps_main-standard-space;
+    }
+
+    &::-webkit-scrollbar-track {
+        background-color: lighten($ps_color-plight,100%); 
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background   : rgba($ps_color-primary, 0.5); 
+
+        &:hover {
+            background: rgba($ps_color-primary, .8);
+        }
+    }
+}
+
+.ps-features {
+    @include ps_color-p;
+    position      : relative;
+    padding-bottom: $ps_main-standard-space * 10;
+    border-top    : 1px solid rgba($ps_color-plight,.5);
+    border-bottom : 1px solid rgba($ps_color-plight,.2);
+    z-index       : 2;
+
+    .ps-features_latest {
+        width    : 100%;
+        max-width: $ps_main-screen-desktop;
+        margin   : 0 auto;
+    }
+
+    .ps-features_boundary {
+        @include ps_helper-clearfix; 
+        position: relative; 
+
+        .ps-features_item {
+            position  : relative;
+            height    : $ps_main-features-item-height;
+            width     : ($ps_main-max_percent/3);
+            float     : left;
+            padding   : 0px $ps_main-standard-space * 4;
+            margin-top: -$ps_main-features-h-height;
+
+            &.ps-features_first {
+                padding-left: $ps_main-standard-space;
+            }
+
+            &.ps-features_less_space {
+                padding: 0px $ps_main-standard-space;
+            }
+
+            &.ps-features_last {
+                padding-right: $ps_main-standard-space;
+            }
+
+            .ps-features_jackpot {
+                height        : 50%;
+            }
+            
+            .ps-features_banks {
+                @include ps_helper-clearfix;
+                height     : 50%;
+                padding    : 0px $ps_main-standard-space;
+                padding-top: $ps_main-standard-space * 2;
+
+                .ps-footer_bank {
+                    height : 50%;
+                    width  : 50%;
+                    padding: 0px $ps_main-standard-space;
+                    opacity: .5;
+                    display: inline-block;
+                    float  : left;
+
+                    .ps_image-img  {
+                        width              : 100%;
+                        height             : 100%;
+                        background-size    : (100%*$ps_main-banks_count) auto;
+                        background-repeat  : no-repeat;
+                        margin             : 0 auto;
+                    }
+                    
+                    // banks count - 1 because we only need to slice image 3 to make 4 parts
+                    &.ps-footer_bank_bri {
+
+                        .ps_image-img  {
+                            background-position: (100%/($ps_main-banks_count - 1)) * 0 center;
+                        }
+                    }
+                    
+                    // 101% because mandiri bank was not perfectly fit to its place in the sprite
+                    // That's a graphic bug but we can adjust
+                    &.ps-footer_bank_mandiri {
+
+                        .ps_image-img  {
+                            background-position: (101%/($ps_main-banks_count - 1)) * 1 center;
+                        }
+                    }
+
+                    &.ps-footer_bank_bca {
+
+                        .ps_image-img  {
+                            background-position: (100%/($ps_main-banks_count - 1)) * 2 center;
+                        }
+                    }
+
+                    &.ps-footer_bank_bni {
+
+                        .ps_image-img  {
+                            background-position: (100%/($ps_main-banks_count - 1)) * 3 center;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .ps-features_mobile_view {
+        display   : none;
+        text-align: center;
+        padding   : ($ps_main-standard-space * 4);
+        
+        @media (max-device-width:($ps_main-min_width - 1px)) {
+            display: block;
+        }
+
+        .ps_components-button {
+            font-size: $ps_main-font-size * 3;
+            padding  : $ps_main-standard-space ($ps_main-standard-space * 4);
+        }
+    }
+}
+
+.ps-features_content {
+    @include ps_helper-clearfix;
+    @include ps_color-plightcard;
+    position     : relative;
+    height       : 100%;
+    width        : 100%;
+    box-shadow   : 0 10px 20px rgba($ps_color-pdark,.19), 0 6px 6px rgba($ps_color-pdark,.23);
+    border-radius: $ps_main-radius;
+    font-size    : $ps_main-font-size - 2px;
+    padding-top  : $ps_main-features-h-height;
+
+    .ps-features_content_header {   
+        @include ps_color-s;
+        height        : $ps_main-features-h-height;
+        line-height   : $ps_main-features-h-height;
+        width         : 100%;
+        padding       : 0px 8px;
+        position      : absolute;
+        top           : 0px;
+        border-top    : 1px solid rgba($ps_color-slight,1);
+        border-bottom : 1px solid rgba($ps_color-plight,.8);
+        font-weight   : bold; 
+        z-index       : 2;
+        text-transform: uppercase;
+        text-align    : center;
+        letter-spacing: 1px;
+    }
+
+    .ps-features_content_body {
+        position   : relative;
+        height     : 100%;
+        display    : block;
+    }
+}
+
+textarea {
+    padding: $ps_main-standard-space;
+}
+
+.ps-hidden {
+    display: none !important;
+}
+
+.ps-invisible {
+    visibility: hidden !important;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+    margin: ($ps_main-standard-space*2) 0px;
+}
+
+.ps-enable_bootstrap {
+    @import "libraries/bootstrap_v3/bootstrap";
+}
+
+iframe {
+    border: 0px;
+}

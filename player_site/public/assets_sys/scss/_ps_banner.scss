@@ -1,0 +1,199 @@
+.ps_navigation-page_container .ps_navigation-page.ps_navigation-page_banner {
+	min-height: 0;
+}
+
+$ps_banner-button_height: 40px;
+.ps_banner {
+
+	.ps_banner-hide_onload {
+		opacity: 0 ;
+	}
+
+	.ps_banner-loading .ps_banner-hide_onload {
+		opacity: 1;
+	}
+
+	.ps_banner-main {
+		@include ps_main-card;
+		@include ps_color-p;
+
+
+		&:hover .carousel-indicators {
+			opacity: 1;
+		}
+
+		.ps_banner-main_carousel {
+			position: absolute;
+			top     : 0px;
+			left    : 0px;
+			width   : 100%;
+			height  : 100%;
+
+			.ps_carousel-next {
+				left: auto;
+			}
+		}
+		
+		.ps_banner-main_carousel_item  {
+
+			.ps_banner-main_image {
+				@include ps_keyframes-owl-eye(30s infinite);
+			}
+
+			.ps_banner-content {
+				@include ps_helper-center(absolute);
+				// 20px is new,jackpot,latest transactions header height, 40px is thumbnail
+				padding-bottom: 20px + 40px + ($ps_main-standard-space * 6) + $ps_banner-button_height;
+				padding-top   : ($ps_main-standard-space * 2);
+				max-height: 100%;
+
+				
+
+       			@media (max-width:($ps_main-min_width)) {
+					.ps_banner-content_title {
+						font-size  : $ps_main-font-size !important;
+						line-height: $ps_main-font-size + 2px !important;
+					}
+
+					.ps_banner-content_preview {
+						font-size  : $ps_main-font-size - 4px !important;
+						line-height: $ps_main-font-size - 2px !important;
+						max-height : (($ps_main-font-size - 2px) * 4) + 5px !important;
+					}
+
+					.ps_banner-content_boundary {
+						padding: ($ps_main-standard-space/4) (60px + $ps_main-standard-space) !important;
+					}
+				}
+				
+				
+				.ps_banner-content_boundary {
+					display      : inline-block;
+					padding      : ($ps_main-standard-space/2) (60px + $ps_main-standard-space);
+					text-overflow: ellipsis;
+					width        : 100%;
+				}
+
+
+				.ps_banner-content_title, .ps_banner-content_preview {
+					.ps_banner-content_boundary {
+     					overflow: hidden;
+					}
+				}
+
+				.ps_banner-content_title {
+					font-size    : 2vw;
+					line-height  : 2vw;
+					white-space  : nowrap;
+					overflow     : hidden;
+					text-shadow  : 0px 0px 1px rgba($ps_color-pdark, .8), 
+								 1px 2px 1px rgba($ps_color-pdark, .3), 
+								-1px 2px 1px rgba($ps_color-pdark,.3);
+
+				}
+
+				.ps_banner-content_preview {
+					font-size    : 1.3vw;
+					line-height  : 1.5vw;
+					max-height   : (1.5vw * 4) + .28vw;
+					overflow     : hidden;
+					text-shadow  : 0px 0px 1px rgba($ps_color-pdark, .8), 
+								 	1px 2px 1px rgba($ps_color-pdark, .3), 
+									-1px 2px 1px rgba($ps_color-pdark,.3), 
+				}
+
+				.ps_banner-content_button  {
+					position: absolute;
+					bottom  : 20px + 40px + ($ps_main-standard-space * 4);
+					width   : 100%;
+
+					a {
+						font-size  : $ps_main-font-size + 4px;
+						height     : $ps_banner-button_height;
+						line-height: $ps_banner-button_height;
+						padding    : 0px ($ps_main-standard-space*4);
+						display    : inline-block;
+					}
+				}
+			}
+		}
+
+		.carousel-indicators {
+			@include ps_helper-clearfix;
+			bottom    : 36px + $ps_main-standard-space;
+			max-width : $ps_main-screen-big-desktop;
+			min-width : $ps_main-min_width;  
+			opacity   : 0;
+			transition: all ($ps_main-transition*3);
+			text-align: center;
+
+			li {
+				position     : relative;
+				display      : inline-block;
+				background   : transparent;
+				border       : 0;
+				text-indent  : 0;
+				padding      : $ps_main-standard-space/4;
+				margin       : 0px;
+				height       : auto;
+				width        : auto;
+
+				.ps_banner-indicator_placeholder {
+					opacity: 0;
+					width  : 150px;
+				}
+
+				.ps_banner-indicator_main_image {
+					position     : absolute;
+					top          : 0px;
+					left         : 0px;
+					height       : 100%;
+					width        : 100%;
+					padding      : $ps_main-standard-space/4;
+					display      : block; 
+
+				    .ps_banner-indicator_image_wrapper {
+				    	position     : relative;
+				    	display      : block;
+				    	width        : 100%;
+				    	height       : 100%; 
+						box-shadow   : 5px 5px 5px 0 rgba(0,0,0,.4);
+					    border-bottom: 2px solid transparent;
+						transition   : all ($ps_main-transition*3);
+
+					    .ps_js-image_broken {
+					    	@include ps_helper-v-center(relative);
+					    	left: 0px;
+					    }
+				    }
+				}
+
+				&.active .ps_banner-indicator_image_wrapper {
+				    border-bottom: 2px solid $ps_color-paccentlight;
+				}
+			}
+		}
+	}
+
+	.ps_banner-placeholder .ps_image-img {
+		opacity: 0;
+	}
+
+	.ps_image-img {
+		width     : 100%;
+		max-height: 100%;
+
+		&.ps_image-broken {
+			width : auto;
+		}
+	}
+}
+
+// banner content and modal
+.ps_banner-content_center {
+		text-align: center;
+}
+
+.ps_banner-content_right {
+	text-align: right;
+}

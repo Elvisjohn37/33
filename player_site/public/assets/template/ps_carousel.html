@@ -1,0 +1,82 @@
+<!--
+| Custom tags
+-->
+<div class='ps_js-carousel'>
+	<div data-tag='bootstrap' class='carousel ps_js-carousel_root' v-bind:id='final_id'>
+	
+		<!-- Items -->
+		<div class='carousel-inner'>
+			<slot></slot>
+		</div>
+
+		<!-- Indicators -->
+		<template v-if='indicators'>
+			<ps-carousel-bootstrap-indicators 
+				v-bind:class  = "[{'ps-hidden':items_length <= 1},'ps_js-carousel_circle ps-ul_horizontal']"
+				v-bind:target = 'final_id'
+				v-bind:items  = 'items'
+			></ps-carousel-bootstrap-indicators>
+		</template>	
+		<slot name='indicators'></slot>
+
+		<!-- Arrows     -->
+		<template v-if='arrows'>
+			<span 
+				class='carousel-control ps_js-carousel_control_prev ps_carousel-prev' 
+				v-bind:href="'#'+final_id" 
+				data-slide ='prev'
+			><i class='ps_icon md-chevron_left'></i></span>
+			<span 
+				class      = 'carousel-control ps_js-carousel_control_next ps_carousel-next' 
+				v-bind:href= "'#'+final_id" 
+				data-slide = 'next'
+			><i class='ps_icon md-chevron_right'></i></span>
+		</template>
+        <slot name='carousel_information' v-bind:id='final_id'></slot>
+	</div>
+	<div data-tag='bootstrap-item' class='item ps_js-item'><slot></slot></div>
+	<ul  data-tag='bootstrap-indicators' class='carousel-indicators'>
+		<li class                = 'ps_js-carousel_nav'
+			v-for                = '(number, slide_to) in items_length' 
+			v-bind:data-target   = "'#'+target" 
+			v-bind:data-slide-to = 'slide_to'
+		><slot v-bind:name='slide_to'></slot></li>
+	</ul>
+	<span data-tag='hqueue' class='ps_js-carousel_root'>
+		<div v-bind:class="[{'ps_carousel-hqueue_overflow': is_overflow},{ 'ps_carousel-hqueue_scrolling': scrolling }, {'ps_carousel-hqueue_has_arrows': arrows }, {'ps_carousel-resize_adjusting': resize_adjusting },{'ps_carousel-hqueue_not_busy': !busy},{'ps_carousel-rolled': is_rolled},{'ps_carousel-overflow_calculated': !calculating_overflow},'ps_carousel-hqueue']">
+			<div class = 'ps_carousel-hqueue_inner'>
+				<div v-bind:class="'ps_carousel-hqueue_scroller ps_js-carousel_scroller_' + id">
+					<slot></slot>
+				</div>
+			</div>
+			<template v-if='arrows'>
+				<span 
+					class='ps_js-hqueue_left ps_carousel-left ps_carousel-hqueue_arrow' 
+				><i class='ps_icon md-chevron_left'></i></span>
+				<span 
+					class='ps_js-hqueue_right ps_carousel-right ps_carousel-hqueue_arrow' 
+				><i class='ps_icon md-chevron_right'></i></span>
+			</template>
+			<template v-if='indicators'>
+				<ps-carousel-custom-indicators 
+					v-bind:class  = "[{'ps-hidden':items_length <= 1},'ps_js-carousel_circle ps-ul_horizontal']"
+					v-bind:length = 'length'
+					v-bind:active = 'final_active'
+				></ps-carousel-custom-indicators>
+			</template>
+			<slot name='indicators'></slot>
+	        <slot 
+	        	name          = 'carousel_information' 
+	        	v-bind:active = 'final_active' 
+	        	v-bind:length = 'length'
+	        ></slot>
+		</div>
+	</span>
+	<ul data-tag='custom-indicators' class='ps_carousel-indicators carousel-indicators'>
+		<li 
+			v-bind:class         = "[{'ps_carousel-active': slide_to==active}, 'ps_js-carousel_nav']"
+			v-for                = '(number, slide_to) in length' 
+			v-bind:data-move-to  = 'slide_to'
+		><slot v-bind:name='slide_to'></slot></li>
+	</ul>
+</div>

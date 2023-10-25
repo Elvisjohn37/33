@@ -1,0 +1,472 @@
+.ps_avatar-primary_profile {
+}
+
+$ps_avatar-default-size: 120px;
+.ps_avatar-image {
+	@include ps_color-p;
+	display      : inline-block;
+	border-radius: $ps_main-radius;
+    box-shadow   : 0px 1px 3px rgba($ps_color-pdark,.8);
+	overflow     : hidden;
+	height       : $ps_avatar-default-size;
+	width        : $ps_avatar-default-size; 
+
+	img:not(.ps_image-broken) {
+		height: 100%;
+		width : 100%;
+	}
+}
+
+.ps_avatar-edit_button {
+	@include ps_main-card;
+	position     : absolute;
+	top          : $ps_main-standard-space/4;
+	right        : $ps_main-standard-space/4;
+	width        : $ps_components-form_sizing + 2px;
+	text-align   : center;
+	padding      : 0px !important;  
+}
+	
+@mixin ps_avatar-image_queue_1() {
+	z-index  : 3;
+	transform: scale(1.5) translateX(90px);
+}
+
+
+@mixin ps_avatar-image_queue_2() {
+	z-index   : 2;
+	transform : scale(1.3) translateX(50px);
+}
+
+
+@mixin ps_avatar-image_queue_3() {
+	z-index: 1;
+	transform: scale(1) translateX(0px);
+}
+
+$ps_avatar-modal_image_size: 130px;
+.ps_js-avatar_modal_root {
+	@include ps_color-s-radial-center;
+
+	.modal-dialog {
+        @include ps_color-plightcard;
+        box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.72);
+		width     : 100%;
+	}
+
+	.modal-content {
+		width     : $ps_main-min-width;
+		margin    : 0 auto;
+		background: transparent;
+		box-shadow: none;
+		border    : 0px solid transparent;
+
+		.ps_popup-modal_close {
+			@include ps_color-plightcard;
+			width     : 30px;
+			text-align: center;
+			top       : -($ps_main-standard-space  + 30px);
+		}
+	}
+		
+	.modal-content .modal-body  {
+		@include ps_helper-child-center('.ps_js-avatar_modal');
+		position  : relative;
+		padding   : ($ps_main-standard-space * 4) 0px;
+		min-height: 390px;
+	}
+
+	.ps_avatar-main_row {
+		@include ps_helper-clearfix;
+		width: 737px;
+
+		.ps_avatar-image_container,.ps_avatar-form_container {
+			float: left;
+		}
+
+		.ps_avatar-form_container {
+			width       : 436px;
+			position    : relative;
+			padding-left: $ps_main-standard-space * 2;
+			// height of the selected image
+			height      : 195px;
+
+			.ps_avatar-description_container {
+				height        : 100%;
+				// 80px is avatar button div height
+				padding-bottom: ($ps_main-standard-space * 2) + 80px;
+
+				.ps_avatar-description {
+					color: $ps_color-paccentlight;
+				}
+
+				&.ps_avatar-active_status_approved .ps_avatar-description {
+					color: $ps_color-pgreen;
+				}
+
+				&.ps_avatar-active_status_pending .ps_avatar-description {
+					color: $ps_color-pblue;
+				}
+
+				&.ps_avatar-active_status_rejected .ps_avatar-description {
+					color: $ps_color-error;
+				}
+
+				.ps_avatar-description_title {
+					margin-bottom: $ps_main-standard-space;
+					font-weight  : bold;
+					font-size    : $ps_main-font-size + 4px;
+				}
+			}
+			
+			.ps_avatar-form {
+				padding-left: $ps_main-standard-space * 2;
+				position    : absolute;
+				bottom      : 0px;
+				left        : 0px;
+				text-align  : center;
+
+				.ps_components-form {
+					max-width: none;
+					width    : 100%;
+				}
+
+				.ps_avatar-set_profile {
+					margin-top: $ps_main-standard-space;
+					display   : block;
+					width     : 100%;
+					font-size : $ps_main-font-size + 4px;
+					height    : ($ps_main-font-size + 4px) + ($ps_main-standard-space * 3);
+				}
+
+				.ps_components-button {
+					float: left;
+				}
+
+				.ps_components-button_file .ps_components-button {
+					margin-right: $ps_main-standard-space;
+				}
+			}
+		}
+
+		.ps_avatar-image_container {
+			text-align   : center;
+	     	height       : $ps_avatar-modal_image_size;
+	     	margin-top   : (195px - $ps_avatar-modal_image_size) / 2;
+	     	margin-bottom: (195px - $ps_avatar-modal_image_size) / 2;
+		    width        : 300px;
+		    position     : relative; 
+
+			.ps_avatar-image {
+				position  : absolute; 
+				left      : 0px;
+				bottom    : 0px;
+				height    : $ps_avatar-modal_image_size;
+				width     : $ps_avatar-modal_image_size;
+				transition: transform $ps_main-transition;
+				transform-origin: center;
+
+				.ps_avatar-primary_icon {
+					color      : $ps_color-paccentlight;
+					position   : absolute;
+					text-shadow: 0px 0px 1px rgba($ps_color-pdark, .5);
+					top        : -2px;
+					left       : 0px;
+					background : rgba($ps_color-pdark, .2);
+					display    : block;
+   					width      : 22px;
+   					height     : 22px;
+   					line-height: 22px;
+				}
+			}
+
+			&.ps_avatar-active_1 {
+				
+				.ps_avatar-image_no_1 {
+					@include ps_avatar-image_queue_1;
+				}
+
+				.ps_avatar-image_no_2 {
+					@include ps_avatar-image_queue_2;
+				}
+
+				.ps_avatar-image_no_3 {
+					@include ps_avatar-image_queue_3;
+				}
+			}
+
+			&.ps_avatar-active_2 {
+				
+				.ps_avatar-image_no_1 {
+					@include ps_avatar-image_queue_3;
+				}
+
+				.ps_avatar-image_no_2 {
+					@include ps_avatar-image_queue_1;
+				}
+
+				.ps_avatar-image_no_3 {
+					@include ps_avatar-image_queue_2;
+				}
+			}
+
+			&.ps_avatar-active_3 {
+				
+				.ps_avatar-image_no_1 {
+					@include ps_avatar-image_queue_2;
+				}
+
+				.ps_avatar-image_no_2 {
+					@include ps_avatar-image_queue_3;
+				}
+
+				.ps_avatar-image_no_3 {
+					@include ps_avatar-image_queue_1;
+				}
+			}
+		}
+	}
+
+	.ps_avatar-rules {
+		margin-top: $ps_main-standard-space * 4;
+		text-align: center;
+      	position  : relative;
+
+		.ps_icon {
+			@include ps_helper-center(absolute);
+		    text-shadow: 0px 5px 5px rgba(0, 0, 0, 0.5);
+		    font-size  : 140px;
+		    line-height: 140px;
+		    height     : 140px;
+		    opacity    : .05;
+		}
+
+		.ps_avatar-rules_text {
+			@include ps_color-pdark-fading-edges;
+			color        : $ps_color-ptextsecondary;
+			font-size    : $ps_main-font-size - 2px;
+			padding      : $ps_main-standard-space;
+	    	border-top   : 1px solid rgba(lighten($ps_color-plight, 20%), .06);
+	    	border-bottom: 1px solid rgba(lighten($ps_color-plight, 20%), .06);
+			text-align   : center;
+			display      : inline-block;
+		}
+	}
+
+	.ps_avatar-status_view {
+		@include ps_color-sdark(.8);
+		position: absolute;
+		height     : 100%;
+		line-height: $ps_avatar-modal_image_size;
+		width      : 100%;
+		top        : 0px;
+		display    : none;
+
+		&.ps_avatar-status_view_pending, &.ps_avatar-status_view_rejected {
+			display : block;
+		}
+
+		&.ps_avatar-status_view_pending {
+			background: rgba($ps_color-pblue, .8);
+		}
+
+		&.ps_avatar-status_view_rejected {
+			background: rgba($ps_color-error, .8);
+		}
+		
+		.ps_avatar-icon_pending {
+			@include ps_icon-schedule;
+		}
+		
+		.ps_avatar-icon_rejected {
+			@include ps_icon-block;
+		}
+		
+		.ps_avatar-icon {
+			@include ps_helper-v-center;
+			display    : inline-block;
+			line-height: normal; 
+		}
+
+		.ps_icon  {
+			font-size: $ps_avatar-modal_image_size/2;
+		}
+	}
+}
+
+$ps_avatar-webcam-width            : 400px;
+$ps_avatar-buttons-container-height: 44px;
+.ps_js-avatar_crop_root {
+	@include ps_color-pdark;
+	@include ps_popup-modal-fade-only;
+	@include ps_popup-modal_full;
+
+	.ps_popup-modal_close {
+		display: none;
+	}
+	
+	&.ps_popup-modal {
+		.modal-content {
+			background: transparent;
+			box-shadow: none;
+			border    : 0;
+		
+			.modal-body, .ps_avatar-crop_body,.ps_avatar-crop_wrap,.ps_avatar-crop_tool {
+				width  : 100%;
+				height : 100%;
+			}
+
+			.modal-body {
+				padding: 0px;
+			}
+		}
+	}
+	
+	.ps_avatar-crop_wrap {
+		
+		.ps_components-form {
+			max-width: none;
+			display  : inline;
+
+			.ps_components-form_elements {
+				height: 100%;
+			}
+			
+			.ps_avatar-crop_tool {
+				overflow      : hidden;
+				padding       : $ps_main-standard-space;
+				padding-top   : $ps_main-standard-space;
+				padding-bottom: $ps_avatar-buttons-container-height + $ps_main-standard-space;
+				text-align    : center; 
+
+				.ps_image-crop {
+					opacity    : 0;
+    				line-height: 0;
+				    max-width  : $ps_main-screen-big-desktop;
+				}
+			}
+		}
+
+		&.ps_avatar-from_camera {
+
+			.ps_image-crop {
+				max-width: $ps_avatar-webcam-width !important;
+			}
+		}
+
+		.ps_avatar-loading_bar  {
+			position  : absolute;
+			top       : 0px;
+			left      : 0px;
+			width     : 100%;
+			transition: $ps_main-transition*3; 
+			
+			.ps_components-loading_bar {
+				height: 2px;
+			}
+
+			&.ps_avatar-reading_image {
+				opacity: 1;
+				z-index: 2;
+			}
+		}
+
+
+		&.ps_avatar-crop_loaded {
+
+			.ps_avatar-loading_bar.ps_avatar-reading_image {
+				opacity: 0;
+				z-index: -1;
+			}
+
+			.ps_image-crop {
+				// we need to put .05s delay to avoid flicker when rendering width changes
+				@include ps_keyframes-fadein($ps_main-transition .05s);
+	   			animation-fill-mode: forwards;
+			}
+		}
+
+		.ps_avatar-loading_text {
+			font-size : $ps_main-font-size - 2px;
+			text-align: center;
+		}
+	}
+
+	.ps_avatar-crop_retake {
+		margin-right: $ps_main-standard-space * 4 !important;
+	}
+}
+
+.ps_js-avatar_webcam_root {
+	@include ps_popup-modal-fade-only;
+	@include ps_popup-modal_full;
+	background: rgba($ps_color-pdark, .8);
+	
+	.ps_popup-modal_close {
+		display: none;
+	}
+
+	&.ps_popup-modal {
+		.modal-content {
+			background: transparent;
+			box-shadow: none;
+			border    : 0;
+		
+			.modal-body, .ps_avatar-webcam_body {
+				width  : 100%;
+				height : 100%;
+			}
+
+			.modal-body {
+				padding: 0px;
+			}
+		}
+	}
+
+	.ps_avatar-webcam_body {
+		@include ps_helper-child-center('.ps_avatar-webcam_tool');
+		overflow      : hidden;
+		padding-top   : $ps_main-standard-space;
+		padding-bottom: $ps_avatar-buttons-container-height + $ps_main-standard-space;
+
+		.ps_avatar-webcam_tool {
+			@include ps_main-card;
+			@include ps_color-plight;
+			position   : relative;
+			padding    : $ps_main-standard-space; 
+			display    : inline-block;
+		}
+
+		.ps_media-webcam  {
+			position   : relative;
+			line-height: 0px;
+
+			video {
+				width: $ps_avatar-webcam-width;
+			}
+		}
+	}
+}
+
+.ps_avatar-modal_action_buttons {
+	@include ps_color-plight(.5);
+	position   : absolute;
+	text-align : center; 
+	width      : 100%;
+	bottom     : 0px; 
+	height     : $ps_avatar-buttons-container-height;
+	line-height: $ps_avatar-buttons-container-height;
+
+	.ps_avatar-modal_buttons_wrapper {
+		display       : inline-block;
+		vertical-align: middle;
+	}
+
+	.ps_components-button {
+		float: right;
+
+		+ .ps_components-button {
+			margin-right: $ps_main-standard-space;
+		}
+	}
+}

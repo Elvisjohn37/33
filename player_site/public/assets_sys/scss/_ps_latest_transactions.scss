@@ -1,0 +1,148 @@
+$ps_latest_transactions-li_height:(($ps_main-features-item-height - $ps_main-features-h-height)/5px);
+$ps_latest_transactions-icon_size:($ps_latest_transactions-li_height - ($ps_main-standard-space * 2));
+
+@mixin ps_latest_transactions-active_indicator() {
+	border-bottom: 2px solid $ps_color-paccent !important;
+
+	.ps_latest_transactions-icon .ps_image-lazy {
+		opacity: 1;
+	}
+}
+
+.ps_latest_transactions {
+	
+	.ps-features_content_header {
+		padding: 0px;
+	}
+
+	.ps_latest_transactions-header_navigation  { 
+		width   : 100%;
+		height  : 100%;
+		position: relative;
+		bottom  : 0;
+		
+		li {
+			background   : transparent !important;
+			width        : (100% / 3);
+		    float        : left;
+			height       : 100%;
+			border-radius: 0;
+			border       : 0 !important;
+			border-bottom: 2px solid transparent !important;
+			text-indent  : 0; 
+			margin       : 0px;
+			font-weight  : bold;
+			transition   : all $ps_main-transition;
+
+			.ps_latest_transactions-tooltip_link {
+				display: block;
+				height : 100%;
+				width  : 100%;
+			}
+
+			.ps_latest_transactions-icon .ps_image-lazy {
+				opacity   : .7;
+				transition: all $ps_main-transition;
+			}
+
+			&:hover {
+				border-bottom: 2px solid rgba($ps_color-paccent, .5) !important;
+
+				.ps_latest_transactions-icon .ps_image-lazy {
+					opacity: .9;
+				}
+			}
+
+			&.active {
+				@include ps_latest_transactions-active_indicator;
+			}
+		}
+	}
+
+	#ps_latest_transactions-carousel {
+		height: 100%;
+		
+		.ps_latest_transactions-header {
+    		padding    : 0px;
+    		top        : -$ps_main-features-h-height;
+    		height     : $ps_main-features-h-height;
+    		line-height: $ps_main-features-h-height;
+    		width      : 100%;
+    		position   : absolute;
+		}
+		
+		.carousel-inner .item {
+			display: none;
+
+			&.active {
+				display: block;
+			}
+		}
+
+		.ps_latest_transactions-list {
+			height: 100%;
+
+			li {
+				height       : $ps_latest_transactions-li_height + px;
+				display      : block;
+			 	border-bottom: 1px solid $ps_color-primary;
+				padding      : $ps_main-standard-space;
+				padding-left : $ps_latest_transactions-li_height + px;
+
+				.ps_latest_transactions-icon {
+					display    : inline-block;
+					position   : absolute;
+					height     : $ps_latest_transactions-icon_size;
+					line-height: $ps_latest_transactions-icon_size;
+					width      : $ps_latest_transactions-icon_size;
+					left       : $ps_main-standard-space;
+					text-align : center;
+				}
+
+				.ps_latest_transactions-amount {
+					float        : right;
+					margin-bottom: 0px;
+				}
+
+				.ps_latest_transactions-name {
+					font-weight  :bold;
+					margin-bottom:0px;
+					line-height  : normal;
+				}
+
+				.ps_latest_transactions-type {
+					color 		: $ps_color-paccent;
+					font-size   : $ps_main-font-size - 3px;
+					line-height : normal;
+				}
+			}
+		}
+	}
+
+	.ps_latest_transactions-icon {
+
+		.ps_image-img {
+			display            : inline-block;
+			background-size    : (100%*3) auto;
+			background-repeat  : no-repeat;
+			height             : 100%;
+			width              : 18px;
+		}
+
+        // 2 is sprite icon count - 1 because we only need to slice image 2 to make 3 parts
+		.ps_latest_transactions-deposit .ps_image-img {
+			background-position: (100%/2) * 0 center;
+		}
+
+		.ps_latest_transactions-winners .ps_image-img {
+			background-position: (100%/2) * 1 center;
+		}
+
+
+		.ps_latest_transactions-withdrawal .ps_image-img {
+			background-position: (100%/2) * 2 center;
+		}
+	}
+
+
+}

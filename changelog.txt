@@ -1,0 +1,389 @@
+player_site v4.8.20  September 09, 2020
+
+- Update image description 3 of great bear bounty
+- update everything about net game description, sprite and thumbnail
+- add gameID param for opening multiplayer
+
+--------------------------------
+
+player_site v4.8.19  August 05, 2020
+
+- update baccarat multiplayer game description
+- update baccarat multiplayer preview
+- Update arrangement of great bear bounty image description
+- update greatbearbounty image preview
+
+--------------------------------
+
+player_site v4.8.18  July 29, 2020
+
+#47382 - Add game thumbnail of baccarat multiplayer
+- Add great bear bounty game thumbnail image
+- Add great bear bounty game image description
+- Add great bear bounty game preview
+
+--------------------------------
+
+player_site v4.8.17  March 04, 2020
+
+- Add great bear mountain game description
+- Add great bear mountain game preview
+
+--------------------------------
+
+player_site v4.8.16  Febuary 19, 2020
+
+#46467 - Add validation if isFirstLogin is true, then proceed to change credentials
+#46331 - change position of forgot password and language for bigger space of testmode message
+#46623 - Change display txnID(gameRound) to txnDetID (roundID) of multiplayer reports
+
+-------------------------------
+
+player_site v4.8.15  Febuary 10, 2020
+
+#46543 - Enhance regex for chinese characters, instead using of unicode
+
+--------------------------------
+
+player_site v4.8.14  Febuary 05, 2020
+
+- Add limit for reconnection of websocket and unstable connection will display of limit reached.
+#46274 - additional config and condition to removed usedbalance display.
+#46267 - trigger hash change when hash is home only in first load.
+#46263 - removed sports and live casino tab menu in before sign in config
+- add sports productID in config to removed gaming rules.
+- add sports,live casino and casino games serverID to remove game guide.
+#46316 - enhance regex checking for flexibility of any language input.
+-limit to chinese language
+- add Dragon Tiger Multiplayer Thumbnail Sprite
+- add Dragon Tiger Multiplayer Image Description
+- add Dragon Tiger Multiplayer Game Thumbnail
+
+-----------------------------
+
+player_site v4.8.13  January 22, 2020
+
+#45927- Additional checking for displayNameStatus
+#45996 - Add tablename to game details display
+#46101 - Add parameter isHtml5=N for live casino flash version
+- Add great bear mountain game thumbnail image
+
+-----------------------------
+
+player_site v4.8.12  January 09, 2020
+
+- Remove Session ID as message when sending event PS_lo in websocket
+
+--------------------------------
+
+player_site v4.8.11  January 08, 2020
+
+#45743 - Change indonesian language of jakpot to jackpot
+- Update site_access validation to allow test player to login when in testmode
+
+---------------------------------
+
+player_site v4.8.10 December 11, 2019
+
+#45583 - change font size of game guide
+
+-------------------------------
+
+player_site v4.8.9 December 11, 2019
+
+#45453 - remove window.location for redirection to #home change to vue watch to trigger hashchange
+
+-------------------------------
+
+player_site v4.8.8 November 26, 2019
+
+#45021 - removed modal display:block
+#45103 - add case condition on query for dateTime
+       - additional display of endDateTime to game details and details of betting transactionType
+#45111 -   additional productID config to disable jackpot of skillgames
+       - removed display none to data-slide 1 and active indicator for slide 0 if slide 1 is active
+#45134 - add badge for multiplayer tab page of new games.
+
+--------------------------------
+
+player_site v4.8.7 November 21, 2019
+
+#45135 add multiplayer ProductID for banner
+
+-------------------------------
+
+player_site v4.8.6 November 18, 2019
+
+- Enable multiplayer tab menu for PROD env
+
+--------------------------------
+
+player_site v4.8.5 November 13, 2019
+
+#44729 - removed product name display to reports net win adjustment
+#44762 - change font size to fit on the container.
+- add Everything about Net Thumbnail Sprite
+- add Everything about Net thumbnail Description
+- Update fruity fruits multiplayer thumbnail 
+- add everything about net thumbnail
+
+----------------------------------
+
+player_site v4.8.4 November 04, 2019
+
+- disbled multiplayer tab menu for PROD.
+
+-------------------------------------------------
+
+player_site v4.8.3 October 30, 2019
+
+- Enable Fruity fruits multiplayer menu on prod env
+
+-----------------------------------
+
+player_site v4.8.2 October 30, 2019
+
+#44421 - add validation for checking if string has space
+#44338 - add min length validation for password on registration
+
+---------------------------------
+
+player_site v4.8.1 October 16, 2019
+
+- enable multiplayer tab on UAT env
+- add Fruity Fruits Multiplayer Game Thumbnail
+- add Fruity Fruits Multiplayer Game Thumbnail Sprite
+- add Fruity Fruits Multiplayer Game Description Images
+#43830 - enable reward module in front-end menu configuration
+#43887 - return custom response when CSRF is not valid
+- Addition content type
+- turn off debug on UAT
+- Add websocket limit to re-connect when disconnect to websocket.
+- call ws subscription for native chat after data of chat is loaded.
+
+---------------------------------
+
+player_site v4.8.0 October 02, 2019
+
+- Update websocket request using version of websocket
+- Front end enhance for websocket v3 connection using socket IO
+#43830 - add reward module view data and add language
+- create function that will create marketing token
+#43801 - add passed value to socket for updating chat status
+- Add checking if available for enabling chat input
+
+--------------------------------
+
+player_site v4.7.4 September 19, 2019
+
+#43699 - enable skill games config lab env and UAT
+
+--------------------------------
+
+player_site v4.7.3 September 16, 2019
+
+#43541 - Update casino game reports
+       - Add productID casino game for language reports
+#43699 - remove skill games product on menu
+       - remove game guide ang gaming rules
+
+--------------------------------
+
+player_site v4.7.2 September 4, 2019
+
+- Replace jan ken pon with new description and sprite images.
+- Replaced sawadeecup thumbnail image with new image.
+#42001 - Changed validation modal form button text for 3 wrong input credentials from {{ shared.lang.language.login }} to {{ shared.lang.language.submit }}.
+- Add productID multiplayer for formating of reports payload
+#43567 - add isEnabled to where clause
+       - additional NOTE:DB change data type of column range1 and column range2 on IP table since its affect the returning of records
+
+--------------------------------
+
+player_site v4.7.1 August 16, 2019
+
+- Added sawadee cup image thumbnail.
+- Added game type icon on games thumbnail.
+- Added sawadeecup images assets.
+#43142 - Added padding to left and right to have space between navigation menu.
+- Replaced Jan Ken Pon with new thumbnail preview and sprite images.
+#43129 - enable config DEPOSIT_LIMIT_CHECKDB for checking of min deposit
+#42816 - Add checker if country of IP is blacklisted.
+#42995 - additional where clause of whitelabelID when retrieving user info instead of using loginName only.
+#43137 - Modified the text to correct the spelling in English translation
+
+-----------------------------
+
+player_site v4.7.0 August 6, 2019
+
+#42157 - Add productName to filename requested for gameguide
+       - additional productID for ingame game guide
+	   - changed productName to productID for game guide.
+#39019 - Changed carousel arrow from <a> to <span> to prevent browser action menu in ios device when holding next or prev arrow.
+#42007 - Added sprite image for foot ball madness pro
+
+---------------------------
+
+player_site v4.6.2 July 25, 2019
+
+- fix password any arrangement of letter, number, symbol.
+
+---------------------------
+
+player_site v4.6.1 July 23, 2019
+
+- Accept "_" on all input password field.
+- Added rush city sprite image
+- Add Rush City Description Images
+
+--------------------------
+
+player_site v4.6.0 July 10, 2019
+
+#41862 - Removed pop up toast for opening game window if the device is ios.
+#41942 - focused text indicator on the textbox
+#42157 - Add live casino Dragon Tiger gameID to disabled game guide
+- set sport menu config same as live casino BSI
+#42008 - Add validation for password requirements base from policy
+- Reset web session if ASI only in sports.
+#41846 - Changed behavior of sports page from direct open page to popup behavior when page is active
+
+---------------------------
+
+player_site v4.5.2 July 1, 2019
+
+remove multiplayer menu in player site for UAT and PROD env
+
+----------------------------
+
+player_site v4.5.1 June 26, 2019
+
+remove float and direct trigger for live casino menu config UAT and PROD
+
+----------------------------
+
+player_site v4.5.0 June 26, 2019
+
+Added thumbnail to choose which version to play on live casino page
+#41691 - use API togel_lobby_information to get the latest result of togel instead of using database.
+- data from API togel_lobby_information will parsed and get only the latest result
+- change semi colon to arrow dot
+Add new tab multi-player for new product
+- disabled mutli-player tab in UAT and PROD
+#41587 - Set red font color if resultStatus is resettled or voided on history table of live togel
+
+-------------------------------
+
+player_site v4.4.9 June 11, 2019
+
+#41294 - Fixed issue in promotion search bar to prevent case sensitive
+#41317 - Added validation to removed 0 at first digit on input amount for Deposit, Withdrawals & Fund transfer
+#39049 - Removed transform : translate3d(100%, 0, 0); from .carousel .item and Added opacity: 0; then opacity: 1; to its keyframes and .active.
+#38994 - Removed transform : translate3d(100%, 0, 0); from .carousel .item and Added opacity: 0; then opacity: 1; to its keyframes and .active.
+#35657 - Set 7000px for iframe height.
+Added Jan Ken Pon sprite 
+Added Jan Ken Pon description and thumbnail images.
+`#41119` - this will Add poker limit to all direct register of player in binbincash
+		 - Use begin transaction and rollback for saving players data
+
+----------------------------
+
+player_site v4.4.8 June 06, 2019
+
+#35657 - Set 3000px for iframe height (Sports)
+
+------------------------------
+
+player_site v4.4.7 May 08, 2019
+
+- Add validation for checking if param passed is valid json value
+- Changed sprite and description image (Poker Texas Holdem)
+- Added Sedie sprite and game preview image.
+- Enhancement for validation to add maximum input value base on database
+- #40804 - Adjust require config waitSeconds to infinite, and put require waitSeconds timeout config before loading the requireJS
+
+------------------------------
+
+player_site v4.4.6 Apr 29, 2019
+
+- #40804 - Adjust require config waitSeconds to 60
+
+------------------------------
+
+player_site v4.4.5 Apr 17, 2019
+
+- Enhacement for hashing of clientID or guestID to secured when sending to frontend via socket
+- follow naming convention of cache
+- Add timeout for all PS curl request to avoid long time of response
+- Added Rush city thumbnail image
+- #31594 - added tableName as window.name for join button window
+
+-------------------------------
+
+player_site v4.4.4 Apr 04, 2019
+
+- currency based on agent will be applied to all WL only
+
+-------------------------------
+
+player_site v4.4.3 Apr 02, 2019
+
+- Added condition to html to control bank information field visibility.
+- Added validation to input chinese character, frontend (First and Last Name).
+- Added checker if parent session is null, verify_parent route.
+- #39706 - get currency of agent for registration.
+- #39900 - Enhance validation of first and last name to accept chinese character, backend.
+- Announcement adjustments for Chinese language, onyx.announcementcontent
+- News adjustments for Chinese language, onyx.newscontent
+- Add config to disabled bank account info, backend.
+- Revert 338a UAT Chatbox to livechatinc
+
+-------------------------------
+
+player_site v4.4.2 Mar 20, 2019
+
+- Set 338a chat app to native in UAT
+- use dynamic config for ws_connection
+- Add guestID or clientID when sending message to PS_chat
+- Adjust parameter for broadcast request to follow API conventions
+- #39327 Add validation for maximum input of accountBankName
+- #38995 Add validation for maximum input of firstName and lastName
+- add sedie thumbnail
+
+-------------------------------
+
+player_site v4.4.1 Mar 8, 2019
+
+- Temporary set chatbox to native.
+
+--------------------------------
+
+player_site v4.4.0 Mar 6, 2019
+
+- #39363 - Updates the game name being display in running game notification modal, by adding game name that being opened as key to modal id.
+- #39048 - Update disbaled menu when all clientProducts sets to empty
+- Add username message for PS_li and send PS_lo socket when player logout
+- Add email_error for logging. 
+- Create healthcheck get route with response 'ONLINE' only.
+- Update all sports submenu id of menu
+
+--------------------------------
+
+player_site v4.3.5 Feb 22, 2019
+
+- Added Snakes and Ladders Thumbnail, and Game Description Images.
+- Added Whack d Mole Thumbnail, and Game Description Images.
+- Added Poker Game Description Images.
+- Added Head or Tail Thumbnail.
+--------------------------------
+
+player_site v4.3.4  Feb 22, 2019
+
+- Laravel upgrade from v4.5 to v5.2.
+- Frontend overhaul, with additional JS libraries: vueJS and requireJS.
+
+--------------------------------
+
+player_site v3.1.24 Feb 21, 2019
+
+- Backup Version 3, for next major version preparation.

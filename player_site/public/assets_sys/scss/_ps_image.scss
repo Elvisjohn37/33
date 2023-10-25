@@ -1,0 +1,107 @@
+$ps_image-img-lcount: 3;
+.ps_image-lazy {
+	position   : relative;
+	display    : block;
+	width      : 100%;
+	height     : 100%;
+	line-height: 0px;
+
+	&.ps_image-uncontrolled {
+		position: static;
+		display : inline;
+		width   : auto;
+		height  : auto;
+	}
+	
+	.ps_image-loader_wrap {
+		opacity: .5;
+	}
+
+	.ps_image-loader {
+		@include ps_keyframes-fade-in-out(($ps_main-transition*8) infinite ease);
+		@include ps_helper-center(absolute); 
+		font-size: 20px;
+	}
+
+	.ps_image-img {
+
+		&.ps_image-broken {
+			
+			&.ps_image-img_background {
+				width : 100%;
+				height: 100%;
+				background-size    : contain;
+				background-position: center;
+				background-repeat  : no-repeat;
+			}
+		}
+	}
+
+	img.ps_image-broken {
+		@include ps_helper-center(relative);
+		max-width : 100%;
+		max-height: 100%;
+	}
+}
+
+.ps_image-crop {
+    text-align : center;
+	position   : relative;
+	display    : inline-block;
+	height     : 100%;
+	width      : 100%;
+
+	canvas {
+		position: fixed;
+		opacity : 0;
+		z-index : -1;
+		transform: translate(-200%,-200%);
+	}
+
+	.ps_image-crop_image {
+		@include ps_helper-v-center(relative);
+		/* Never limit the container height here */
+	  	max-width : 100%;
+	  	max-height: 100%;
+
+		// make image resize to highest screen fit value only
+		.ps_image-crop_img {
+			display   : inline-block;
+			max-width : 100%;
+			max-height: 100%;
+		}
+
+		.cropper-bg {
+			background      : none;
+			background-image: none;
+		}
+
+		.cropper-point.point-se {
+		    height : 5px !important;
+		    opacity: .75 !important;
+		    width  : 5px !important;
+		}
+		
+		// custom site design
+		.cropper-dashed {
+			border: 0px solid transparent;
+		}
+
+		.cropper-line, .cropper-point {
+		    background-color: $ps_color-paccentlight;
+		}
+
+		.cropper-view-box {
+		    outline-color: $ps_color-paccentlight;
+		    outline      : 1px solid  $ps_color-paccentlight;
+		}
+
+		.cropper-center {
+			display: none;
+		}
+		
+		.cropper-canvas {
+			border: 1px dashed $ps_color-pskyblue;
+		}
+	}
+}

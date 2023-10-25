@@ -1,0 +1,202 @@
+$ps_support-height      : 270px;
+$ps_support-width       : 210px;
+$ps_support-status      : 10px;
+$ps_support-status-space: $ps_support-status + ($ps_main-standard-space * 4);
+
+.ps_support {
+    @include ps_helper-clearfix;
+    @include ps_color-plight;
+    @include ps_main-card;
+    @include ps_helper-v-center(fixed);
+    height    : $ps_support-height;
+    width     : $ps_support-width;
+    z-index   : 2;
+    transition: transform $ps_main-transition;
+
+    .ps_support-header .ps_icon  {
+		font-size: $ps_main-font-size + 10px;
+		cursor   : pointer;
+    }
+	
+	.ps_support-alternate_header {
+		@include ps_color-plight;
+		position   : absolute;
+		width      : $ps_support-height - $ps_main-features-h-height;
+		height     : $ps_support-status-space;
+		line-height: $ps_support-status-space;
+    	padding    : 0px $ps_main-standard-space;
+    	text-align : center; 
+    	font-weight: bold;
+    	z-index    : 2;
+    	opacity    : 1;
+	    transform  : rotate(270deg);
+    	transition : all $ps_main-transition;
+	}
+
+	&.ps_support-active {
+		.ps_support-alternate_header {
+	    	z-index    : -1;
+	    	opacity    : 0;
+		}
+    }
+	
+
+    &.ps_support-bank {
+		transform: translate3d(-100%, 0, 0) translate3d($ps_support-status-space, 0, 0);
+		.ps_support-alternate_header {
+	    	transform-origin: right top;
+			right           : $ps_support-status-space;
+		}
+
+	    &.ps_support-active {
+			transform: translate3d(0%, 0, 0);
+	    }
+	
+    	.ps_support-header {
+    		text-align: center; 
+
+    		.ps_icon {
+    			position: absolute;
+    			right   : $ps_main-standard-space;
+			}
+    	}
+
+    	.ps_support-icon { 
+			@include ps_color-p;
+			display: block;
+			width  : 100%;
+			height : 100%;
+    	}
+		
+		.carousel .ps_support-item {
+			padding-right: $ps_support-status-space;
+		}
+
+    	.ps_support-status {
+    		right: $ps_main-standard-space * 2;
+    	}
+    }
+
+
+    &.ps_support-chat {
+		transform: translate3d(100%, 0, 0) translate3d(-$ps_support-status-space, 0, 0);
+    	right    : 0px;
+
+		.ps_support-alternate_header {
+	    	transform-origin: left bottom;
+			left            : $ps_support-status-space;
+			bottom          : 0px;
+		}
+
+		&.ps_support-active {
+			transform: translate3d(0%, 0, 0);
+	    }
+
+    	.ps_support-header {
+    		text-align  : center; 
+
+    		.ps_icon {
+    			position: absolute;
+    			left    : $ps_main-standard-space;
+			}
+    	}    	
+
+    	.ps_support-icon { 
+			@include ps_color-p;
+			display       : inline-block;
+			vertical-align: middle;
+			width         : 30px;
+			height        : 30px;
+    	}
+
+    	.carousel .ps_support-item {
+			padding-left: $ps_support-status-space;
+		}
+
+    	.ps_support-status {
+    		left: $ps_main-standard-space * 2;
+    	}
+    }
+
+    .carousel {
+		@include ps_carousel-slide_multi(5,v);
+    	height: 100%;
+
+    	.ps_support-item  {
+			border-bottom: 1px solid $ps_color-primary;
+			padding      : $ps_main-standard-space;
+			position     : relative;
+			display      : block;
+			height       : 100%;
+    	}
+
+    	.carousel-control {
+    		opacity   : 0;
+    		transition: opacity $ps_main-transition;
+    	}
+
+    	&:hover {
+    		.carousel-control {
+    			opacity: 1;
+    		}
+    	}
+
+    	.ps_support-status {
+			@include ps_helper-v-center;
+			position: absolute; 
+    	}
+    }
+}
+
+.ps_support-status {
+	position      : relative; 
+	display       : inline-block;
+	vertical-align: middle;
+	height        : $ps_support-status;
+	width         : $ps_support-status;
+	border-radius : 50%;
+	background    : $ps_color-pdark;
+	
+	&.ps_support-true, &.ps_support-1 {
+		background: $ps_color-success;
+	}
+}
+
+.popover {
+
+	.ps_support-status {
+		left        : auto !important;
+		right       : auto !important;
+		margin-right: $ps_main-standard-space / 2;
+		margin-top  : -1px;
+	}
+	
+	.ps_support-bank_account, .ps_support-bank_description {
+		display   : block;
+		padding   : $ps_main-standard-space;
+		border-top: 1px solid $ps_color-primary;
+	}
+
+	.ps_support-tooltip_status {
+		padding: $ps_main-standard-space;
+
+		& + * + * {
+			margin-top: $ps_main-standard-space;
+		}
+	}
+	
+	.ps_support-bank_description {
+		text-align: center;
+	}
+
+	.ps_support-detail {
+		display    : block;
+    	white-space: nowrap;
+
+		.ps_support-detail_label {
+			text-align: right;
+			display   : inline-block;
+			width     : 110px;
+		}
+	}
+}

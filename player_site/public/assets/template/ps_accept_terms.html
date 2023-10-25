@@ -1,0 +1,28 @@
+<!--
+| ACCEPT TERMS AND CONDITION PAGE
+-->
+<div
+	class            = 'ps_js-accept_terms_page ps_accept_terms ps_navigation-default_background' 
+	data-custom-tags = 'accept_terms,form'
+>
+	<ps-accept-terms-content class='ps-container ps_accept_terms-container'>
+		<template slot='info' scope='info'>
+			<div v-if='info.contentLoaded' class='ps_accept_terms-button'>
+				<ps-form-button 
+					class           = 'ps_js-accept_terms_button'
+					v-bind:disabled = 'is_accepting'
+				><i class='ps_icon md-done'></i> {{ shared.lang.messages.accept_tac }}</ps-form-button>
+			</div>
+		</template>
+	</ps-accept-terms-content>
+</div>
+
+<!--
+| TERMS AND CONDITION CUSTOM TAGS
+-->
+<div class='ps_js-accept_terms_tags' data-custom-tags='indicator'>
+	<span data-tag='content'>
+		<div class='ps_accept_terms-content' v-html='content'></div>
+		<slot name='info' v-bind:content-loaded='content_loaded'></slot>
+	</span>
+</div>

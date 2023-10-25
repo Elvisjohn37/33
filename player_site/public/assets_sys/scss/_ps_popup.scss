@@ -1,0 +1,617 @@
+//** This contains style for all component of ps_popup plugin
+
+// Toast
+$ps_popup-toast-icon-size: 40px;
+$ps_popup-toast-width    : 400px;
+$ps_popup-toast-height   : 65px;
+$ps_popup-toast-visible  : 3;
+$ps_popup-toast-margin   : $ps_main-standard-space * $ps_popup-toast-visible;
+
+
+.ps_popup-toast {
+	@include ps_helper-h-center;
+	position  : fixed;
+	padding   : $ps_main-standard-space;	
+	top       : 0px;
+	z-index   : -1;
+	transition: z-index .1s ease $ps_main-transition;
+	width     : $ps_popup-toast-width;
+	max-width : 100%;
+	max-height: ($ps_popup-toast-height * $ps_popup-toast-visible) + $ps_popup-toast-margin;
+    word-wrap : break-word;
+    
+	&.ps_popup-has_active {
+		transition: z-index 0s ease 0s;
+		z-index   : 1052;
+	}
+
+	.ps_popup-toast_item {
+		@include ps_keyframes-fadeout-up($ps_main-transition 1);
+		@include ps_color-plight;
+		border-radius: $ps_main-radius;
+    	box-shadow   : 0 19px 38px rgba($ps_color-pdark,.3), 0 15px 12px rgba($ps_color-pdark,.22);
+		padding      : $ps_main-standard-space;	
+		padding-left : 56px;
+		position     : relative;
+		width        : $ps_popup-toast-width;
+		max-width 	 : 100%;
+	    left         : 0px;
+	    right        : 0px;
+	    margin       : 0 auto;
+	    min-height   : $ps_popup-toast-height;
+
+	    &.ps_js-toast_out {
+	    	display: none;
+	    }
+
+	    &:not(.ps_js-toast_out) ~ :not(.ps_js-toast_out)  {
+	    	margin-top: $ps_main-standard-space;	
+	    }
+		
+		&.ps_popup-active, &.ps_popup-auto:hover {
+			@include ps_keyframes-fadein-down($ps_main-transition 1);
+	   		animation-fill-mode: forwards;
+		}
+
+		&.ps_popup-toast_alert  {
+			background: $ps_color-error;
+		}
+		
+		&.ps_popup-toast_done {
+			background: $ps_color-success;
+		}
+
+		> .ps_popup-toast_title {
+			font-weight: bold;	
+		}
+
+		> .ps_popup-toast_subtitle {
+			font-size: $ps_main-font-size - 1px;
+			opacity  : .8; 
+		}
+
+		.ps_popup-toast_icon {
+			@include ps_color-pdark(.5);
+			display      : block;
+			left         : $ps_main-standard-space;	
+			height       : $ps_popup-toast-icon-size;
+			width        : $ps_popup-toast-icon-size;
+			border-radius: 50%;
+			text-align   : center;
+			font-size    : $ps_main-font-size * 2;
+	        position     : absolute;
+	        line-height  : 45px; 
+		}
+
+		.ps_popup-toast_close {
+			@include ps_color-pdark(.5);
+	        position   : absolute;
+	        top        : 0;
+	        right      : $ps_main-standard-space;
+	        height     : 20px;
+	        width      : 20px;
+	        text-align : center;
+	        line-height: 20px;
+		}
+
+		&.ps_popup-toast-auto .ps_popup-toast_close {
+			display: none;
+		}
+	}
+}
+
+/*
+ | Use this if you want modal-content as main container with styles
+ */
+@mixin ps_popup-modal-content-main() {
+
+	.modal-content { 
+		@include ps_color-plight;
+		@include ps_main-card;
+    	box-shadow: 0 26px 30px rgba($ps_color-pdark, 0.3), 0 15px 12px rgba($ps_color-pdark, 0.22);
+	}
+}
+
+/*
+ | Use this if you want modal-dialog as main container with styles
+ */
+@mixin ps_popup-modal-dialog-main() {
+
+	.modal-content { 
+		background   : transparent;
+		border       : 0px;
+		border-radius: 0px;
+		box-shadow   : none; 
+		animation    : none;
+	}
+
+	.modal-dialog {
+		@include ps_color-plight;
+		@include ps_main-card;
+    	box-shadow: 0 26px 30px rgba($ps_color-pdark, 0.3), 0 15px 12px rgba($ps_color-pdark, 0.22);
+	}
+	
+	&::before {
+		display: none;
+	}
+}
+
+@mixin ps_popup-follow-modal-width($ps_popup-base-width: $modal-md) {
+  	width    : 100%;
+    max-width: 100%;
+  	min-width: $ps_main-min_width;
+	
+	// from bootstrap
+	@media (min-width: $screen-sm-min) {
+		width    : $ps_popup-base-width;
+		min-width: 0px; 
+	}
+}
+
+// all sticky header modal should include this and fill all params
+@mixin ps_popup-sticky-header-requirement($height, $base_width: $modal-md, $stick_now: false) {
+	.ps_popup-active  {
+
+		// 1st rule must have height
+		.ps_popup-sticky_dummy {
+			position: relative;
+			height  : $height;
+		}
+
+		// 2nd rule, must have base width
+		.ps_popup-header_content {
+			@include ps_popup-follow-modal-width($base_width);
+			position: absolute;
+			top     : 0px;
+			left    : 0px;
+			height  : $height;
+		}
+
+		&:not(.ps_components-sticky_active) .ps_popup-header_content {
+			min-width: 0px;
+		}
+		
+		// stick
+		@if $stick_now == true  {
+			
+			@include ps_popup-stick-header($height);
+
+		} @else {
+
+			.ps_components-sticky_active {
+				@include ps_popup-stick-header($height);
+			}
+
+		}
+	}
+	
+}
+
+@mixin ps_popup-stick-header($height) {
+    @media all and (min-height:300px) {
+		.ps_popup-header_content {
+			position: fixed;
+			top     : 0px;
+			left    : auto;
+			z-index : 5;
+
+			.ps_pop-sticky_close_button {
+				display: block;
+			}
+		}
+	}
+}
+
+// Modal
+$ps_popup-modal_vertical_padding: 30px;
+$ps_popup-modal_parts_padding   : $ps_main-standard-space*2;
+.ps_popup-modal {
+	@include ps_popup-modal-content-main;
+	@include ps_color-pdark(.4);
+	@include ps_helper-child-center('.modal-dialog');
+	@include ps_keyframes-fadeout($ps_main-transition, 1);
+	opacity                   : 0;
+	z-index                   : -1;
+   	padding                   : $ps_popup-modal_vertical_padding 0px;
+   	min-width                 : $ps_main-min_width;
+   	overflow                  : auto;
+   	display                   : block !important;
+  	-webkit-overflow-scrolling: auto !important;
+
+	.modal-dialog {
+		@include ps_keyframes-fadeout-scaleup($ps_main-transition 1);
+		margin             : 0 auto; 
+    	backface-visibility: hidden;
+	}
+
+   	&.ps_popup-active {
+		@include ps_keyframes-fadein($ps_main-transition, 1);
+		opacity: 1;
+     	z-index: 5;
+
+		&.ps_popup-modal_latest {
+			z-index: 6;
+		}
+
+		.modal-dialog {
+			@include ps_keyframes-fadein-scaledown($ps_main-transition 1);
+		}
+   	}
+
+
+	.modal-content { 
+		display      : none;
+		border-radius: $ps_main-radius;
+		border       : 0px;
+
+		&.ps_popup-active {
+			display: block;
+		}
+		
+		.modal-header .ps_popup-header_content, .modal-body, .modal-footer {
+			padding: $ps_popup-modal_parts_padding;
+		}
+	
+		.modal-header {
+			@include ps_components-horizontal-form;
+			font-size    : $ps_main-font-size + 2px;
+			width        : 100%;
+			padding      : 0px; 
+			border-bottom: 0px;
+
+			&.ps_popup-has_close_btn .ps_popup-header_content {
+				padding-right: ($ps_popup-modal_parts_padding*2)+($ps_main-standard-space*2);
+			}
+
+			.ps_popup-header_content {
+				@include ps_color-plight-lighten(6%);
+				border-radius: $ps_main-radius $ps_main-radius 0px 0px;
+				border-bottom: 1px solid rgba($ps_color-primary, .4);
+
+				.ps_pop-sticky_close_button {
+					display: none;
+				}
+			}
+		}
+
+		.ps_popup-modal_close {
+			position : absolute;
+			right    : $ps_popup-modal_parts_padding;
+			top      : $ps_popup-modal_parts_padding;
+			cursor   : pointer;
+    		font-size: $ps_main-font-size + 4px;
+    		z-index  : 4;
+		}
+
+		.modal-body {
+			@include ps_components-vertical-form;
+		}
+
+		.modal-footer {
+			@include ps_helper-clearfix;
+			border-top: 1px solid transparent;
+
+			.ps_components-button {
+				
+				+ .ps_components-button {
+					margin-left: $ps_main-standard-space/2;
+				}
+			}
+		}
+	}
+
+	.ps_popup-modal_back_top {
+		@include ps_helper-h-center(fixed);
+		@include ps_popup-follow-modal-width;
+		bottom   : 0px;
+		height   : 0px;
+
+		// additional bottom space when landscape
+		// this is to solve ios problem hiding the button when address bar is present
+		@media screen and (orientation: landscape) and (max-device-width:($ps_main-min_width - 1px)) {
+			bottom: 54px;
+		}
+		
+        .ps_js-core_view_ingame & {
+   			min-width: 0;
+        }
+
+		.ps_popup-modal_back_wrapper {
+			@include ps_color-pdark(.8);
+			position     : absolute;
+			border-radius: $ps_main-radius;
+			right        : $ps_main-standard-space * 2;
+			bottom       : 0px;
+			padding      : $ps_main-standard-space;
+			cursor       : pointer;
+			z-index      : -1;  
+			transform    : scale(1.08);
+			opacity      : 0;
+			transition   : all $ps_main-transition;
+
+			.ps_popup-back_top_icon {
+	      		padding      : 0 $ps_main-standard-space;
+				font-size    : $ps_main-font-size + 4px;
+				text-shadow  : 0px 0px 2px rgba($ps_color-sdark, .5);
+				margin       : 0 auto;
+				margin-bottom: $ps_main-standard-space/2;
+				display      : block;
+			}
+		}
+	}
+
+	&.ps_popup-show_back_top {
+
+		.ps_popup-modal_back_wrapper {
+			transform: scale(1);
+			opacity  : 1;
+			z-index  : 2;  
+		}
+
+		.modal-dialog {
+			margin-bottom: 60px + (($ps_main-standard-space * 2));
+
+			@media screen and (orientation: landscape) and (max-device-width:($ps_main-min_width - 1px)) {
+				margin-bottom: 114px + ($ps_main-standard-space * 2);
+			}
+		}
+	}
+}
+
+
+
+	
+.ps_js-core_view_ingame .ps_popup-modal {
+	min-width: 0px;
+}
+
+
+.modal-backdrop {
+	display: none;
+}
+
+.ps_popup-modal_subtitle {
+	@include ps_color-plight-lighten;
+	padding      : $ps_main-standard-space;
+    margin-top   : -$ps_popup-modal_parts_padding;
+    margin-left  : -$ps_popup-modal_parts_padding;
+    margin-right : -$ps_popup-modal_parts_padding;
+    margin-bottom: $ps_main-standard-space*2;
+}
+
+@mixin ps_popup-modal-xs() {
+	.modal-dialog, .ps_popup-modal_back_top {
+		width: 300px;
+	}
+}
+
+@mixin ps_popup-modal-s() {
+	.modal-dialog, .ps_popup-modal_back_top {
+		width: 400px;
+	}
+}
+
+@mixin ps_popup-modal-m() {
+	.modal-dialog, .ps_popup-modal_back_top {
+		width: 460px;
+	}
+}
+
+@mixin ps_popup-modal-full() {
+	padding : 0px;
+	overflow:hidden;
+
+	&:before {
+		display:none;
+	}
+
+	.modal-dialog, .modal-content {
+		width        : 100%;
+		height       : 100%;
+		margin       : auto;
+		border-radius: 0px;
+	}
+
+	.ps_popup-modal_back_top {
+		width: 100%;
+	}
+	
+	.modal-content {
+		overflow: auto;
+	}
+}
+
+@mixin ps_popup-modal-full_height() {
+	@include ps_popup-modal-dialog-main;
+
+	.modal-dialog {
+		min-height: 100%;
+	}
+}
+
+$ps_popup-modal-l-width: 800px;
+@mixin ps_popup-modal-l() {
+	.modal-dialog, .ps_popup-modal_back_top {
+		width: $ps_popup-modal-l-width;
+	}
+}
+
+@mixin ps_popup-modal-xl() {
+	.modal-dialog, .ps_popup-modal_back_top {
+		width: $ps_main-screen-desktop;
+	}
+}
+
+@mixin ps_popup-modal-fade-only() {
+	&.ps_popup-active .modal-content.ps_popup-active, .modal-dialog .modal-content, .modal-dialog  {
+		animation: none !important;
+	}
+}
+
+$ps_popup-right-modal-header: 50px;
+$ps_popup-right-modal-width : 400px;
+@mixin ps_popup-right-modal {
+    text-align: right;
+    padding   : 0px;
+
+	&::after {
+		@include ps_color-paccentlight-fade-left-simple;
+		content   : '';
+	    display   : block;
+	    position  : absolute;
+	    height    : 100%;
+	    width     : 100%;
+	    top       : 0px;
+	    z-index   : -1;
+	    width     : $ps_popup-right-modal-width * 2;
+	    right     : 0px;
+	}
+
+	
+	.modal-dialog {
+		@include ps_keyframes-fadeout-right($ps_main-transition 1);
+		height: 100%;
+		margin: 0px;
+    	width : $ps_popup-right-modal-width;
+		
+		.modal-content {
+			height       : 100%;
+			padding-top  : $ps_popup-right-modal-header;
+    		border-radius: 0;
+    		box-shadow   : 0;
+    		border       : 0px;
+
+			.modal-header .ps_popup-header_content {
+				@include ps_color-s-diagonal;
+				z-index       : 2;
+    			border-radius : 0;
+				position      : absolute;
+				height        : $ps_popup-right-modal-header;
+				line-height   : $ps_popup-right-modal-header;
+				top           : 0;
+				width         : 100%;
+				padding-top   : 0px; 
+				padding-bottom: 0px;
+				padding-right : $ps_popup-modal_parts_padding;
+				padding-left  : ($ps_popup-modal_parts_padding*2) + ($ps_main-standard-space*2);
+				border-left   : 1px solid lighten($ps_color-secondary,15%);
+				border-bottom : 1px solid lighten($ps_color-secondary,15%);
+     			box-shadow    : 0 1px 3px rgba($ps_color-sdark, 0.1), 0 1px 2px rgba($ps_color-sdark, 0.2);
+     			text-shadow   : 1px 1px $ps_color-sdark;
+			}
+
+			.ps_popup-modal_close {
+				top         : 0px;
+				right       : auto;
+				left        : $ps_main-standard-space * 2; 
+				color       : $ps_color-saccent;
+				height      : $ps_popup-right-modal-header;
+				line-height : $ps_popup-right-modal-header;
+
+				i {
+					@include ps_icon-arrow_back;
+				}
+
+				&:hover {
+					color: $ps_color-saccentlight;
+				}
+			}
+
+			.modal-body {
+				@include ps_color-saccent-gradient-diagonal;
+				border-left: 1px solid rgba($ps_color-paccentlight,.5);
+				height     : 100%;
+				overflow   : auto;
+				padding    : 0px;
+			}
+		}
+	}
+
+	.ps_popup-modal_back_top {
+		display: none; 
+	}
+
+	&.ps_popup-active .modal-dialog {
+		@include ps_keyframes-fadein-left($ps_main-transition 1);
+	}
+	
+	.ps_components-label_text { 
+		color: $ps_color-ptext;
+	}
+
+}
+
+body.ps_js-popup_modal_open {
+	overflow:hidden;
+}
+
+@mixin ps_popup-modal_opaque {
+	@include ps_color-plight;
+	padding   : 0px;
+	
+	&::before {
+		display: none;
+	}
+
+	.modal-dialog {
+		display: block;
+	}
+
+	.modal-content, .modal-dialog  {
+		box-shadow: none;
+		border    : 0px;
+		width     : 100%;
+		animation : none;
+	}
+
+	.ps_popup-modal_back_top {
+		width: 100%;
+	}
+
+	.ps_popup-header_content {
+		width    : 100%;
+		min-width: 0px;
+	}
+}
+
+.ps_js-session_timeout_root {
+	@include ps_color-s-radial-center;
+
+	.modal-dialog {
+		@include ps_color-s;
+        box-shadow: 0px 0px 20px rgba($ps_color-secondary, 0.3);
+		width     : 100%;
+     	padding   : $ps_main-standard-space;
+	}
+
+	.modal-content {
+		width     : 100%;
+		margin    : 0 auto;
+		background: transparent;
+		box-shadow: none;
+		border    : 0px solid transparent;
+
+		.modal-header .ps_popup-header_content {
+			background   : transparent;
+			font-size    : $ps_main-font-size + 10px;
+			border-bottom: 0px;
+		}
+
+		.modal-body, .modal-footer, .modal-header .ps_popup-header_content {
+			padding   : 0px;
+			text-align: center;
+		}
+
+		.modal-body {
+			opacity: .5;
+		}
+
+		.modal-footer {
+			margin-top: $ps_main-standard-space;
+		}
+	}
+}
+
+.ps_js-client_status_root {
+	@include ps_popup-modal-s;
+}

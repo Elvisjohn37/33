@@ -1,0 +1,127 @@
+<!--
+| toast
+-->
+<span class='ps_js-toast'>
+	<div 
+		v-bind:class= "[{ 'ps_popup-has_active': is_active },'ps_popup-toast']"
+	>
+		<div 
+			v-for        = 'item in toast.list'
+			tabindex     = '-1' 
+			v-bind:key   = 'item.key'
+			v-bind:class = "[{'ps_js-toast_active ps_popup-active':item.is_active},{'ps_popup-auto':item.auto},'ps_popup-toast_'+item.type,'ps_popup-toast_item ps_js-toast_item']"
+		>
+			<span class='ps_popup-toast_icon'><i v-bind:class="'ps_icon md-' + item.type"></i></span>
+			<a class='ps_js-toast_close ps_popup-toast_close' v-bind:data-target = 'item.id'>
+				<i class='ps_icon md-clear'></i>
+			</a>
+			<div  class='ps_popup-toast-part ps_js-toast_title ps_popup-toast_title'>   
+				{{ item.title   }}
+			</div>
+			<div  class='ps_popup-toast-part ps_js-toast_subtitle ps_popup-toast_subtitle'>
+				{{ item.content }}
+			</div>
+		</div>
+	</div>
+</span>
+
+<!--
+| modal: follow bootstrap base markup settings
+| NOTE : Be carefull using 'fade' class, it will break  when opening same modal consecutively at very fast rate 
+|        Workaround is to permanently display modal to block in css then apply some animation to get the modal out of 
+|        browser window when hidden.
+-->
+<span 
+	class				 = 'ps_js-modal' 
+	data-custom-tags 	 = 'indicator,position,form' 
+	v-bind:data-scroller = "'#ps_js-'+category+'_modal'"
+>
+	<div 
+		tabindex                      = '-1' 
+		role                          = 'dialog'
+		data-backdrop                 = 'false'
+		v-bind:id                     = "'ps_js-'+category+'_modal'"
+		v-bind:class                  = "[{'ps_popup-active ps_js-modal_active':local.category_is_active},has_class?'ps_js-'+local.modal_class:'',{'ps_popup-modal_latest':is_latest},'modal ps_popup-modal ps_js-modal_root', {'ps_popup-show_back_top': local.back_top_button}, {'ps_popup-modal_stick_header':local.stick_header}]"
+		v-bind:key                    = 'category'
+	>
+		<div class='modal-dialog' role='document'>
+			<div 
+				v-for       = '(content, index) in local.list'
+				v-bind:class= "['ps_js-modal_'+content.id,{'ps_popup-active':content_is_active[index]},'modal-content ps_js-modal_content']" 
+				v-bind:key  = 'content.id'
+			>
+				<div 
+				    v-if        = 'content.has_header' 
+				    v-bind:class= "[{'ps_popup-has_close_btn': local.close_button},'modal-header ps_js-modal_header']"
+				>
+
+					<ps-position-sticky 
+						v-if            = 'content.is_sticky_header' 
+						v-bind:scroller = "'#ps_js-'+category+'_modal'"
+           			    stick-on        = '.ps_js-popup_sticky_dummy' 
+					>
+						<div class='ps_popup-sticky_dummy ps_js-popup_sticky_dummy'></div>
+						<div class='ps_popup-header_content'>
+							<div class='ps_js-modal_part' data-part='header'></div>
+							<span 
+								data-dismiss = 'modal' 
+								v-if         = 'local.close_button' 
+								class        = 'ps_popup-modal_close ps_pop-sticky_close_button'
+							>
+								<i class='ps_icon md-clear'></i>
+							</span>
+						</div>
+					</ps-position-sticky>
+
+					<template v-else>
+						<div class='ps_popup-header_content'>
+							<div class='ps_js-modal_part' data-part='header'></div>
+							<span 
+								data-dismiss = 'modal' 
+								v-if         = 'local.close_button' 
+								class        = 'ps_popup-modal_close ps_pop-sticky_close_button'
+							>
+								<i class='ps_icon md-clear'></i>
+							</span>
+						</div>
+					</template>
+
+				</div>
+				<div class='modal-body   ps_js-modal_part' data-part='body'   v-if='content.has_body'></div>
+				<div class='modal-footer ps_js-modal_part' data-part='footer' v-if='content.has_footer'></div>
+
+				<span data-dismiss='modal' v-if='local.close_button' class='ps_popup-modal_close'>
+					<i class='ps_icon md-clear'></i>
+				</span>
+				<ps-indicator-loader v-if='local.is_loading' class='ps_popup-modal_loader' ></ps-indicator-loader>
+			</div>
+		</div>	
+		
+		<!-- always put this as direct child of the scrolling parent --> 
+		<div class='ps_popup-modal_back_top ps_js-modal_back_top'>
+			<div class='ps_popup-modal_back_wrapper'>
+				<ps-form-button class='ps_popup-back_top_icon'>
+					<i class='ps_icon md-arrow_upward'></i>
+				</ps-form-button>
+				{{ shared.lang.language.back_to_top }}
+			</div>
+		</div>
+	</div>
+</span>
+
+<!--
+| SESSION TIMEOUT MODAL
+-->
+<span class='ps_js-session_timeout_footer' data-custom-tags='form'>
+	<ps-form-close-goto></ps-form-close-goto>
+</span>
+
+<!--
+| CLIENT STATUS MODAL
+-->
+<span class='ps_js-client_status_footer' data-custom-tags='form'>
+	<ps-form-close-goto v-if='is_active' class='ps_js-ok_button'></ps-form-close-goto>
+	<ps-form-button v-else class='ps_js-ok_button'>
+		<i class='ps_icon md-done'></i> {{ shared.lang.language.ok }}
+	</ps-form-button>
+</span>

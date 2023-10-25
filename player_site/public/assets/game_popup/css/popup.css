@@ -1,0 +1,203 @@
+
+@font-face {
+  font-family: 'Roboto';
+  src: local('☺'),
+       url('../fonts/Roboto-Light.woff') format('woff'),
+       url('../fonts/Roboto-Light.ttf') format('truetype');
+}
+
+body {
+	position: relative;
+	font-family: 'Roboto', tahoma, arial;
+}
+
+.popup-header {
+	margin: 0;
+	padding: 0;
+	font-family: 'Roboto', tahoma, arial;
+	font-size: 12px;
+}
+
+.top {
+	padding: 0 15px;
+	line-height: 30px;
+	color: #ddd;
+	background-color: #111;
+}
+.top p {
+	margin: 0;
+	padding: 0;
+	display: inline-block;
+}
+
+
+.bottom {
+	width: 100%;
+    height: 80px;
+    padding: 0;
+    
+    border-top: 1px solid #333;
+
+    background: -moz-linear-gradient(top,  rgba(66,66,66,1) 0%, rgba(0,0,0,0.9) 100%); /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(66,66,66,1)), color-stop(100%,rgba(0,0,0,0.9))); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top,  rgba(66,66,66,1) 0%,rgba(0,0,0,0.9) 100%); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top,  rgba(66,66,66,1) 0%,rgba(0,0,0,0.9) 100%); /* Opera 11.10+ */
+    background: -ms-linear-gradient(top,  rgba(66,66,66,1) 0%,rgba(0,0,0,0.9) 100%); /* IE10+ */
+    background: linear-gradient(to bottom,  rgba(66,66,66,1) 0%,rgba(0,0,0,0.9) 100%); /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#424242', endColorstr='#000000',GradientType=0 ); /* IE6-9 */
+    transition: all .5s;
+}
+.logo,
+.navigation {
+	display: inline-block;
+}
+
+.logo {
+	width: 200px;
+	height: 75px;
+	margin: 0 0 0 10px;
+	padding: 0;
+	float: left;
+    background: url('../images/popup_logo.png') transparent no-repeat;
+    background-size: cover;
+}
+
+.navigation {
+	float: right;
+}
+.navigation ul {
+	margin: 15px 0 0 0;
+	padding-right: 15px;
+	list-style: none;
+}
+.navigation ul > li {
+	padding: 15px 9px;
+	display: inline-block;
+}
+.navigation ul > li > a {
+	font-size: 12px;
+	text-transform: uppercase;
+	text-decoration: none;
+	text-align: center;
+	color: #fff;
+}
+.navigation ul > li > a:hover,
+.navigation ul > li > a:focus {
+	color: #ffd600;
+}
+
+.mobile-nav {
+	width: 40px;
+    height: 40px;
+	margin: 18px 18px 0 0;
+	padding: 0 0 0 0;
+	position: absolute;
+	right: 0;
+	display: none;
+	float: right;
+	font-size: 24px;
+	color: #ffd600;
+    background: url(../images/popup_menu_icon.png) transparent center;
+	border-radius: 3px;
+	border: 1px solid #ffd600;
+}
+.mobile-nav:focus,
+.mobile-nav:hover {
+	color: #fff;
+	border-color: #fff;
+	cursor: pointer;
+}
+
+.icon-refresh {
+	width: 20px;
+	height: 20px;
+	margin-top: 5px;
+	margin-bottom: -5px;
+	margin-left: 5px; 
+	display: inline-block;
+	background: url(../images/popup_refresh_icon.png) transparent center;
+}
+
+@-moz-keyframes spin { 100% { -moz-transform: rotate(136deg); } }
+@-webkit-keyframes spin { 100% { -webkit-transform: rotate(136deg); } }
+@keyframes spin { 100% { -webkit-transform: rotate(136deg); transform:rotate(136deg); } }
+
+@-moz-keyframes full-spin { 100% { -moz-transform: rotate(360deg); } }
+@-webkit-keyframes full-spin { 100% { -webkit-transform: rotate(360deg); } }
+@keyframes full-spin { 100% { -webkit-transform: rotate(360deg); transform:rotate(360deg); } }
+
+.full-spin {
+    -webkit-animation: full-spin 1s ease;
+    -moz-animation: full-spin 1s ease;
+    animation: full-spin 1s ease;
+}
+
+
+.pull-left {
+	float: left;
+}
+.pull-right {
+	float: right;
+}
+.clear-fix {
+	clear: both;
+}
+.pointer {
+	cursor: pointer;
+}
+
+
+@media only screen and (max-width: 640px) {
+	.bottom {
+		position: relative;
+		z-index: 2;
+	}
+
+    .navigation {
+    	margin: 0;
+    	padding: 0;
+    	width: 100%;
+    	display: none;
+    	position: absolute;
+    	z-index: 1;
+    	top: 80px;
+    }
+    .navigation ul {
+    	margin: 0;
+    	padding: 0;
+    }
+    .navigation ul > li {
+    	margin: 0;
+    	padding: 6px 21px;
+    	display: block;
+    	background: #333;
+    }
+    .navigation ul > li > a {
+    	padding: 12px 0;
+    	width: 100%;
+    	display: block;
+    }
+    .navigation ul > li > a:focus {
+    	background: #333;
+    }
+
+    .mobile-nav {
+    	display: block;
+    }
+
+    .pull-right {
+    	float: left;
+    }
+
+    .hide-on-min {
+    	/*display: none;*/
+    }
+}
+
+.maxpayout {
+	padding: 1px 10px;
+	margin-right: 10px;
+	background: #757575;
+	color: #fff;
+	border-radius: 3px;
+}

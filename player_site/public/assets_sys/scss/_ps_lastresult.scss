@@ -1,0 +1,27 @@
+$ps_lastresult-ball-size: 40px;
+
+.ps_lastresult {
+
+	.ps_lastresult-carousel {
+		height: 100%;
+
+		.ps_lastresult-balls_holder {
+			@include ps_helper-v-center(relative);
+			@include ps_helper-clearfix;
+			text-align : center;
+			font-size  : $ps_main-font-size * 2;
+			font-weight: bold;
+
+			.ps_lastresult-ball {
+				@include ps_color-p;
+				display      : inline-block;
+				text-align   : center;
+				margin       : 0px $ps_main-standard-space/2px + px;
+				border-radius: 100%;
+				height       : $ps_lastresult-ball-size;
+				width        : $ps_lastresult-ball-size;
+				line-height  : $ps_lastresult-ball-size;
+			}
+		}
+	}
+}

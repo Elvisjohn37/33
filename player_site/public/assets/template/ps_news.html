@@ -1,0 +1,54 @@
+<div class='ps_js-news' data-custom-tags='indicator,carousel'>
+	<div data-tag='main' class='ps-features_content ps_news'>
+		<div class='ps_news-header ps-features_content_header'>{{ shared.lang.language.news }}</div>
+		<div class='ps_news-content ps-features_content_body'>
+			<ps-indicator-loader v-if='is_loading'></ps-indicator-loader>
+			<ps-indicator-small-notice v-if='no_item'></ps-indicator-small-notice>
+			<ps-carousel-bootstrap 
+				v-if          = 'show' 
+				class         = 'ps_news-carousel'
+				data-interval = 'false'
+				v-bind:items  = 'chunks'
+				indicators    = 'true'
+			>
+				<ps-carousel-bootstrap-item
+				 	v-for        = '(chunk, chunk_index) in chunks'
+					v-bind:class = "[{'ps_carousel-less':chunks_length<=1},'ps_news-carousel_item ps_js-news_chunk']"
+					v-bind:key   = 'chunk_index'
+				>
+					<span 
+
+						v-for            = '(news, news_index) in chunk'
+						class            = 'ps_js-news_item'
+						v-bind:data-chunk= 'chunk_index'
+						v-bind:data-news = 'news_index'
+						v-bind:data-rows = 'final_rows'
+					>
+						<div 
+							class = 'ps_news-item  ps_js-read_more' 
+						>		
+							<div  class='ps_news-body ps_news-part'>  
+								<div class='ps_news-title' v-html='news.title'></div>
+								<div class='ps_news-preview' v-html='news.preview'></div>
+							</div>
+							<div  class='ps_news-footer ps_news-part'>
+								<a class='ps_news-read_more'>{{ shared.lang.language.read_more }}</a>
+								<span class='ps_news-date'  > {{ news.lastUpdate }}</span>
+							</div>
+						</div>
+					</span>
+				</ps-carousel-bootstrap-item>
+			</ps-carousel-bootstrap>
+		</div>
+	</div>
+</div>
+
+<!--
+| NEWS modal
+-->
+<div class='ps_js-news_title'>
+	<span v-html='title'></span>
+</div>
+<div class='ps_js-news_body'>
+	<span v-html='content'></span>
+</div>

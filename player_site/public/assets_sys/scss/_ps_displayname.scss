@@ -1,0 +1,33 @@
+.ps_js-displayname_modal_root {
+	@include ps_popup-modal-s;
+
+	.ps_displayname-modal_subtitle {
+		text-align: center;
+
+		.ps_displayname-subtitle_item + .ps_displayname-subtitle_item {
+			margin-top: $ps_main-standard-space/2;
+		}
+	}
+
+	.ps_displayname-rules {
+		font-size: $ps_main-font-size - 1px;
+		color    : $ps_color-ptextsecondary;
+	}
+	
+	.ps_displayname-input {
+		text-align: center;
+		font-size : 28px; 
+		padding   : $ps_main-standard-space;
+		transition: $ps_main-transition;
+
+		&.ps_displayname-success {
+	   		background-color: darken($ps_color-success, 22%);
+	    	border          : 1px solid transparent;
+	    	border-bottom   : 1px solid rgba($ps_color-success, 1);
+		}
+	}
+
+	&.ps_popup-modal .modal-content .ps_components-form.ps_displayname-form  {
+		max-width: none;
+	}
+}
